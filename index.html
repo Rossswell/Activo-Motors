@@ -236,6 +236,13 @@ header {
 .auth-submit { width: 100%; background: var(--rojo); border: none; color: #fff; font-family: var(--font-body); font-size: 14px; font-weight: 700; padding: 14px; border-radius: 8px; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; transition: var(--transition); margin-top: 8px; }
 .auth-submit:hover { background: var(--rojo-dark); }
 .auth-submit:disabled { background: var(--texto4); cursor: not-allowed; }
+/* PHONE INPUT */
+.phone-input-wrap { display: flex; gap: 0; border: 1px solid var(--borde); border-radius: 8px; overflow: hidden; background: var(--fondo); transition: var(--transition); }
+.phone-input-wrap:focus-within { border-color: var(--rojo); box-shadow: 0 0 0 3px var(--rojo-glow); }
+.phone-prefix { background: var(--fondo3); border: none; border-right: 1px solid var(--borde); color: var(--texto2); font-family: var(--font-body); font-size: 13px; font-weight: 600; padding: 0 12px; cursor: default; outline: none; appearance: none; -webkit-appearance: none; min-width: 90px; }
+.phone-number { border: none !important; box-shadow: none !important; border-radius: 0 !important; flex: 1; background: transparent; }
+.phone-number:focus { box-shadow: none !important; border: none !important; }
+
 .auth-divider { text-align: center; color: var(--texto4); font-size: 12px; margin: 16px 0; }
 
 /* CARD USUARIO en checkout */
@@ -303,7 +310,7 @@ footer { background: var(--fondo3); border-top: 1px solid var(--borde); margin-t
 <body>
 
 <script>
-  const API_URL = 'https://script.google.com/macros/s/AKfycbzRmMnXXe2q2aQUu46iIEUH7Yzr97gusTUnFrVR4_CNMkZXdLHiU9A1EyZS_GM6qLba6A/exec';
+  const API_URL = 'https://script.google.com/macros/s/AKfycbyfnYne5VXTSlgtKfrT4wNW5R8Z5LSjUw8KjfbW-gZIZvQQBqn3EIlksPI6QYOwaIt4Og/exec';
 </script>
 
 <!-- TOPBAR -->
@@ -502,7 +509,12 @@ footer { background: var(--fondo3); border-top: 1px solid var(--borde); margin-t
         </div>
         <div class="form-group">
           <label class="form-label">Teléfono *</label>
-          <input class="form-input" type="tel" id="regTelefono" placeholder="0412-0000000">
+          <div class="phone-input-wrap">
+            <select class="phone-prefix" id="regPrefijo" disabled>
+              <option value="+58">🇻🇪 +58</option>
+            </select>
+            <input class="form-input phone-number" type="tel" id="regTelefono" placeholder="4144062649" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+          </div>
         </div>
       </div>
       <div class="form-group">
@@ -605,26 +617,29 @@ let usuarioActual = null;
 // ═══════════════════════════════════════════════════════════════
 // API — GET y POST hacia Google Apps Script
 // ═══════════════════════════════════════════════════════════════
-async function apiGET(accion, params = {}) {
-  let url = `${API_URL}?accion=${accion}`;
+// ═══════════════════════════════════════════════════════════════
+// API — TODO via GET para evitar CORS con Google Apps Script
+// Google Apps Script sólo permite CORS en GET, no en POST
+// desde dominios externos (GitHub Pages, etc.)
+// ═══════════════════════════════════════════════════════════════
+async function apiCall(params = {}) {
+  let url = API_URL + '?';
+  const parts = [];
   for (const [k, v] of Object.entries(params)) {
-    if (v !== undefined && v !== null && v !== '') {
-      url += `&${k}=${encodeURIComponent(v)}`;
+    if (v !== undefined && v !== null) {
+      parts.push(`${k}=${encodeURIComponent(typeof v === 'object' ? JSON.stringify(v) : v)}`);
     }
   }
+  url += parts.join('&');
   const res = await fetch(url);
-  const json = await res.json();
-  if (!json.ok) throw new Error(json.error || 'Error del servidor');
-  return json.data;
+  return await res.json();
 }
 
-async function apiPOST(body) {
-  const res = await fetch(API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  });
-  return await res.json();
+// Alias GET para productos/categorías (necesitan { ok, data })
+async function apiGET(accion, params = {}) {
+  const json = await apiCall({ accion, ...params });
+  if (!json.ok) throw new Error(json.error || 'Error del servidor');
+  return json.data;
 }
 
 // ═══════════════════════════════
@@ -676,7 +691,7 @@ async function doLogin() {
   btn.disabled = true; btn.textContent = 'Verificando...';
 
   try {
-    const res = await apiPOST({ accion: 'login', email, password: pass });
+    const res = await apiCall({ accion: 'login', email, password: pass });
     btn.disabled = false; btn.textContent = 'Entrar';
     if (res.ok) {
       usuarioActual = res.usuario;
@@ -699,13 +714,15 @@ async function doLogin() {
 async function doRegister() {
   const nombre    = document.getElementById('regNombre').value.trim();
   const cedula    = document.getElementById('regCedula').value.trim();
-  const telefono  = document.getElementById('regTelefono').value.trim();
+  const prefijo   = document.getElementById('regPrefijo').value;
+  const numRaw    = document.getElementById('regTelefono').value.trim().replace(/^0/, ''); // quitar 0 inicial
+  const telefono  = prefijo + numRaw;  // ej: +584144062649
   const email     = document.getElementById('regEmail').value.trim();
   const direccion = document.getElementById('regDireccion').value.trim();
   const pass      = document.getElementById('regPassword').value;
   const pass2     = document.getElementById('regPassword2').value;
 
-  if (!nombre || !cedula || !email || !telefono || !pass) {
+  if (!nombre || !cedula || !email || !numRaw || !pass) {
     showToast('Completa los campos obligatorios (*)', 'error'); return;
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -722,10 +739,8 @@ async function doRegister() {
   btn.disabled = true; btn.textContent = 'Creando cuenta...';
 
   try {
-    const res = await apiPOST({
-      accion: 'registrar',
-      usuario: { nombre, cedula, email, telefono, direccion, password: pass }
-    });
+    const usuario = { nombre, cedula, email, telefono, direccion, password: pass };
+    const res = await apiCall({ accion: 'registrar', usuario: JSON.stringify(usuario) });
     btn.disabled = false; btn.textContent = 'Crear Cuenta';
 
     if (res.ok) {
@@ -1021,8 +1036,12 @@ async function confirmarPedido() {
   }));
 
   try {
-    // ✅ POST directo con objetos (no strings)
-    const res = await apiPOST({ accion: 'pedido', cliente, carrito: carritoData });
+    // ✅ Todo via GET para evitar CORS
+    const res = await apiCall({
+      accion: 'pedido',
+      cliente: JSON.stringify(cliente),
+      carrito: JSON.stringify(carritoData)
+    });
 
     btn.disabled = false;
     btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Confirmar Pedido';
