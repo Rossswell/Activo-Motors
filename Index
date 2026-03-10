@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACTIVO MOTORS - Repuestos Automotrices</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   VARIABLES & RESET
+═══════════════════════════════════════════ */
+:root {
+  --rojo: #CC0000;
+  --rojo-dark: #990000;
+  --rojo-glow: rgba(204,0,0,0.25);
+  --negro: #0a0a0a;
+  --negro2: #111111;
+  --negro3: #1a1a1a;
+  --negro4: #242424;
+  --gris1: #2e2e2e;
+  --gris2: #555555;
+  --gris3: #888888;
+  --gris4: #b0b0b0;
+  --blanco: #f5f5f5;
+  --texto: #e0e0e0;
+  --font-display: 'Rajdhani', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --radius: 10px;
+  --shadow: 0 8px 32px rgba(0,0,0,0.5);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--negro);
+  color: var(--texto);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ═══════════════════════════════════════════
+   SCROLLBAR
+═══════════════════════════════════════════ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--negro2); }
+::-webkit-scrollbar-thumb { background: var(--rojo); border-radius: 3px; }
+
+/* ═══════════════════════════════════════════
+   TOPBAR ANNOUNCEMENT
+═══════════════════════════════════════════ */
+.topbar {
+  background: var(--rojo);
+  text-align: center;
+  padding: 8px 20px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════
+   HEADER / NAV
+═══════════════════════════════════════════ */
+header {
+  background: rgba(10,10,10,0.97);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--gris1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 30px rgba(0,0,0,0.6);
+}
+
+.nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 75px;
+}
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.logo-wrapper img { height: 50px; object-fit: contain; }
+
+.logo-text { display: flex; flex-direction: column; }
+.logo-text .brand {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--rojo);
+  letter-spacing: 4px;
+  line-height: 1;
+}
+.logo-text .slogan {
+  font-size: 10px;
+  color: var(--gris3);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+.nav-center {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  color: var(--gris4);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: var(--transition);
+}
+.nav-btn:hover { color: #fff; background: var(--negro3); }
+.nav-btn.active { color: var(--rojo); }
+
+.nav-right { display: flex; align-items: center; gap: 12px; }
+
+.cart-btn {
+  position: relative;
+  background: var(--negro3);
+  border: 1px solid var(--gris1);
+  color: var(--texto);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--font-body);
+  padding: 10px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  transition: var(--transition);
+  letter-spacing: 0.3px;
+}
+.cart-btn:hover { border-color: var(--rojo); color: var(--rojo); }
+.cart-btn svg { width: 18px; height: 18px; }
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--rojo);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+.cart-count.visible { display: flex; }
+
+.init-btn {
+  background: var(--negro3);
+  border: 1px solid var(--gris1);
+  color: var(--gris3);
+  font-size: 12px;
+  font-family: var(--font-body);
+  padding: 8px 14px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.init-btn:hover { border-color: var(--gris2); color: var(--gris4); }
+
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+.hero {
+  position: relative;
+  background: var(--negro2);
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--gris1);
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 60% at 80% 50%, rgba(204,0,0,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 80% at 5% 50%, rgba(204,0,0,0.05) 0%, transparent 70%);
+}
+
+.hero-lines {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(204,0,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(204,0,0,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 60px 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 60px;
+  width: 100%;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(204,0,0,0.1);
+  border: 1px solid rgba(204,0,0,0.3);
+  color: var(--rojo);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 30px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.hero-tag::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--rojo);
+  border-radius: 50%;
+  animation: pulse-dot 1.5s infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(38px, 5vw, 64px);
+  font-weight: 700;
+  line-height: 1.05;
+  color: #fff;
+  letter-spacing: 1px;
+}
+.hero-title span { color: var(--rojo); }
+
+.hero-desc {
+  margin-top: 18px;
+  font-size: 15px;
+  color: var(--gris3);
+  line-height: 1.8;
+  max-width: 480px;
+}
+
+.hero-cta {
+  margin-top: 32px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: var(--rojo);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 14px 30px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: var(--transition);
+}
+.btn-primary:hover { background: var(--rojo-dark); transform: translateY(-2px); box-shadow: 0 8px 25px var(--rojo-glow); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--texto);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 14px 30px;
+  border: 1px solid var(--gris1);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.btn-outline:hover { border-color: var(--rojo); color: var(--rojo); }
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: var(--gris1);
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--gris1);
+}
+.stat-box {
+  background: var(--negro3);
+  padding: 24px;
+  text-align: center;
+}
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--rojo);
+  line-height: 1;
+}
+.stat-label { font-size: 11px; color: var(--gris3); margin-top: 5px; letter-spacing: 1px; text-transform: uppercase; }
+
+/* ═══════════════════════════════════════════
+   MAIN SHOP AREA
+═══════════════════════════════════════════ */
+.shop-section {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 50px 30px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-title::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: var(--rojo);
+  border-radius: 2px;
+}
+
+/* ═══════════════════════════════════════════
+   FILTROS / CATEGORÍAS
+═══════════════════════════════════════════ */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--gris1);
+  align-items: center;
+}
+
+.filter-label {
+  font-size: 11px;
+  color: var(--gris3);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-right: 8px;
+}
+
+.cat-btn {
+  background: var(--negro3);
+  border: 1px solid var(--gris1);
+  color: var(--gris4);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 7px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: var(--transition);
+  letter-spacing: 0.3px;
+}
+.cat-btn:hover { border-color: var(--rojo); color: var(--rojo); }
+.cat-btn.active {
+  background: var(--rojo);
+  border-color: var(--rojo);
+  color: #fff;
+}
+
+/* BARRA DE BÚSQUEDA */
+.search-wrapper {
+  position: relative;
+  margin-left: auto;
+}
+.search-input {
+  background: var(--negro3);
+  border: 1px solid var(--gris1);
+  color: var(--texto);
+  font-family: var(--font-body);
+  font-size: 13px;
+  padding: 8px 14px 8px 36px;
+  border-radius: 8px;
+  outline: none;
+  width: 220px;
+  transition: var(--transition);
+}
+.search-input:focus { border-color: var(--rojo); width: 260px; }
+.search-input::placeholder { color: var(--gris2); }
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gris2);
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════
+   GRID DE PRODUCTOS
+═══════════════════════════════════════════ */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  background: var(--negro2);
+  border: 1px solid var(--gris1);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: var(--transition);
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.product-card:hover {
+  border-color: var(--rojo);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(204,0,0,0.15);
+}
+
+.card-img-wrap {
+  height: 180px;
+  background: var(--negro3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--gris1);
+  position: relative;
+}
+.card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 20px;
+  transition: transform 0.4s ease;
+}
+.product-card:hover .card-img-wrap img { transform: scale(1.05); }
+
+.card-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--negro);
+  border: 1px solid var(--gris1);
+  color: var(--gris3);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.card-stock-low {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255,165,0,0.15);
+  border: 1px solid rgba(255,165,0,0.4);
+  color: #FFA500;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+
+.card-body { padding: 18px; flex: 1; display: flex; flex-direction: column; }
+
+.card-cat {
+  font-size: 10px;
+  color: var(--rojo);
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.card-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.card-desc {
+  font-size: 12px;
+  color: var(--gris3);
+  line-height: 1.6;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--gris1);
+}
+
+.card-price {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--rojo);
+}
+.card-price span { font-size: 13px; font-family: var(--font-body); color: var(--gris3); margin-right: 2px; }
+
+.add-btn {
+  background: var(--rojo);
+  border: none;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 9px 16px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.3px;
+}
+.add-btn:hover { background: var(--rojo-dark); transform: scale(1.05); }
+.add-btn:active { transform: scale(0.97); }
+
+.add-btn svg { width: 14px; height: 14px; }
+
+/* Stock info */
+.card-stock { font-size: 11px; color: var(--gris2); margin-top: 4px; }
+.card-stock.ok { color: #4CAF50; }
+.card-stock.low { color: #FFA500; }
+
+/* Loading */
+.loading-state {
+  grid-column: 1/-1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  color: var(--gris2);
+}
+.spinner {
+  width: 40px; height: 40px;
+  border: 3px solid var(--negro3);
+  border-top-color: var(--rojo);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 16px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.empty-state {
+  grid-column: 1/-1;
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--gris2);
+}
+.empty-state svg { width: 60px; height: 60px; color: var(--gris1); margin-bottom: 16px; }
+.empty-state p { font-size: 16px; color: var(--gris3); }
+
+/* ═══════════════════════════════════════════
+   SIDEBAR CARRITO
+═══════════════════════════════════════════ */
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+.cart-overlay.open { opacity: 1; pointer-events: all; }
+
+.cart-sidebar {
+  position: fixed;
+  top: 0; right: -480px;
+  width: 440px;
+  height: 100vh;
+  background: var(--negro2);
+  border-left: 1px solid var(--gris1);
+  z-index: 2001;
+  display: flex;
+  flex-direction: column;
+  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: -20px 0 60px rgba(0,0,0,0.5);
+}
+.cart-sidebar.open { right: 0; }
+
+.cart-header {
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--gris1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--negro);
+}
+.cart-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 2px;
+}
+.cart-close-btn {
+  background: var(--negro3);
+  border: 1px solid var(--gris1);
+  color: var(--gris3);
+  width: 34px; height: 34px;
+  border-radius: 7px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+.cart-close-btn:hover { border-color: var(--rojo); color: var(--rojo); }
+
+.cart-items { flex: 1; overflow-y: auto; padding: 20px 28px; }
+
+.cart-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60%;
+  color: var(--gris2);
+  text-align: center;
+}
+.cart-empty svg { width: 64px; height: 64px; color: var(--gris1); margin-bottom: 16px; }
+.cart-empty p { font-size: 15px; color: var(--gris3); }
+
+.cart-item {
+  display: flex;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--negro3);
+  animation: slideIn 0.3s ease;
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.cart-item-img {
+  width: 60px; height: 60px;
+  background: var(--negro3);
+  border-radius: 8px;
+  border: 1px solid var(--gris1);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cart-item-img img { width: 90%; height: 90%; object-fit: contain; }
+
+.cart-item-info { flex: 1; }
+.cart-item-name { font-size: 13px; font-weight: 600; color: #fff; line-height: 1.4; margin-bottom: 4px; }
+.cart-item-price { font-size: 13px; color: var(--rojo); font-weight: 600; }
+
+.qty-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+.qty-btn {
+  background: var(--negro4);
+  border: 1px solid var(--gris1);
+  color: #fff;
+  width: 26px; height: 26px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+.qty-btn:hover { border-color: var(--rojo); color: var(--rojo); }
+.qty-num { font-size: 14px; font-weight: 600; color: #fff; min-width: 22px; text-align: center; }
+
+.remove-item-btn {
+  background: none;
+  border: none;
+  color: var(--gris2);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 5px;
+  transition: var(--transition);
+  align-self: flex-start;
+}
+.remove-item-btn:hover { color: var(--rojo); }
+
+.cart-footer {
+  padding: 20px 28px 28px;
+  border-top: 1px solid var(--gris1);
+  background: var(--negro);
+}
+.cart-total-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-size: 13px;
+  color: var(--gris3);
+}
+.cart-total-row.grand {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  padding-top: 12px;
+  margin-top: 6px;
+  border-top: 1px solid var(--gris1);
+}
+.cart-total-row.grand span:last-child { color: var(--rojo); }
+
+.checkout-btn {
+  width: 100%;
+  background: var(--rojo);
+  border: none;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  padding: 16px;
+  border-radius: 9px;
+  cursor: pointer;
+  margin-top: 18px;
+  letter-spacing: 1px;
+  transition: var(--transition);
+  text-transform: uppercase;
+}
+.checkout-btn:hover { background: var(--rojo-dark); transform: translateY(-2px); box-shadow: 0 8px 25px var(--rojo-glow); }
+
+/* ═══════════════════════════════════════════
+   MODAL CHECKOUT
+═══════════════════════════════════════════ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(6px);
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+
+.modal {
+  background: var(--negro2);
+  border: 1px solid var(--gris1);
+  border-radius: 14px;
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+  transform: scale(0.95) translateY(20px);
+  transition: transform 0.3s ease;
+}
+.modal-overlay.open .modal { transform: scale(1) translateY(0); }
+
+.modal-header {
+  background: linear-gradient(135deg, var(--rojo) 0%, var(--rojo-dark) 100%);
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-header h2 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 3px;
+}
+.modal-close {
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: #fff;
+  width: 32px; height: 32px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+.modal-close:hover { background: rgba(255,255,255,0.25); }
+
+.modal-body { padding: 32px; }
+
+.form-group { margin-bottom: 20px; }
+.form-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gris3);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.form-input, .form-textarea {
+  width: 100%;
+  background: var(--negro3);
+  border: 1px solid var(--gris1);
+  color: var(--texto);
+  font-family: var(--font-body);
+  font-size: 14px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  outline: none;
+  transition: var(--transition);
+}
+.form-input:focus, .form-textarea:focus { border-color: var(--rojo); box-shadow: 0 0 0 3px var(--rojo-glow); }
+.form-input::placeholder, .form-textarea::placeholder { color: var(--gris2); }
+.form-textarea { resize: vertical; min-height: 80px; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.order-summary {
+  background: var(--negro3);
+  border: 1px solid var(--gris1);
+  border-radius: 9px;
+  padding: 18px;
+  margin-bottom: 24px;
+}
+.order-summary h4 {
+  font-size: 11px;
+  color: var(--rojo);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--gris1);
+}
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--gris3);
+  padding: 4px 0;
+}
+.summary-item.total {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  padding-top: 10px;
+  margin-top: 6px;
+  border-top: 1px solid var(--gris1);
+}
+.summary-item.total span:last-child { color: var(--rojo); }
+
+.submit-btn {
+  width: 100%;
+  background: var(--rojo);
+  border: none;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  padding: 16px;
+  border-radius: 9px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.submit-btn:hover { background: var(--rojo-dark); transform: translateY(-2px); box-shadow: 0 8px 25px var(--rojo-glow); }
+.submit-btn:disabled { background: var(--gris2); cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* ═══════════════════════════════════════════
+   MODAL ÉXITO
+═══════════════════════════════════════════ */
+.success-modal {
+  background: var(--negro2);
+  border: 1px solid rgba(204,0,0,0.3);
+  border-radius: 14px;
+  width: 100%;
+  max-width: 460px;
+  padding: 50px 40px;
+  text-align: center;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.7), 0 0 60px var(--rojo-glow);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+.modal-overlay.open .success-modal { transform: scale(1); }
+
+.success-icon {
+  width: 80px; height: 80px;
+  background: rgba(204,0,0,0.1);
+  border: 2px solid var(--rojo);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  animation: success-pulse 1s ease;
+}
+@keyframes success-pulse {
+  0% { transform: scale(0); }
+  70% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+.success-icon svg { width: 36px; height: 36px; color: var(--rojo); }
+
+.success-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+}
+.success-msg { font-size: 14px; color: var(--gris3); line-height: 1.8; margin-bottom: 8px; }
+.success-order { font-size: 18px; color: var(--rojo); font-weight: 700; font-family: var(--font-display); letter-spacing: 2px; margin: 16px 0; }
+.success-close {
+  background: var(--rojo);
+  border: none;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 13px 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: var(--transition);
+  letter-spacing: 0.5px;
+}
+.success-close:hover { background: var(--rojo-dark); }
+
+/* ═══════════════════════════════════════════
+   TOAST NOTIFICACIONES
+═══════════════════════════════════════════ */
+.toast-container {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+.toast {
+  background: var(--negro2);
+  border: 1px solid var(--gris1);
+  border-left: 4px solid var(--rojo);
+  color: var(--texto);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 14px 18px;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  animation: toastIn 0.3s ease;
+  min-width: 260px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.toast.success { border-left-color: #4CAF50; }
+.toast.error { border-left-color: var(--rojo); }
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+footer {
+  background: var(--negro2);
+  border-top: 1px solid var(--gris1);
+  margin-top: 60px;
+}
+.footer-main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 50px 30px 30px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 40px;
+}
+.footer-brand .brand-name {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--rojo);
+  letter-spacing: 4px;
+  margin-bottom: 8px;
+}
+.footer-brand p { font-size: 13px; color: var(--gris3); line-height: 1.8; }
+.footer-col h4 {
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--gris1);
+}
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 10px; }
+.footer-col ul li span { font-size: 13px; color: var(--gris3); }
+.footer-col ul li strong { color: var(--gris4); }
+
+.footer-bottom {
+  border-top: 1px solid var(--gris1);
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.footer-bottom p { font-size: 12px; color: var(--gris2); }
+.footer-bottom span { font-size: 12px; color: var(--rojo); font-weight: 600; }
+
+/* NOTIFICACIÓN INIT */
+.init-notice {
+  background: rgba(204,0,0,0.08);
+  border: 1px solid rgba(204,0,0,0.2);
+  border-radius: 9px;
+  padding: 16px 22px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 13px;
+  color: var(--gris3);
+}
+.init-notice svg { color: var(--rojo); flex-shrink: 0; width: 20px; height: 20px; }
+.init-notice strong { color: var(--rojo); }
+.init-notice .init-action {
+  margin-left: auto;
+  background: var(--rojo);
+  border: none;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+.init-notice .init-action:hover { background: var(--rojo-dark); }
+
+@media (max-width: 768px) {
+  .hero-content { grid-template-columns: 1fr; }
+  .hero-stats { display: none; }
+  .footer-main { grid-template-columns: 1fr; }
+  .cart-sidebar { width: 100%; right: -100%; }
+  .form-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">⚡ ACTIVO MOTORS · Repuestos Automotrices · San Diego, Valle Verde · 0412-2004902</div>
+
+<!-- HEADER -->
+<header>
+  <div class="nav-container">
+    <div class="logo-wrapper" onclick="scrollToShop()">
+      <img src="https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png" alt="Activo Motors">
+      <div class="logo-text">
+        <span class="brand">ACTIVO MOTORS</span>
+        <span class="slogan">Repuestos Automotrices</span>
+      </div>
+    </div>
+    <div class="nav-center">
+      <button class="nav-btn active" onclick="filtrarCategoria('TODOS')">Todos los productos</button>
+      <button class="nav-btn" onclick="scrollToShop()">Catálogo</button>
+      <button class="nav-btn" onclick="showContact()">Contacto</button>
+    </div>
+    <div class="nav-right">
+      <button class="init-btn" onclick="inicializar()" title="Inicializar Hojas de Cálculo">⚙ Inicializar BD</button>
+      <button class="cart-btn" onclick="toggleCart()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
+        Carrito
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-tag">Tienda Online Oficial</div>
+      <h1 class="hero-title">
+        Todo en<br><span>Repuestos</span><br>para tu vehículo
+      </h1>
+      <p class="hero-desc">
+        Encuentra los mejores repuestos automotrices originales y de alta calidad.
+        Envío coordinado, garantía de calidad y atención personalizada en San Diego, Valle Verde.
+      </p>
+      <div class="hero-cta">
+        <button class="btn-primary" onclick="scrollToShop()">Ver Catálogo</button>
+        <button class="btn-outline" onclick="showContact()">📞 Contactar</button>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-box">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Repuestos</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Calidad</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Disponible</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIENDA -->
+<section class="shop-section" id="shop">
+  <div class="section-header">
+    <h2 class="section-title">Catálogo de Productos</h2>
+    <p style="font-size:13px;color:var(--gris3);" id="productCount"></p>
+  </div>
+
+  <div id="initNotice" class="init-notice" style="display:none;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span>La base de datos aún no está inicializada. <strong>Inicia la BD</strong> para cargar los productos de muestra y configurar las hojas.</span>
+    <button class="init-action" onclick="inicializar()">Inicializar ahora</button>
+  </div>
+
+  <div class="filter-bar" id="filterBar">
+    <span class="filter-label">Categoría:</span>
+    <button class="cat-btn active" onclick="filtrarCategoria('TODOS', this)">Todos</button>
+    <div class="search-wrapper" style="margin-left:auto;">
+      <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input class="search-input" type="text" placeholder="Buscar repuesto..." oninput="buscarProducto(this.value)" id="searchInput">
+    </div>
+  </div>
+
+  <div class="products-grid" id="productsGrid">
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Cargando productos...</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <div class="brand-name">ACTIVO MOTORS</div>
+      <p>Tu tienda de repuestos automotrices de confianza en San Diego. Calidad garantizada, atención personalizada y los mejores precios del mercado.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Ubicación</h4>
+      <ul>
+        <li><span>📍 San Diego, Valle Verde</span></li>
+        <li><span>Cerca de la Av. Don Julio Centeno</span></li>
+        <li><span>📞 <strong>0412-2004902</strong></span></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Categorías</h4>
+      <ul>
+        <li><span>⚙️ Motor & Transmisión</span></li>
+        <li><span>🛑 Sistema de Frenos</span></li>
+        <li><span>⚡ Eléctrico</span></li>
+        <li><span>🔧 Filtros & Lubricantes</span></li>
+        <li><span>🔩 Suspensión</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 ACTIVO MOTORS · Todos los derechos reservados · San Diego, Venezuela</p>
+    <span>Hecho con ❤ para nuestros clientes</span>
+  </div>
+</footer>
+
+<!-- CARRITO SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <div class="cart-title">🛒 CARRITO</div>
+    <button class="cart-close-btn" onclick="toggleCart()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <p>Tu carrito está vacío</p>
+    </div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none;">
+    <div class="cart-total-row"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
+    <div class="cart-total-row"><span>IVA (16%)</span><span id="cartIVA">$0.00</span></div>
+    <div class="cart-total-row grand"><span>TOTAL</span><span id="cartTotal">$0.00</span></div>
+    <button class="checkout-btn" onclick="openCheckout()">Proceder al Pago →</button>
+  </div>
+</div>
+
+<!-- MODAL CHECKOUT -->
+<div class="modal-overlay" id="checkoutOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>FINALIZAR PEDIDO</h2>
+      <button class="modal-close" onclick="closeCheckout()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="order-summary" id="orderSummary"></div>
+      <div class="form-group">
+        <label class="form-label">Nombre Completo *</label>
+        <input class="form-input" type="text" id="clienteNombre" placeholder="Ej: Carlos García">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Email *</label>
+          <input class="form-input" type="email" id="clienteEmail" placeholder="tu@correo.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Teléfono *</label>
+          <input class="form-input" type="tel" id="clienteTelefono" placeholder="0412-0000000">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Dirección de Entrega</label>
+        <textarea class="form-textarea" id="clienteDireccion" placeholder="Calle, urbanización, municipio..."></textarea>
+      </div>
+      <button class="submit-btn" id="submitBtn" onclick="confirmarPedido()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        Confirmar Pedido
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ÉXITO -->
+<div class="modal-overlay" id="successOverlay">
+  <div class="success-modal">
+    <div class="success-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div class="success-title">¡PEDIDO EXITOSO!</div>
+    <p class="success-msg">Tu pedido ha sido confirmado. Recibirás un correo con tu factura en PDF.</p>
+    <div class="success-order" id="successOrderNum"></div>
+    <p class="success-msg">Nuestro equipo se comunicará contigo para coordinar el pago y la entrega.<br><strong style="color:#CC0000;">0412-2004902</strong></p>
+    <button class="success-close" onclick="closeSuccess()">Continuar Comprando</button>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+// ═══════════════════════════════
+// ESTADO GLOBAL
+// ═══════════════════════════════
+let carrito = [];
+let todosProductos = [];
+let productosFiltrados = [];
+let categoriaActual = 'TODOS';
+
+// ═══════════════════════════════
+// INICIO
+// ═══════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  cargarProductos();
+});
+
+// ═══════════════════════════════
+// CARGAR PRODUCTOS
+// ═══════════════════════════════
+function cargarProductos(categoria) {
+  const grid = document.getElementById('productsGrid');
+  grid.innerHTML = `<div class="loading-state"><div class="spinner"></div><p>Cargando productos...</p></div>`;
+
+  google.script.run
+    .withSuccessHandler(data => {
+      todosProductos = data;
+      if (data.length === 0) {
+        document.getElementById('initNotice').style.display = 'flex';
+        grid.innerHTML = `<div class="empty-state">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <p>No hay productos disponibles. Inicializa la base de datos.</p>
+        </div>`;
+        return;
+      }
+      document.getElementById('initNotice').style.display = 'none';
+      cargarCategorias();
+      mostrarProductos(data);
+    })
+    .withFailureHandler(err => {
+      grid.innerHTML = `<div class="empty-state"><p>Error al cargar productos. Intenta de nuevo.</p></div>`;
+      showToast('Error al conectar con la base de datos', 'error');
+    })
+    .obtenerProductos(categoria || null);
+}
+
+// ═══════════════════════════════
+// CARGAR CATEGORÍAS
+// ═══════════════════════════════
+function cargarCategorias() {
+  google.script.run
+    .withSuccessHandler(cats => {
+      const bar = document.getElementById('filterBar');
+      // Eliminar botones de categoria previos
+      const prevCats = bar.querySelectorAll('.cat-btn:not([onclick*="TODOS"])');
+      prevCats.forEach(b => b.remove());
+
+      const searchWrapper = bar.querySelector('.search-wrapper');
+      cats.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = 'cat-btn';
+        btn.textContent = cat;
+        btn.onclick = () => filtrarCategoria(cat, btn);
+        bar.insertBefore(btn, searchWrapper);
+      });
+    })
+    .obtenerCategorias();
+}
+
+// ═══════════════════════════════
+// MOSTRAR PRODUCTOS
+// ═══════════════════════════════
+function mostrarProductos(productos) {
+  const grid = document.getElementById('productsGrid');
+  const countEl = document.getElementById('productCount');
+  productosFiltrados = productos;
+  countEl.textContent = `${productos.length} producto${productos.length !== 1 ? 's' : ''}`;
+
+  if (productos.length === 0) {
+    grid.innerHTML = `<div class="empty-state">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <p>No se encontraron productos en esta categoría.</p>
+    </div>`;
+    return;
+  }
+
+  grid.innerHTML = productos.map(p => {
+    const stockClass = p.stock <= 5 ? 'low' : (p.stock <= 15 ? 'low' : 'ok');
+    const stockText = p.stock === 0 ? '✗ Sin stock' : (p.stock <= 5 ? `⚠ Últimas ${p.stock} unidades` : `✓ En stock (${p.stock})`);
+    const sinStock = p.stock === 0;
+
+    return `
+    <div class="product-card" id="card-${p.id}">
+      <div class="card-img-wrap">
+        <span class="card-badge">${p.categoria}</span>
+        ${p.stock <= 5 && p.stock > 0 ? '<span class="card-stock-low">Últimas unidades</span>' : ''}
+        <img src="${p.imagen}" alt="${p.nombre}" onerror="this.src='https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png'">
+      </div>
+      <div class="card-body">
+        <div class="card-cat">${p.categoria}</div>
+        <div class="card-name">${p.nombre}</div>
+        <div class="card-desc">${p.descripcion}</div>
+        <div class="card-stock ${stockClass}">${stockText}</div>
+        <div class="card-footer">
+          <div class="card-price"><span>$</span>${parseFloat(p.precio).toFixed(2)}</div>
+          <button class="add-btn" onclick="agregarAlCarrito('${p.id}')" ${sinStock ? 'disabled style="opacity:0.4;cursor:not-allowed;"' : ''}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            ${sinStock ? 'Agotado' : 'Agregar'}
+          </button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════
+// FILTRAR CATEGORÍA
+// ═══════════════════════════════
+function filtrarCategoria(cat, btn) {
+  categoriaActual = cat;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  else document.querySelector('.cat-btn').classList.add('active');
+
+  document.getElementById('searchInput').value = '';
+
+  if (cat === 'TODOS') {
+    mostrarProductos(todosProductos);
+  } else {
+    mostrarProductos(todosProductos.filter(p => p.categoria === cat));
+  }
+}
+
+// ═══════════════════════════════
+// BUSCAR
+// ═══════════════════════════════
+function buscarProducto(q) {
+  const base = categoriaActual === 'TODOS' ? todosProductos : todosProductos.filter(p => p.categoria === categoriaActual);
+  if (!q.trim()) { mostrarProductos(base); return; }
+  const ql = q.toLowerCase();
+  mostrarProductos(base.filter(p =>
+    p.nombre.toLowerCase().includes(ql) ||
+    p.descripcion.toLowerCase().includes(ql) ||
+    p.categoria.toLowerCase().includes(ql)
+  ));
+}
+
+// ═══════════════════════════════
+// CARRITO - AGREGAR
+// ═══════════════════════════════
+function agregarAlCarrito(id) {
+  const prod = todosProductos.find(p => p.id === id);
+  if (!prod) return;
+
+  const existente = carrito.find(i => i.id === id);
+  if (existente) {
+    if (existente.cantidad >= prod.stock) {
+      showToast('No hay más unidades disponibles', 'error'); return;
+    }
+    existente.cantidad++;
+  } else {
+    carrito.push({ ...prod, cantidad: 1 });
+  }
+
+  actualizarCarritoUI();
+  showToast(`✓ ${prod.nombre} agregado al carrito`);
+
+  // Animación card
+  const card = document.getElementById(`card-${id}`);
+  if (card) {
+    card.style.transform = 'scale(0.97)';
+    setTimeout(() => card.style.transform = '', 200);
+  }
+}
+
+// ═══════════════════════════════
+// CARRITO - ACTUALIZAR UI
+// ═══════════════════════════════
+function actualizarCarritoUI() {
+  const total = carrito.reduce((s, i) => s + i.cantidad, 0);
+  const countEl = document.getElementById('cartCount');
+  countEl.textContent = total;
+  countEl.classList.toggle('visible', total > 0);
+
+  const itemsEl = document.getElementById('cartItems');
+  const footerEl = document.getElementById('cartFooter');
+
+  if (carrito.length === 0) {
+    itemsEl.innerHTML = `<div class="cart-empty">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <p>Tu carrito está vacío</p>
+    </div>`;
+    footerEl.style.display = 'none';
+    return;
+  }
+
+  itemsEl.innerHTML = carrito.map(item => `
+    <div class="cart-item">
+      <div class="cart-item-img">
+        <img src="${item.imagen}" alt="${item.nombre}" onerror="this.src='https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png'">
+      </div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.nombre}</div>
+        <div class="cart-item-price">$${(item.precio * item.cantidad).toFixed(2)}</div>
+        <div class="qty-control">
+          <button class="qty-btn" onclick="cambiarCantidad('${item.id}', -1)">−</button>
+          <span class="qty-num">${item.cantidad}</span>
+          <button class="qty-btn" onclick="cambiarCantidad('${item.id}', 1)">+</button>
+        </div>
+      </div>
+      <button class="remove-item-btn" onclick="eliminarItem('${item.id}')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+      </button>
+    </div>`).join('');
+
+  const subtotal = carrito.reduce((s, i) => s + i.precio * i.cantidad, 0);
+  const iva = subtotal * 0.16;
+  const totalFinal = subtotal + iva;
+
+  document.getElementById('cartSubtotal').textContent = `$${subtotal.toFixed(2)}`;
+  document.getElementById('cartIVA').textContent = `$${iva.toFixed(2)}`;
+  document.getElementById('cartTotal').textContent = `$${totalFinal.toFixed(2)}`;
+  footerEl.style.display = 'block';
+}
+
+function cambiarCantidad(id, delta) {
+  const item = carrito.find(i => i.id === id);
+  const prod = todosProductos.find(p => p.id === id);
+  if (!item) return;
+  const nueva = item.cantidad + delta;
+  if (nueva <= 0) { eliminarItem(id); return; }
+  if (nueva > (prod ? prod.stock : 99)) { showToast('Stock insuficiente', 'error'); return; }
+  item.cantidad = nueva;
+  actualizarCarritoUI();
+}
+
+function eliminarItem(id) {
+  carrito = carrito.filter(i => i.id !== id);
+  actualizarCarritoUI();
+}
+
+// ═══════════════════════════════
+// TOGGLE CARRITO
+// ═══════════════════════════════
+function toggleCart() {
+  document.getElementById('cartSidebar').classList.toggle('open');
+  document.getElementById('cartOverlay').classList.toggle('open');
+}
+
+// ═══════════════════════════════
+// CHECKOUT
+// ═══════════════════════════════
+function openCheckout() {
+  if (carrito.length === 0) { showToast('El carrito está vacío', 'error'); return; }
+  toggleCart();
+
+  const subtotal = carrito.reduce((s, i) => s + i.precio * i.cantidad, 0);
+  const iva = subtotal * 0.16;
+  const totalFinal = subtotal + iva;
+
+  document.getElementById('orderSummary').innerHTML = `
+    <h4>Resumen del Pedido</h4>
+    ${carrito.map(i => `<div class="summary-item"><span>${i.nombre} ×${i.cantidad}</span><span>$${(i.precio * i.cantidad).toFixed(2)}</span></div>`).join('')}
+    <div class="summary-item"><span>Subtotal</span><span>$${subtotal.toFixed(2)}</span></div>
+    <div class="summary-item"><span>IVA (16%)</span><span>$${iva.toFixed(2)}</span></div>
+    <div class="summary-item total"><span>TOTAL</span><span>$${totalFinal.toFixed(2)}</span></div>`;
+
+  document.getElementById('checkoutOverlay').classList.add('open');
+}
+
+function closeCheckout() {
+  document.getElementById('checkoutOverlay').classList.remove('open');
+}
+
+// ═══════════════════════════════
+// CONFIRMAR PEDIDO
+// ═══════════════════════════════
+function confirmarPedido() {
+  const nombre = document.getElementById('clienteNombre').value.trim();
+  const email = document.getElementById('clienteEmail').value.trim();
+  const telefono = document.getElementById('clienteTelefono').value.trim();
+  const direccion = document.getElementById('clienteDireccion').value.trim();
+
+  if (!nombre || !email || !telefono) {
+    showToast('Por favor completa todos los campos obligatorios (*)', 'error'); return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showToast('Ingresa un correo electrónico válido', 'error'); return;
+  }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner" style="width:20px;height:20px;border-width:2px;margin:0;"></div> Procesando...';
+
+  const cliente = { nombre, email, telefono, direccion };
+  const carritoData = carrito.map(i => ({ id: i.id, nombre: i.nombre, precio: i.precio, cantidad: i.cantidad, imagen: i.imagen }));
+
+  google.script.run
+    .withSuccessHandler(res => {
+      btn.disabled = false;
+      btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Confirmar Pedido';
+
+      if (res.success) {
+        closeCheckout();
+        carrito = [];
+        actualizarCarritoUI();
+        document.getElementById('successOrderNum').textContent = `N° ${res.numeroPedido} · Total: $${res.total}`;
+        document.getElementById('successOverlay').classList.add('open');
+        // Limpiar campos
+        ['clienteNombre','clienteEmail','clienteTelefono','clienteDireccion'].forEach(id => document.getElementById(id).value = '');
+        cargarProductos(); // Recargar para actualizar stock
+      } else {
+        showToast('Error al procesar el pedido: ' + (res.error || 'Intenta de nuevo'), 'error');
+      }
+    })
+    .withFailureHandler(err => {
+      btn.disabled = false;
+      btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Confirmar Pedido';
+      showToast('Error de conexión. Intenta de nuevo.', 'error');
+    })
+    .procesarPedido(cliente, carritoData);
+}
+
+function closeSuccess() {
+  document.getElementById('successOverlay').classList.remove('open');
+}
+
+// ═══════════════════════════════
+// INICIALIZAR BD
+// ═══════════════════════════════
+function inicializar() {
+  if (!confirm('¿Inicializar las hojas de Google Sheets con la estructura y datos de muestra?\n\nEsto creará las hojas: PRODUCTOS, PEDIDOS y CLIENTES.')) return;
+
+  showToast('Inicializando base de datos...', 'info');
+
+  google.script.run
+    .withSuccessHandler(res => {
+      if (res.success) {
+        showToast('✓ ' + res.mensaje, 'success');
+        setTimeout(() => cargarProductos(), 1200);
+      } else {
+        showToast('Error al inicializar', 'error');
+      }
+    })
+    .withFailureHandler(err => showToast('Error: ' + err.message, 'error'))
+    .inicializarHojas();
+}
+
+// ═══════════════════════════════
+// TOAST
+// ═══════════════════════════════
+function showToast(msg, type = 'success') {
+  const container = document.getElementById('toastContainer');
+  const icon = type === 'success' ? '✓' : (type === 'error' ? '✗' : 'ℹ');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.innerHTML = `<span style="font-weight:700;color:${type==='success'?'#4CAF50':'#CC0000'}">${icon}</span> ${msg}`;
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(30px)';
+    toast.style.transition = 'all 0.3s ease';
+    setTimeout(() => toast.remove(), 300);
+  }, 3500);
+}
+
+// ═══════════════════════════════
+// HELPERS
+// ═══════════════════════════════
+function scrollToShop() {
+  document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+}
+
+function showContact() {
+  alert('📞 ACTIVO MOTORS\n\nTeléfono: 0412-2004902\nUbicación: San Diego, Valle Verde\nCerca de la Av. Don Julio Centeno\n\n¡Contáctanos para más información!');
+}
+</script>
+</body>
+</html>
