@@ -87,7 +87,7 @@ header { background: rgba(10,10,10,0.97); backdrop-filter: blur(20px); border-bo
 .btn-outline { background: transparent; color: var(--texto); font-family: var(--font-body); font-size: 14px; font-weight: 500; padding: 14px 30px; border: 1px solid var(--gris1); border-radius: 8px; cursor: pointer; transition: var(--transition); }
 .btn-outline:hover { border-color: var(--rojo); color: var(--rojo); }
 
-/* STATS - solo 2 cajas */
+/* STATS */
 .hero-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; background: var(--gris1); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--gris1); }
 .stat-box { background: var(--negro3); padding: 30px 24px; text-align: center; }
 .stat-num { font-family: var(--font-display); font-size: 38px; font-weight: 700; color: var(--rojo); line-height: 1; }
@@ -173,7 +173,7 @@ header { background: rgba(10,10,10,0.97); backdrop-filter: blur(20px); border-bo
 .checkout-btn { width: 100%; background: var(--rojo); border: none; color: #fff; font-family: var(--font-body); font-size: 15px; font-weight: 700; padding: 16px; border-radius: 9px; cursor: pointer; margin-top: 18px; letter-spacing: 1px; transition: var(--transition); text-transform: uppercase; }
 .checkout-btn:hover { background: var(--rojo-dark); transform: translateY(-2px); box-shadow: 0 8px 25px var(--rojo-glow); }
 
-/* ═══ MODALES ═══ */
+/* MODALES */
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 3000; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(6px); }
 .modal-overlay.open { opacity: 1; pointer-events: all; }
 .modal { background: var(--negro2); border: 1px solid var(--gris1); border-radius: 14px; width: 100%; max-width: 540px; max-height: 90vh; overflow-y: auto; box-shadow: 0 30px 80px rgba(0,0,0,0.7); transform: scale(0.95) translateY(20px); transition: transform 0.3s ease; }
@@ -199,7 +199,7 @@ header { background: rgba(10,10,10,0.97); backdrop-filter: blur(20px); border-bo
 .submit-btn:hover { background: var(--rojo-dark); transform: translateY(-2px); box-shadow: 0 8px 25px var(--rojo-glow); }
 .submit-btn:disabled { background: var(--gris2); cursor: not-allowed; transform: none; box-shadow: none; }
 
-/* MODAL USUARIO (login/registro) */
+/* MODAL USUARIO */
 .auth-modal { background: var(--negro2); border: 1px solid var(--gris1); border-radius: 14px; width: 100%; max-width: 460px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.7); transform: scale(0.95) translateY(20px); transition: transform 0.3s ease; }
 .modal-overlay.open .auth-modal { transform: scale(1) translateY(0); }
 .auth-tabs { display: flex; background: var(--negro3); border-bottom: 1px solid var(--gris1); }
@@ -215,7 +215,7 @@ header { background: rgba(10,10,10,0.97); backdrop-filter: blur(20px); border-bo
 .auth-submit:disabled { background: var(--gris2); cursor: not-allowed; }
 .auth-divider { text-align: center; color: var(--gris2); font-size: 12px; margin: 16px 0; }
 
-/* CARD USUARIO LOGUEADO en checkout */
+/* CARD USUARIO en checkout */
 .user-card-checkout {
   background: var(--negro3);
   border: 1px solid rgba(204,0,0,0.3);
@@ -226,14 +226,7 @@ header { background: rgba(10,10,10,0.97); backdrop-filter: blur(20px); border-bo
   align-items: center;
   gap: 14px;
 }
-.user-card-checkout .uc-avatar {
-  width: 44px; height: 44px;
-  background: rgba(204,0,0,0.15);
-  border: 1px solid rgba(204,0,0,0.3);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  color: var(--rojo); font-size: 18px; flex-shrink: 0;
-}
+.user-card-checkout .uc-avatar { width: 44px; height: 44px; background: rgba(204,0,0,0.15); border: 1px solid rgba(204,0,0,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--rojo); font-size: 18px; flex-shrink: 0; }
 .user-card-checkout .uc-info { flex: 1; }
 .user-card-checkout .uc-name { font-size: 14px; font-weight: 600; color: #fff; }
 .user-card-checkout .uc-email { font-size: 12px; color: var(--gris3); margin-top: 2px; }
@@ -258,6 +251,17 @@ header { background: rgba(10,10,10,0.97); backdrop-filter: blur(20px); border-bo
 .toast.success { border-left-color: #4CAF50; }
 .toast.error { border-left-color: var(--rojo); }
 
+/* DROPDOWN USUARIO */
+.user-dropdown-wrap { position: relative; }
+.user-dropdown { position: absolute; top: calc(100% + 10px); right: 0; background: var(--negro2); border: 1px solid var(--gris1); border-radius: 10px; min-width: 200px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); overflow: hidden; display: none; z-index: 1100; }
+.user-dropdown.open { display: block; }
+.ud-header { padding: 14px 16px; background: var(--negro3); border-bottom: 1px solid var(--gris1); }
+.ud-name { font-size: 14px; font-weight: 600; color: #fff; }
+.ud-email { font-size: 11px; color: var(--gris3); margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ud-item { display: block; width: 100%; background: none; border: none; color: var(--gris4); font-family: var(--font-body); font-size: 13px; padding: 11px 16px; text-align: left; cursor: pointer; transition: var(--transition); }
+.ud-item:hover { background: var(--negro3); color: #fff; }
+.ud-item.danger:hover { background: rgba(204,0,0,0.1); color: var(--rojo); }
+
 /* FOOTER */
 footer { background: var(--negro2); border-top: 1px solid var(--gris1); margin-top: 60px; }
 .footer-main { max-width: 1400px; margin: 0 auto; padding: 50px 30px 30px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; }
@@ -272,24 +276,6 @@ footer { background: var(--negro2); border-top: 1px solid var(--gris1); margin-t
 .footer-bottom p { font-size: 12px; color: var(--gris2); }
 .footer-bottom span { font-size: 12px; color: var(--rojo); font-weight: 600; }
 
-/* DROPDOWN USUARIO */
-.user-dropdown-wrap { position: relative; }
-.user-dropdown {
-  position: absolute; top: calc(100% + 10px); right: 0;
-  background: var(--negro2); border: 1px solid var(--gris1);
-  border-radius: 10px; min-width: 200px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-  overflow: hidden; display: none;
-  z-index: 1100;
-}
-.user-dropdown.open { display: block; }
-.ud-header { padding: 14px 16px; background: var(--negro3); border-bottom: 1px solid var(--gris1); }
-.ud-name { font-size: 14px; font-weight: 600; color: #fff; }
-.ud-email { font-size: 11px; color: var(--gris3); margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.ud-item { display: block; width: 100%; background: none; border: none; color: var(--gris4); font-family: var(--font-body); font-size: 13px; padding: 11px 16px; text-align: left; cursor: pointer; transition: var(--transition); }
-.ud-item:hover { background: var(--negro3); color: #fff; }
-.ud-item.danger:hover { background: rgba(204,0,0,0.1); color: var(--rojo); }
-
 @media (max-width: 768px) {
   .hero-content { grid-template-columns: 1fr; }
   .hero-stats { display: none; }
@@ -301,7 +287,9 @@ footer { background: var(--negro2); border-top: 1px solid var(--gris1); margin-t
 </style>
 </head>
 <body>
-  <script>
+
+<!-- ═══ URL de la API ═══ -->
+<script>
   const API_URL = 'https://script.google.com/macros/s/AKfycbyfnYne5VXTSlgtKfrT4wNW5R8Z5LSjUw8KjfbW-gZIZvQQBqn3EIlksPI6QYOwaIt4Og/exec';
 </script>
 
@@ -324,7 +312,6 @@ footer { background: var(--negro2); border-top: 1px solid var(--gris1); margin-t
       <button class="nav-btn" onclick="showContact()">Contacto</button>
     </div>
     <div class="nav-right">
-      <!-- BOTÓN USUARIO -->
       <div class="user-dropdown-wrap">
         <button class="user-nav-btn" id="userNavBtn" onclick="toggleUserMenu()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -343,7 +330,6 @@ footer { background: var(--negro2); border-top: 1px solid var(--gris1); margin-t
           <button class="ud-item danger" id="udLogoutBtn" onclick="cerrarSesion()" style="display:none;">Cerrar sesión</button>
         </div>
       </div>
-      <!-- CARRITO -->
       <button class="cart-btn" onclick="toggleCart()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
@@ -370,7 +356,6 @@ footer { background: var(--negro2); border-top: 1px solid var(--gris1); margin-t
         <button class="btn-outline" onclick="showContact()">📞 Contactar</button>
       </div>
     </div>
-    <!-- STATS: solo 2 (sin 24/7) -->
     <div class="hero-stats">
       <div class="stat-box">
         <div class="stat-num">100+</div>
@@ -458,15 +443,13 @@ footer { background: var(--negro2); border-top: 1px solid var(--gris1); margin-t
   </div>
 </div>
 
-<!-- MODAL AUTH (Login / Registro) -->
+<!-- MODAL AUTH -->
 <div class="modal-overlay" id="authOverlay" onclick="closeAuthOnBg(event)">
   <div class="auth-modal">
     <div class="auth-tabs">
       <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Iniciar Sesión</button>
       <button class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">Registrarse</button>
     </div>
-
-    <!-- LOGIN FORM -->
     <div class="auth-form active" id="formLogin">
       <div class="auth-logo">
         <img src="https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png" alt="Logo">
@@ -483,8 +466,6 @@ footer { background: var(--negro2); border-top: 1px solid var(--gris1); margin-t
       <button class="auth-submit" id="loginBtn" onclick="doLogin()">Entrar</button>
       <div class="auth-divider">¿No tienes cuenta? <span style="color:var(--rojo);cursor:pointer;" onclick="switchAuthTab('register')">Regístrate aquí</span></div>
     </div>
-
-    <!-- REGISTER FORM -->
     <div class="auth-form" id="formRegister">
       <div class="auth-logo">
         <img src="https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png" alt="Logo">
@@ -533,8 +514,6 @@ footer { background: var(--negro2); border-top: 1px solid var(--gris1); margin-t
     </div>
     <div class="modal-body">
       <div class="order-summary" id="orderSummary"></div>
-
-      <!-- Si usuario logueado: tarjeta; si no: formulario -->
       <div id="checkoutUserCard" style="display:none;">
         <div class="user-card-checkout">
           <div class="uc-avatar">👤</div>
@@ -545,7 +524,6 @@ footer { background: var(--negro2); border-top: 1px solid var(--gris1); margin-t
           </div>
         </div>
       </div>
-
       <div id="checkoutGuestForm">
         <div class="form-group">
           <label class="form-label">Nombre Completo *</label>
@@ -566,7 +544,6 @@ footer { background: var(--negro2); border-top: 1px solid var(--gris1); margin-t
           <textarea class="form-textarea" id="clienteDireccion" placeholder="Calle, urbanización, municipio..."></textarea>
         </div>
       </div>
-
       <button class="submit-btn" id="submitBtn" onclick="confirmarPedido()">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
         Confirmar Pedido
@@ -599,78 +576,42 @@ footer { background: var(--negro2); border-top: 1px solid var(--gris1); margin-t
 let carrito = [];
 let todosProductos = [];
 let categoriaActual = 'TODOS';
-let usuarioActual = null; // { id, nombre, email, telefono, direccion }
+let usuarioActual = null;
 
-function tieneGoogleScriptRun() {
-  return typeof google !== 'undefined' && google?.script?.run;
+// ═══════════════════════════════════════════════════════════════
+// BACKEND — llamadas a la API de Google Apps Script via GET/POST
+// CORRECCIÓN PRINCIPAL: usa ?accion=productos para GET
+// ═══════════════════════════════════════════════════════════════
+async function llamarAPI_GET(accion, params = {}) {
+  let url = `${API_URL}?accion=${accion}`;
+  for (const [k, v] of Object.entries(params)) {
+    if (v) url += `&${k}=${encodeURIComponent(v)}`;
+  }
+  const response = await fetch(url);
+  const json = await response.json();
+  if (!json.ok) throw new Error(json.error || 'Error del servidor');
+  return json.data;
 }
 
-function ejecutarGoogleScript(metodo, ...args) {
-  return new Promise((resolve, reject) => {
-    google.script.run
-      .withSuccessHandler(resolve)
-      .withFailureHandler(reject)[metodo](...args);
+async function llamarAPI_POST(body) {
+  const response = await fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
   });
-}
-
-async function parsearRespuestaComoJSON(response) {
-  const texto = await response.text();
-  try {
-    return JSON.parse(texto);
-  } catch (e) {
-    throw new Error(`Respuesta no válida del servidor (${response.status})`);
-  }
-}
-
-function extraerDataAPI(metodo, respuesta) {
-  if (Array.isArray(respuesta)) return respuesta;
-  if (Array.isArray(respuesta?.data)) return respuesta.data;
-  if (metodo === 'obtenerProductos') return respuesta?.productos || respuesta?.items || [];
-  if (metodo === 'obtenerCategorias') return respuesta?.categorias || [];
-  return respuesta;
-}
-
-async function llamarBackend(metodo, params = {}, argsGoogle = []) {
-  if (tieneGoogleScriptRun()) {
-    return ejecutarGoogleScript(metodo, ...argsGoogle);
-  }
-
-  const payload = { action: metodo, ...params };
-  const intentos = [
-    () => fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    }),
-    () => fetch(`${API_URL}?${new URLSearchParams(payload).toString()}`)
-  ];
-
-  let ultimoError;
-  for (const intento of intentos) {
-    try {
-      const response = await intento();
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const json = await parsearRespuestaComoJSON(response);
-      if (json?.success === false) throw new Error(json.error || 'Operación rechazada por el servidor');
-      return extraerDataAPI(metodo, json);
-    } catch (error) {
-      ultimoError = error;
-    }
-  }
-  throw ultimoError || new Error('No se pudo conectar con el backend');
+  const json = await response.json();
+  return json; // devuelve el objeto completo { ok, ... }
 }
 
 // ═══════════════════════════════
 // INICIO
 // ═══════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
-  // Intentar restaurar sesión de sessionStorage
   const sesion = sessionStorage.getItem('am_usuario');
   if (sesion) {
     try { usuarioActual = JSON.parse(sesion); actualizarUIUsuario(); } catch(e) {}
   }
   cargarProductos();
-  // Cerrar dropdown al clic fuera
   document.addEventListener('click', e => {
     const wrap = document.getElementById('userNavBtn')?.closest('.user-dropdown-wrap');
     if (wrap && !wrap.contains(e.target)) {
@@ -680,7 +621,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ═══════════════════════════════
-// AUTENTICACIÓN
+// AUTENTICACIÓN (local — sin backend de usuarios)
 // ═══════════════════════════════
 function openAuthModal(tab) {
   document.getElementById('userDropdown').classList.remove('open');
@@ -701,35 +642,27 @@ function switchAuthTab(tab) {
   document.getElementById('formRegister').classList.toggle('active', tab === 'register');
 }
 
-async function doLogin() {
+// Login simple local (sin backend de usuarios)
+function doLogin() {
   const email = document.getElementById('loginEmail').value.trim();
   const pass = document.getElementById('loginPassword').value;
   if (!email || !pass) { showToast('Completa todos los campos', 'error'); return; }
 
-  const btn = document.getElementById('loginBtn');
-  btn.disabled = true; btn.textContent = 'Verificando...';
+  // Buscar usuario guardado localmente
+  const usuarios = JSON.parse(localStorage.getItem('am_usuarios') || '[]');
+  const user = usuarios.find(u => u.email === email && u.password === pass);
+  if (!user) { showToast('Correo o contraseña incorrectos', 'error'); return; }
 
-  try {
-    const res = await llamarBackend('loginUsuario', { email, pass }, [email, pass]);
-    btn.disabled = false; btn.textContent = 'Entrar';
-    if (res.success) {
-      usuarioActual = res.usuario;
-      sessionStorage.setItem('am_usuario', JSON.stringify(usuarioActual));
-      document.getElementById('authOverlay').classList.remove('open');
-      actualizarUIUsuario();
-      showToast(`¡Bienvenido, ${usuarioActual.nombre}!`, 'success');
-      document.getElementById('loginEmail').value = '';
-      document.getElementById('loginPassword').value = '';
-    } else {
-      showToast(res.error || 'Error al iniciar sesión', 'error');
-    }
-  } catch (err) {
-    btn.disabled = false; btn.textContent = 'Entrar';
-    showToast('Error de conexión', 'error');
-  }
+  usuarioActual = { nombre: user.nombre, email: user.email, telefono: user.telefono, direccion: user.direccion };
+  sessionStorage.setItem('am_usuario', JSON.stringify(usuarioActual));
+  document.getElementById('authOverlay').classList.remove('open');
+  actualizarUIUsuario();
+  showToast(`¡Bienvenido, ${usuarioActual.nombre}!`, 'success');
+  document.getElementById('loginEmail').value = '';
+  document.getElementById('loginPassword').value = '';
 }
 
-async function doRegister() {
+function doRegister() {
   const nombre = document.getElementById('regNombre').value.trim();
   const email = document.getElementById('regEmail').value.trim();
   const telefono = document.getElementById('regTelefono').value.trim();
@@ -742,27 +675,19 @@ async function doRegister() {
   if (pass.length < 6) { showToast('La contraseña debe tener al menos 6 caracteres', 'error'); return; }
   if (pass !== pass2) { showToast('Las contraseñas no coinciden', 'error'); return; }
 
-  const btn = document.getElementById('registerBtn');
-  btn.disabled = true; btn.textContent = 'Creando cuenta...';
+  const usuarios = JSON.parse(localStorage.getItem('am_usuarios') || '[]');
+  if (usuarios.find(u => u.email === email)) { showToast('Ya existe una cuenta con ese correo', 'error'); return; }
 
-  try {
-    const usuario = { nombre, email, telefono, direccion, password: pass };
-    const res = await llamarBackend('registrarUsuario', { usuario: JSON.stringify(usuario) }, [usuario]);
-    btn.disabled = false; btn.textContent = 'Crear Cuenta';
-    if (res.success) {
-      usuarioActual = res.usuario;
-      sessionStorage.setItem('am_usuario', JSON.stringify(usuarioActual));
-      document.getElementById('authOverlay').classList.remove('open');
-      actualizarUIUsuario();
-      showToast(`¡Cuenta creada! Bienvenido, ${usuarioActual.nombre}!`, 'success');
-      ['regNombre','regEmail','regTelefono','regDireccion','regPassword','regPassword2'].forEach(id => document.getElementById(id).value = '');
-    } else {
-      showToast(res.error || 'Error al registrar', 'error');
-    }
-  } catch (err) {
-    btn.disabled = false; btn.textContent = 'Crear Cuenta';
-    showToast('Error de conexión', 'error');
-  }
+  const nuevoUsuario = { nombre, email, telefono, direccion, password: pass };
+  usuarios.push(nuevoUsuario);
+  localStorage.setItem('am_usuarios', JSON.stringify(usuarios));
+
+  usuarioActual = { nombre, email, telefono, direccion };
+  sessionStorage.setItem('am_usuario', JSON.stringify(usuarioActual));
+  document.getElementById('authOverlay').classList.remove('open');
+  actualizarUIUsuario();
+  showToast(`¡Cuenta creada! Bienvenido, ${nombre}!`, 'success');
+  ['regNombre','regEmail','regTelefono','regDireccion','regPassword','regPassword2'].forEach(id => document.getElementById(id).value = '');
 }
 
 function cerrarSesion() {
@@ -776,7 +701,6 @@ function cerrarSesion() {
 function actualizarUIUsuario() {
   const btn = document.getElementById('userNavBtn');
   const label = document.getElementById('userNavLabel');
-  const dropdown = document.getElementById('userDropdown');
   const udHeader = document.getElementById('udHeader');
   const udLoginBtn = document.getElementById('udLoginBtn');
   const udRegisterBtn = document.getElementById('udRegisterBtn');
@@ -806,40 +730,47 @@ function toggleUserMenu() {
 }
 
 // ═══════════════════════════════
-// CARGAR PRODUCTOS
+// CARGAR PRODUCTOS — usa GET con ?accion=productos
 // ═══════════════════════════════
-async function cargarProductos(categoria) {
+async function cargarProductos() {
   const grid = document.getElementById('productsGrid');
   grid.innerHTML = `<div class="loading-state"><div class="spinner"></div><p>Cargando productos...</p></div>`;
 
   try {
-    const categoriaFiltro = categoria || '';
-    const data = await llamarBackend('obtenerProductos', { categoria: categoriaFiltro }, [categoria || null]);
+    // ✅ CORRECCIÓN: GET con ?accion=productos
+    const data = await llamarAPI_GET('productos');
     todosProductos = Array.isArray(data) ? data : [];
+
     if (todosProductos.length === 0) {
-      grid.innerHTML = `<div class="empty-state"><p>No hay productos disponibles. Contacta al administrador.</p></div>`;
+      grid.innerHTML = `<div class="empty-state"><p>No hay productos disponibles en este momento.</p></div>`;
       return;
     }
     await cargarCategorias();
     mostrarProductos(todosProductos);
   } catch (err) {
+    console.error('Error cargando productos:', err);
     grid.innerHTML = `<div class="empty-state"><p>Error al cargar productos. Intenta de nuevo.</p></div>`;
     showToast('Error al conectar con la base de datos', 'error');
   }
 }
 
 async function cargarCategorias() {
-  const cats = await llamarBackend('obtenerCategorias');
-  const bar = document.getElementById('filterBar');
-  bar.querySelectorAll('.cat-btn:not([onclick*="TODOS"])').forEach(b => b.remove());
-  const sw = bar.querySelector('.search-wrapper');
-  (Array.isArray(cats) ? cats : []).forEach(cat => {
-    const btn = document.createElement('button');
-    btn.className = 'cat-btn';
-    btn.textContent = cat;
-    btn.onclick = () => filtrarCategoria(cat, btn);
-    bar.insertBefore(btn, sw);
-  });
+  try {
+    // ✅ CORRECCIÓN: GET con ?accion=categorias
+    const cats = await llamarAPI_GET('categorias');
+    const bar = document.getElementById('filterBar');
+    bar.querySelectorAll('.cat-btn:not([onclick*="TODOS"])').forEach(b => b.remove());
+    const sw = bar.querySelector('.search-wrapper');
+    (Array.isArray(cats) ? cats : []).forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'cat-btn';
+      btn.textContent = cat;
+      btn.onclick = () => filtrarCategoria(cat, btn);
+      bar.insertBefore(btn, sw);
+    });
+  } catch(e) {
+    console.warn('No se pudieron cargar las categorías:', e);
+  }
 }
 
 function mostrarProductos(productos) {
@@ -991,7 +922,6 @@ function openCheckout() {
     <div class="summary-item"><span>IVA (16%)</span><span>$${iva.toFixed(2)}</span></div>
     <div class="summary-item total"><span>TOTAL</span><span>$${totalFinal.toFixed(2)}</span></div>`;
 
-  // Mostrar tarjeta de usuario o formulario
   if (usuarioActual) {
     document.getElementById('checkoutUserCard').style.display = 'block';
     document.getElementById('checkoutGuestForm').style.display = 'none';
@@ -1017,7 +947,7 @@ async function confirmarPedido() {
       nombre: usuarioActual.nombre,
       email: usuarioActual.email,
       telefono: usuarioActual.telefono,
-      direccion: usuarioActual.direccion
+      direccion: usuarioActual.direccion || 'No especificada'
     };
   } else {
     const nombre = document.getElementById('clienteNombre').value.trim();
@@ -1026,31 +956,43 @@ async function confirmarPedido() {
     const direccion = document.getElementById('clienteDireccion').value.trim();
     if (!nombre || !email || !telefono) { showToast('Completa los campos obligatorios (*)', 'error'); return; }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showToast('Correo electrónico inválido', 'error'); return; }
-    cliente = { nombre, email, telefono, direccion };
+    cliente = { nombre, email, telefono, direccion: direccion || 'No especificada' };
   }
 
   const btn = document.getElementById('submitBtn');
   btn.disabled = true;
   btn.innerHTML = '<div class="spinner" style="width:20px;height:20px;border-width:2px;margin:0;"></div> Procesando...';
 
-  const carritoData = carrito.map(i => ({ id: i.id, nombre: i.nombre, precio: i.precio, cantidad: i.cantidad, imagen: i.imagen }));
+  const carritoData = carrito.map(i => ({
+    id: i.id,
+    nombre: i.nombre,
+    precio: i.precio,
+    cantidad: i.cantidad,
+    imagen: i.imagen
+  }));
 
   try {
-    const payload = {
-      cliente: JSON.stringify(cliente),
-      carrito: JSON.stringify(carritoData)
-    };
-    const res = await llamarBackend('procesarPedido', payload, [cliente, carritoData]);
+    // ✅ CORRECCIÓN: POST con accion:'pedido' (igual que doPost espera)
+    const res = await llamarAPI_POST({
+      accion: 'pedido',
+      cliente: cliente,
+      carrito: carritoData
+    });
+
     btn.disabled = false;
     btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Confirmar Pedido';
-    if (res.success) {
+
+    if (res.ok || res.success) {
       closeCheckout();
       carrito = [];
       actualizarCarritoUI();
       document.getElementById('successOrderNum').textContent = `N° ${res.numeroPedido} · Total: $${res.total}`;
       document.getElementById('successOverlay').classList.add('open');
       if (!usuarioActual) {
-        ['clienteNombre','clienteEmail','clienteTelefono','clienteDireccion'].forEach(id => document.getElementById(id).value = '');
+        ['clienteNombre','clienteEmail','clienteTelefono','clienteDireccion'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.value = '';
+        });
       }
       cargarProductos();
     } else {
