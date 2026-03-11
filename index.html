@@ -6,7 +6,7 @@
 <title>ACTIVO MOTORS - Repuestos Automotrices</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black:wght@400&family=Kanit:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
   /* ── Paleta Activo Motors ── */
@@ -35,7 +35,7 @@
   --texto3:      #6b6b6b;
   --texto4:      #9e9e9e;
 
-  --font-display: 'Playfair Display', serif;
+  --font-display: 'Archivo Black', sans-serif;
   --font-condensed: 'Barlow Condensed', sans-serif;
   --font-body:    'Inter', sans-serif;
   --radius:       8px;
@@ -66,8 +66,8 @@ header {
 .logo-wrapper img { height: 50px; object-fit: contain; }
 .logo-text { display: flex; flex-direction: column; }
 /* ACTIVO blanco con sombra roja / MOTORS rojo */
-.logo-text .brand-activo { font-family: var(--font-condensed); font-size: 24px; font-weight: 800; color: var(--jet); letter-spacing: 5px; line-height: 1; }
-.logo-text .brand-motors { font-family: var(--font-condensed); font-size: 24px; font-weight: 800; color: var(--rojo); letter-spacing: 5px; line-height: 1; }
+.logo-text .brand-activo { font-family: 'Archivo Black', sans-serif; font-size: 20px; font-weight: 400; color: var(--jet); letter-spacing: 2px; line-height: 1; }
+.logo-text .brand-motors { font-family: 'Archivo Black', sans-serif; font-size: 20px; font-weight: 400; color: var(--rojo); letter-spacing: 2px; line-height: 1; }
 .logo-text .brand { font-family: var(--font-condensed); font-size: 24px; font-weight: 800; letter-spacing: 5px; line-height: 1; }
 .logo-text .slogan { font-size: 9px; color: var(--texto4); letter-spacing: 3px; text-transform: uppercase; margin-top: 4px; font-family: var(--font-body); }
 
@@ -106,9 +106,9 @@ header {
 @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
 
 /* TÍTULO HERO: ACTIVO blanco (sobre fondo oscuro de gradiente), MOTORS rojo */
-.hero-title { font-family: var(--font-condensed); font-size: clamp(42px,5.5vw,72px); font-weight: 800; line-height: 1.05; letter-spacing: 2px; color: var(--texto); text-transform: uppercase; }
-.hero-title .word-activo { color: transparent; -webkit-text-stroke: 2px var(--jet); letter-spacing: 3px; }
-.hero-title .word-motors { color: var(--rojo); letter-spacing: 3px; }
+.hero-title { font-family: 'Archivo Black', sans-serif; font-size: clamp(38px,5vw,66px); font-weight: 400; line-height: 1.08; letter-spacing: 0px; color: var(--texto); text-transform: uppercase; }
+.hero-title .word-activo { color: transparent; -webkit-text-stroke: 2px var(--jet); }
+.hero-title .word-motors { color: var(--rojo); }
 .hero-desc { margin-top: 18px; font-size: 15px; color: var(--texto2); line-height: 1.8; max-width: 480px; }
 .hero-cta { margin-top: 32px; display: flex; gap: 14px; flex-wrap: wrap; }
 .btn-primary { background: var(--rojo); color: #fff; font-family: var(--font-body); font-size: 14px; font-weight: 600; padding: 14px 30px; border: none; border-radius: 8px; cursor: pointer; letter-spacing: 0.5px; transition: var(--transition); }
@@ -119,13 +119,13 @@ header {
 /* STATS */
 .hero-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px; background: var(--borde); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--borde); }
 .stat-box { background: var(--fondo); padding: 30px 24px; text-align: center; }
-.stat-num { font-family: var(--font-condensed); font-size: 42px; font-weight: 800; color: var(--rojo); line-height: 1; }
+.stat-num { font-family: 'Kanit', sans-serif; font-size: 42px; font-weight: 700; color: var(--rojo); line-height: 1; }
 .stat-label { font-size: 11px; color: var(--texto3); margin-top: 5px; letter-spacing: 1px; text-transform: uppercase; }
 
 /* SHOP */
 .shop-section { max-width: 1400px; margin: 0 auto; padding: 50px 30px; }
 .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; flex-wrap: wrap; gap: 16px; }
-.section-title { font-family: var(--font-condensed); font-size: 30px; font-weight: 700; color: var(--texto); letter-spacing: 3px; text-transform: uppercase; display: flex; align-items: center; gap: 12px; }
+.section-title { font-family: 'Archivo Black', sans-serif; font-size: 26px; font-weight: 400; color: var(--texto); letter-spacing: 1px; text-transform: uppercase; display: flex; align-items: center; gap: 12px; }
 .section-title::after { content: ''; display: block; width: 40px; height: 3px; background: var(--rojo); border-radius: 2px; }
 
 /* FILTROS */
@@ -154,7 +154,7 @@ header {
 .card-name { font-size: 15px; font-weight: 600; color: var(--texto); line-height: 1.4; margin-bottom: 8px; }
 .card-desc { font-size: 12px; color: var(--texto3); line-height: 1.6; flex: 1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--borde); }
-.card-price { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--rojo); }
+.card-price { font-family: 'Kanit', sans-serif; font-size: 22px; font-weight: 700; color: var(--rojo); }
 .card-price span { font-size: 13px; font-family: var(--font-body); color: var(--texto3); margin-right: 2px; }
 .add-btn { background: var(--rojo); border: none; color: #fff; font-family: var(--font-body); font-size: 12px; font-weight: 600; padding: 9px 16px; border-radius: 7px; cursor: pointer; transition: var(--transition); display: flex; align-items: center; gap: 6px; }
 .add-btn:hover { background: var(--rojo-dark); transform: scale(1.05); }
@@ -175,7 +175,7 @@ header {
 .cart-sidebar { position: fixed; top: 0; right: -480px; width: 440px; height: 100vh; background: var(--fondo); border-left: 1px solid var(--borde); z-index: 2001; display: flex; flex-direction: column; transition: right 0.4s cubic-bezier(0.4,0,0.2,1); box-shadow: -10px 0 40px rgba(0,0,0,0.12); }
 .cart-sidebar.open { right: 0; }
 .cart-header { padding: 24px 28px; border-bottom: 1px solid var(--borde); display: flex; align-items: center; justify-content: space-between; background: var(--fondo2); }
-.cart-title { font-family: var(--font-condensed); font-size: 20px; font-weight: 700; color: var(--texto); letter-spacing: 3px; text-transform: uppercase; }
+.cart-title { font-family: 'Archivo Black', sans-serif; font-size: 18px; font-weight: 400; color: var(--texto); letter-spacing: 2px; text-transform: uppercase; }
 .cart-close-btn { background: var(--fondo2); border: 1px solid var(--borde); color: var(--texto3); width: 34px; height: 34px; border-radius: 7px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
 .cart-close-btn:hover { border-color: var(--rojo); color: var(--rojo); }
 .cart-items { flex: 1; overflow-y: auto; padding: 20px 28px; }
@@ -197,7 +197,7 @@ header {
 .remove-item-btn:hover { color: var(--rojo); }
 .cart-footer { padding: 20px 28px 28px; border-top: 1px solid var(--borde); background: var(--fondo2); }
 .cart-total-row { display: flex; justify-content: space-between; padding: 5px 0; font-size: 13px; color: var(--texto3); }
-.cart-total-row.grand { font-size: 18px; font-weight: 700; color: var(--texto); padding-top: 12px; margin-top: 6px; border-top: 1px solid var(--borde); }
+.cart-total-row.grand { font-size: 18px; font-weight: 700; color: var(--texto); padding-top: 12px; margin-top: 6px; border-top: 1px solid var(--borde); font-family: 'Kanit', sans-serif; }
 .cart-total-row.grand span:last-child { color: var(--rojo); }
 .checkout-btn { width: 100%; background: var(--rojo); border: none; color: #fff; font-family: var(--font-body); font-size: 15px; font-weight: 700; padding: 16px; border-radius: 9px; cursor: pointer; margin-top: 18px; letter-spacing: 1px; transition: var(--transition); text-transform: uppercase; }
 .checkout-btn:hover { background: var(--rojo-dark); transform: translateY(-2px); box-shadow: var(--shadow2); }
@@ -208,7 +208,7 @@ header {
 .modal { background: var(--fondo); border: 1px solid var(--borde); border-radius: 14px; width: 100%; max-width: 540px; max-height: 90vh; overflow-y: auto; box-shadow: 0 30px 80px rgba(0,0,0,0.18); transform: scale(0.95) translateY(20px); transition: transform 0.3s ease; }
 .modal-overlay.open .modal { transform: scale(1) translateY(0); }
 .modal-header { background: linear-gradient(135deg,var(--rojo) 0%,var(--rojo-dark) 100%); padding: 28px 32px; display: flex; align-items: center; justify-content: space-between; }
-.modal-header h2 { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: #fff; letter-spacing: 3px; }
+.modal-header h2 { font-family: 'Archivo Black', sans-serif; font-size: 20px; font-weight: 400; color: #fff; letter-spacing: 2px; }
 .modal-close { background: rgba(255,255,255,0.15); border: none; color: #fff; width: 32px; height: 32px; border-radius: 6px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
 .modal-close:hover { background: rgba(255,255,255,0.25); }
 .modal-body { padding: 32px; }
@@ -265,7 +265,7 @@ header {
 .success-icon { width: 80px; height: 80px; background: rgba(204,0,0,0.08); border: 2px solid var(--rojo); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; animation: success-pulse 1s ease; }
 @keyframes success-pulse { 0%{transform:scale(0)} 70%{transform:scale(1.1)} 100%{transform:scale(1)} }
 .success-icon svg { width: 36px; height: 36px; color: var(--rojo); }
-.success-title { font-family: var(--font-display); font-size: 28px; font-weight: 700; color: var(--texto); letter-spacing: 3px; margin-bottom: 12px; }
+.success-title { font-family: 'Archivo Black', sans-serif; font-size: 26px; font-weight: 400; color: var(--texto); letter-spacing: 1px; margin-bottom: 12px; }
 .success-msg { font-size: 14px; color: var(--texto3); line-height: 1.8; margin-bottom: 8px; }
 .success-order { font-size: 18px; color: var(--rojo); font-weight: 700; font-family: var(--font-display); letter-spacing: 2px; margin: 16px 0; }
 .success-close { background: var(--rojo); border: none; color: #fff; font-family: var(--font-body); font-size: 14px; font-weight: 600; padding: 13px 32px; border-radius: 8px; cursor: pointer; margin-top: 20px; transition: var(--transition); }
@@ -292,7 +292,7 @@ header {
 /* FOOTER */
 footer { background: var(--fondo3); border-top: 1px solid var(--borde); margin-top: 60px; }
 .footer-main { max-width: 1400px; margin: 0 auto; padding: 50px 30px 30px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; }
-.footer-brand .brand-name { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--rojo); letter-spacing: 4px; margin-bottom: 8px; }
+.footer-brand .brand-name { font-family: 'Archivo Black', sans-serif; font-size: 22px; font-weight: 400; color: var(--rojo); letter-spacing: 2px; margin-bottom: 8px; }
 .footer-brand p { font-size: 13px; color: var(--texto3); line-height: 1.8; }
 .footer-col h4 { font-size: 11px; font-weight: 600; color: var(--texto); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--borde); }
 .footer-col ul { list-style: none; }
@@ -316,11 +316,11 @@ footer { background: var(--fondo3); border-top: 1px solid var(--borde); margin-t
 <body>
 
 <script>
-  const API_URL = 'https://script.google.com/macros/s/AKfycbyu_xhDKcgd-EobLUEoT8pblgDi89k5GEfpT8PS0o5BVGQSkAkYehIvDie6OnLXDunc4A/exec';
+  const API_URL = 'https://script.google.com/macros/s/AKfycbyfnYne5VXTSlgtKfrT4wNW5R8Z5LSjUw8KjfbW-gZIZvQQBqn3EIlksPI6QYOwaIt4Og/exec';
 </script>
 
 <!-- TOPBAR -->
-<div class="topbar">⚡ ACTIVO MOTORS · Repuestos Automotrices · San Diego, Valle Verde · 0412-2004902</div>
+<div class="topbar">🚗 ACTIVO MOTORS · Repuestos Originales Toyota & Multimarca · San Diego, Valle Verde · 0412-2004902</div>
 
 <!-- HEADER -->
 <header>
@@ -374,12 +374,12 @@ footer { background: var(--fondo3); border-top: 1px solid var(--borde); margin-t
   <div class="hero-lines"></div>
   <div class="hero-content">
     <div>
-      <div class="hero-tag">Tienda Online Oficial</div>
+      <div class="hero-tag">🚗 Especialistas en Toyota · Tienda Oficial</div>
       <h1 class="hero-title">
-        Todo en<br>
-        <span class="word-activo">ACTIVO</span> <span class="word-motors">MOTORS</span>
+        ¡Bienvenido a<br>
+        <span class="word-activo">ACTIVO</span> <span class="word-motors">MOTORS</span>!
       </h1>
-      <p class="hero-desc">Encuentra los mejores repuestos automotrices originales y de alta calidad. Envío coordinado, garantía de calidad y atención personalizada en San Diego, Valle Verde.</p>
+      <p class="hero-desc">Tu tienda especializada en <strong>repuestos 100% originales Toyota</strong> en San Diego, Valle Verde. También contamos con repuestos de alta calidad para otras marcas. Envío coordinado, garantía de calidad y atención personalizada.</p>
       <div class="hero-cta">
         <button class="btn-primary" onclick="scrollToShop()">Ver Catálogo</button>
         <button class="btn-outline" onclick="showContact()">📞 Contactar</button>
@@ -422,7 +422,7 @@ footer { background: var(--fondo3); border-top: 1px solid var(--borde); margin-t
   <div class="footer-main">
     <div class="footer-brand">
       <div class="brand-name">ACTIVO MOTORS</div>
-      <p>Tu tienda de repuestos automotrices de confianza en San Diego. Calidad garantizada, atención personalizada y los mejores precios del mercado.</p>
+      <p>Especialistas en repuestos 100% originales Toyota y repuestos de calidad para todas las marcas. Ubicados en San Diego, Valle Verde — atención personalizada y los mejores precios.</p>
     </div>
     <div class="footer-col">
       <h4>Ubicación</h4>
