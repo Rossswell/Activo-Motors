@@ -6,34 +6,41 @@
 <title>ACTIVO MOTORS - Repuestos Automotrices</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  /* ── Paleta salmón/cálida ── */
-  --rojo:        #CC0000;
-  --rojo-dark:   #a80000;
-  --rojo-glow:   rgba(204,0,0,0.18);
-  --salmon1:     #f5c5c5;   /* rosa claro */
-  --salmon2:     #f0a8a8;   /* salmón medio */
-  --salmon3:     #e88080;   /* salmón oscuro */
+  /* ── Paleta Activo Motors ── */
+  --rojo:        #AE040F;   /* Cornell Red */
+  --rojo-dark:   #8a0009;
+  --rojo-light:  #c8121d;
+  --rojo-glow:   rgba(174,4,15,0.15);
 
-  --fondo:       #fdf4f4;   /* blanco cálido */
-  --fondo2:      #fff9f9;   /* casi blanco */
-  --fondo3:      #ffeaea;   /* rosa muy suave */
-  --fondo4:      #ffd8d8;   /* rosa suave */
-  --borde:       #f0c0c0;   /* borde rosado */
-  --borde2:      #e0a8a8;
+  --plata:       #BEBEBE;   /* Silver */
+  --plata-light: #d8d8d8;
+  --plata-dark:  #9e9e9e;
 
-  --texto:       #2d1a1a;   /* marrón muy oscuro */
-  --texto2:      #5a3333;   /* marrón medio */
-  --texto3:      #8a5555;   /* marrón suave */
-  --texto4:      #b08080;   /* marrón claro */
+  --jet:         #202020;   /* Jet */
+  --jet2:        #2e2e2e;
+  --jet3:        #3d3d3d;
 
-  --font-display: 'Rajdhani', sans-serif;
+  --fondo:       #FFFFFF;   /* Blanco puro */
+  --fondo2:      #EFEFEF;   /* Anti-Flash White */
+  --fondo3:      #f5f5f5;
+  --fondo4:      #e8e8e8;
+  --borde:       #DCDCDC;
+  --borde2:      #BEBEBE;
+
+  --texto:       #202020;   /* Jet - texto principal */
+  --texto2:      #3d3d3d;
+  --texto3:      #6b6b6b;
+  --texto4:      #9e9e9e;
+
+  --font-display: 'Playfair Display', serif;
+  --font-condensed: 'Barlow Condensed', sans-serif;
   --font-body:    'Inter', sans-serif;
-  --radius:       10px;
-  --shadow:       0 4px 20px rgba(204,0,0,0.1);
-  --shadow2:      0 8px 32px rgba(204,0,0,0.15);
+  --radius:       8px;
+  --shadow:       0 4px 20px rgba(0,0,0,0.08);
+  --shadow2:      0 8px 32px rgba(0,0,0,0.14);
   --transition:   all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
@@ -44,7 +51,7 @@ body { font-family: var(--font-body); background: var(--fondo); color: var(--tex
 ::-webkit-scrollbar-thumb { background: var(--rojo); border-radius: 3px; }
 
 /* TOPBAR */
-.topbar { background: var(--rojo); text-align: center; padding: 8px 20px; font-size: 12px; font-weight: 600; letter-spacing: 1.5px; color: #fff; text-transform: uppercase; }
+.topbar { background: var(--jet); text-align: center; padding: 8px 20px; font-size: 11px; font-weight: 600; letter-spacing: 2px; color: var(--plata-light); text-transform: uppercase; font-family: var(--font-condensed); }
 
 /* HEADER */
 header {
@@ -59,14 +66,13 @@ header {
 .logo-wrapper img { height: 50px; object-fit: contain; }
 .logo-text { display: flex; flex-direction: column; }
 /* ACTIVO blanco con sombra roja / MOTORS rojo */
-.logo-text .brand-activo { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--rojo); letter-spacing: 4px; line-height: 1; }
-.logo-text .brand-motors { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--rojo-dark); letter-spacing: 4px; line-height: 1; }
-/* En header blanco: ACTIVO oscuro, MOTORS rojo */
-.logo-text .brand { font-family: var(--font-display); font-size: 22px; font-weight: 700; letter-spacing: 4px; line-height: 1; }
-.logo-text .slogan { font-size: 10px; color: var(--texto3); letter-spacing: 2px; text-transform: uppercase; margin-top: 3px; }
+.logo-text .brand-activo { font-family: var(--font-condensed); font-size: 24px; font-weight: 800; color: var(--jet); letter-spacing: 5px; line-height: 1; }
+.logo-text .brand-motors { font-family: var(--font-condensed); font-size: 24px; font-weight: 800; color: var(--rojo); letter-spacing: 5px; line-height: 1; }
+.logo-text .brand { font-family: var(--font-condensed); font-size: 24px; font-weight: 800; letter-spacing: 5px; line-height: 1; }
+.logo-text .slogan { font-size: 9px; color: var(--texto4); letter-spacing: 3px; text-transform: uppercase; margin-top: 4px; font-family: var(--font-body); }
 
 .nav-center { display: flex; align-items: center; gap: 6px; }
-.nav-btn { background: none; border: none; color: var(--texto2); font-family: var(--font-body); font-size: 13px; font-weight: 500; padding: 8px 16px; border-radius: 6px; cursor: pointer; letter-spacing: 0.5px; transition: var(--transition); }
+.nav-btn { background: none; border: none; color: var(--texto3); font-family: var(--font-body); font-size: 13px; font-weight: 500; padding: 8px 16px; border-radius: 6px; cursor: pointer; letter-spacing: 0.5px; transition: var(--transition); }
 .nav-btn:hover { color: var(--rojo); background: var(--fondo3); }
 .nav-btn.active { color: var(--rojo); }
 .nav-right { display: flex; align-items: center; gap: 12px; }
@@ -81,7 +87,7 @@ header {
 .user-nav-btn:hover { border-color: var(--rojo); color: var(--rojo); }
 .user-nav-btn svg { width: 16px; height: 16px; }
 .user-nav-btn .user-name { max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.user-nav-btn.logged { border-color: var(--salmon2); color: var(--texto); background: var(--fondo4); }
+.user-nav-btn.logged { border-color: var(--plata); color: var(--texto); background: var(--fondo2); }
 .user-nav-btn.logged .user-dot { width: 7px; height: 7px; background: #4CAF50; border-radius: 50%; flex-shrink: 0; }
 
 .cart-btn { position: relative; background: var(--rojo); border: none; color: #fff; font-size: 13px; font-weight: 600; font-family: var(--font-body); padding: 10px 22px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 9px; transition: var(--transition); }
@@ -91,18 +97,18 @@ header {
 .cart-count.visible { display: flex; }
 
 /* HERO */
-.hero { position: relative; background: linear-gradient(135deg, var(--fondo3) 0%, var(--fondo) 60%); min-height: 480px; display: flex; align-items: center; overflow: hidden; border-bottom: 1px solid var(--borde); }
-.hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 60% at 80% 50%, rgba(204,0,0,0.08) 0%, transparent 70%); }
-.hero-lines { position: absolute; inset: 0; background-image: linear-gradient(var(--borde) 1px, transparent 1px), linear-gradient(90deg, var(--borde) 1px, transparent 1px); background-size: 60px 60px; opacity: 0.4; }
+.hero { position: relative; background: linear-gradient(135deg, var(--fondo2) 0%, var(--fondo) 60%); min-height: 480px; display: flex; align-items: center; overflow: hidden; border-bottom: 1px solid var(--borde); }
+.hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 60% at 80% 50%, rgba(174,4,15,0.06) 0%, transparent 70%); }
+.hero-lines { position: absolute; inset: 0; background-image: linear-gradient(var(--borde) 1px, transparent 1px), linear-gradient(90deg, var(--borde) 1px, transparent 1px); background-size: 60px 60px; opacity: 0.5; }
 .hero-content { position: relative; z-index: 2; max-width: 1400px; margin: 0 auto; padding: 60px 30px; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 60px; width: 100%; }
-.hero-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(204,0,0,0.08); border: 1px solid rgba(204,0,0,0.25); color: var(--rojo); font-size: 11px; font-weight: 600; padding: 6px 14px; border-radius: 30px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; }
+.hero-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(174,4,15,0.07); border: 1px solid rgba(174,4,15,0.2); color: var(--rojo); font-size: 10px; font-weight: 700; padding: 6px 14px; border-radius: 30px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; font-family: var(--font-condensed); }
 .hero-tag::before { content: ''; width: 6px; height: 6px; background: var(--rojo); border-radius: 50%; animation: pulse-dot 1.5s infinite; }
 @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
 
 /* TÍTULO HERO: ACTIVO blanco (sobre fondo oscuro de gradiente), MOTORS rojo */
-.hero-title { font-family: var(--font-display); font-size: clamp(38px,5vw,64px); font-weight: 700; line-height: 1.05; letter-spacing: 1px; color: var(--texto); }
-.hero-title .word-activo { color: #fff; -webkit-text-stroke: 1px var(--rojo); text-shadow: 0 2px 12px rgba(204,0,0,0.25); }
-.hero-title .word-motors { color: var(--rojo); }
+.hero-title { font-family: var(--font-condensed); font-size: clamp(42px,5.5vw,72px); font-weight: 800; line-height: 1.05; letter-spacing: 2px; color: var(--texto); text-transform: uppercase; }
+.hero-title .word-activo { color: transparent; -webkit-text-stroke: 2px var(--jet); letter-spacing: 3px; }
+.hero-title .word-motors { color: var(--rojo); letter-spacing: 3px; }
 .hero-desc { margin-top: 18px; font-size: 15px; color: var(--texto2); line-height: 1.8; max-width: 480px; }
 .hero-cta { margin-top: 32px; display: flex; gap: 14px; flex-wrap: wrap; }
 .btn-primary { background: var(--rojo); color: #fff; font-family: var(--font-body); font-size: 14px; font-weight: 600; padding: 14px 30px; border: none; border-radius: 8px; cursor: pointer; letter-spacing: 0.5px; transition: var(--transition); }
@@ -112,33 +118,33 @@ header {
 
 /* STATS */
 .hero-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px; background: var(--borde); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--borde); }
-.stat-box { background: var(--fondo2); padding: 30px 24px; text-align: center; }
-.stat-num { font-family: var(--font-display); font-size: 38px; font-weight: 700; color: var(--rojo); line-height: 1; }
+.stat-box { background: var(--fondo); padding: 30px 24px; text-align: center; }
+.stat-num { font-family: var(--font-condensed); font-size: 42px; font-weight: 800; color: var(--rojo); line-height: 1; }
 .stat-label { font-size: 11px; color: var(--texto3); margin-top: 5px; letter-spacing: 1px; text-transform: uppercase; }
 
 /* SHOP */
 .shop-section { max-width: 1400px; margin: 0 auto; padding: 50px 30px; }
 .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; flex-wrap: wrap; gap: 16px; }
-.section-title { font-family: var(--font-display); font-size: 28px; font-weight: 700; color: var(--texto); letter-spacing: 2px; display: flex; align-items: center; gap: 12px; }
+.section-title { font-family: var(--font-condensed); font-size: 30px; font-weight: 700; color: var(--texto); letter-spacing: 3px; text-transform: uppercase; display: flex; align-items: center; gap: 12px; }
 .section-title::after { content: ''; display: block; width: 40px; height: 3px; background: var(--rojo); border-radius: 2px; }
 
 /* FILTROS */
 .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid var(--borde); align-items: center; }
 .filter-label { font-size: 11px; color: var(--texto3); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500; margin-right: 8px; }
-.cat-btn { background: var(--fondo2); border: 1px solid var(--borde); color: var(--texto2); font-family: var(--font-body); font-size: 12px; font-weight: 500; padding: 7px 16px; border-radius: 20px; cursor: pointer; transition: var(--transition); }
+.cat-btn { background: var(--fondo); border: 1px solid var(--borde); color: var(--texto2); font-family: var(--font-body); font-size: 12px; font-weight: 500; padding: 7px 16px; border-radius: 20px; cursor: pointer; transition: var(--transition); }
 .cat-btn:hover { border-color: var(--rojo); color: var(--rojo); background: var(--fondo3); }
 .cat-btn.active { background: var(--rojo); border-color: var(--rojo); color: #fff; }
 .search-wrapper { position: relative; margin-left: auto; }
-.search-input { background: var(--fondo2); border: 1px solid var(--borde); color: var(--texto); font-family: var(--font-body); font-size: 13px; padding: 8px 14px 8px 36px; border-radius: 8px; outline: none; width: 220px; transition: var(--transition); }
+.search-input { background: var(--fondo); border: 1px solid var(--borde); color: var(--texto); font-family: var(--font-body); font-size: 13px; padding: 8px 14px 8px 36px; border-radius: 8px; outline: none; width: 220px; transition: var(--transition); }
 .search-input:focus { border-color: var(--rojo); width: 260px; box-shadow: 0 0 0 3px var(--rojo-glow); }
 .search-input::placeholder { color: var(--texto4); }
 .search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--texto4); pointer-events: none; }
 
 /* PRODUCTOS */
 .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
-.product-card { background: var(--fondo2); border: 1px solid var(--borde); border-radius: var(--radius); overflow: hidden; transition: var(--transition); position: relative; display: flex; flex-direction: column; }
+.product-card { background: var(--fondo); border: 1px solid var(--borde); border-radius: var(--radius); overflow: hidden; transition: var(--transition); position: relative; display: flex; flex-direction: column; }
 .product-card:hover { border-color: var(--rojo); transform: translateY(-4px); box-shadow: var(--shadow2); }
-.card-img-wrap { height: 180px; background: var(--fondo3); display: flex; align-items: center; justify-content: center; overflow: hidden; border-bottom: 1px solid var(--borde); position: relative; }
+.card-img-wrap { height: 180px; background: var(--fondo2); display: flex; align-items: center; justify-content: center; overflow: hidden; border-bottom: 1px solid var(--borde); position: relative; }
 .card-img-wrap img { width: 100%; height: 100%; object-fit: contain; padding: 20px; transition: transform 0.4s ease; }
 .product-card:hover .card-img-wrap img { transform: scale(1.05); }
 .card-badge { position: absolute; top: 10px; left: 10px; background: var(--fondo2); border: 1px solid var(--borde); color: var(--texto3); font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 20px; letter-spacing: 1px; text-transform: uppercase; }
@@ -164,32 +170,32 @@ header {
 .empty-state p { font-size: 16px; color: var(--texto3); }
 
 /* CARRITO SIDEBAR */
-.cart-overlay { position: fixed; inset: 0; background: rgba(45,26,26,0.5); z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(4px); }
+.cart-overlay { position: fixed; inset: 0; background: rgba(20,20,20,0.45); z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(4px); }
 .cart-overlay.open { opacity: 1; pointer-events: all; }
-.cart-sidebar { position: fixed; top: 0; right: -480px; width: 440px; height: 100vh; background: var(--fondo2); border-left: 1px solid var(--borde); z-index: 2001; display: flex; flex-direction: column; transition: right 0.4s cubic-bezier(0.4,0,0.2,1); box-shadow: -10px 0 40px rgba(204,0,0,0.12); }
+.cart-sidebar { position: fixed; top: 0; right: -480px; width: 440px; height: 100vh; background: var(--fondo); border-left: 1px solid var(--borde); z-index: 2001; display: flex; flex-direction: column; transition: right 0.4s cubic-bezier(0.4,0,0.2,1); box-shadow: -10px 0 40px rgba(0,0,0,0.12); }
 .cart-sidebar.open { right: 0; }
-.cart-header { padding: 24px 28px; border-bottom: 1px solid var(--borde); display: flex; align-items: center; justify-content: space-between; background: var(--fondo3); }
-.cart-title { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--texto); letter-spacing: 2px; }
+.cart-header { padding: 24px 28px; border-bottom: 1px solid var(--borde); display: flex; align-items: center; justify-content: space-between; background: var(--fondo2); }
+.cart-title { font-family: var(--font-condensed); font-size: 20px; font-weight: 700; color: var(--texto); letter-spacing: 3px; text-transform: uppercase; }
 .cart-close-btn { background: var(--fondo2); border: 1px solid var(--borde); color: var(--texto3); width: 34px; height: 34px; border-radius: 7px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
 .cart-close-btn:hover { border-color: var(--rojo); color: var(--rojo); }
 .cart-items { flex: 1; overflow-y: auto; padding: 20px 28px; }
 .cart-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 60%; text-align: center; }
 .cart-empty svg { width: 64px; height: 64px; color: var(--borde2); margin-bottom: 16px; }
 .cart-empty p { font-size: 15px; color: var(--texto3); }
-.cart-item { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--fondo4); animation: slideIn 0.3s ease; }
+.cart-item { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--borde); animation: slideIn 0.3s ease; }
 @keyframes slideIn { from{opacity:0;transform:translateX(20px)} to{opacity:1;transform:translateX(0)} }
-.cart-item-img { width: 60px; height: 60px; background: var(--fondo3); border-radius: 8px; border: 1px solid var(--borde); overflow: hidden; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.cart-item-img { width: 60px; height: 60px; background: var(--fondo2); border-radius: 8px; border: 1px solid var(--borde); overflow: hidden; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
 .cart-item-img img { width: 90%; height: 90%; object-fit: contain; }
 .cart-item-info { flex: 1; }
 .cart-item-name { font-size: 13px; font-weight: 600; color: var(--texto); line-height: 1.4; margin-bottom: 4px; }
 .cart-item-price { font-size: 13px; color: var(--rojo); font-weight: 600; }
 .qty-control { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
-.qty-btn { background: var(--fondo3); border: 1px solid var(--borde); color: var(--texto); width: 26px; height: 26px; border-radius: 5px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+.qty-btn { background: var(--fondo2); border: 1px solid var(--borde); color: var(--texto); width: 26px; height: 26px; border-radius: 5px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
 .qty-btn:hover { border-color: var(--rojo); color: var(--rojo); }
 .qty-num { font-size: 14px; font-weight: 600; color: var(--texto); min-width: 22px; text-align: center; }
 .remove-item-btn { background: none; border: none; color: var(--texto4); cursor: pointer; padding: 4px; border-radius: 5px; transition: var(--transition); align-self: flex-start; }
 .remove-item-btn:hover { color: var(--rojo); }
-.cart-footer { padding: 20px 28px 28px; border-top: 1px solid var(--borde); background: var(--fondo3); }
+.cart-footer { padding: 20px 28px 28px; border-top: 1px solid var(--borde); background: var(--fondo2); }
 .cart-total-row { display: flex; justify-content: space-between; padding: 5px 0; font-size: 13px; color: var(--texto3); }
 .cart-total-row.grand { font-size: 18px; font-weight: 700; color: var(--texto); padding-top: 12px; margin-top: 6px; border-top: 1px solid var(--borde); }
 .cart-total-row.grand span:last-child { color: var(--rojo); }
@@ -197,9 +203,9 @@ header {
 .checkout-btn:hover { background: var(--rojo-dark); transform: translateY(-2px); box-shadow: var(--shadow2); }
 
 /* MODALES */
-.modal-overlay { position: fixed; inset: 0; background: rgba(45,26,26,0.7); z-index: 3000; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(6px); }
+.modal-overlay { position: fixed; inset: 0; background: rgba(20,20,20,0.65); z-index: 3000; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(6px); }
 .modal-overlay.open { opacity: 1; pointer-events: all; }
-.modal { background: var(--fondo2); border: 1px solid var(--borde); border-radius: 14px; width: 100%; max-width: 540px; max-height: 90vh; overflow-y: auto; box-shadow: 0 30px 80px rgba(204,0,0,0.2); transform: scale(0.95) translateY(20px); transition: transform 0.3s ease; }
+.modal { background: var(--fondo); border: 1px solid var(--borde); border-radius: 14px; width: 100%; max-width: 540px; max-height: 90vh; overflow-y: auto; box-shadow: 0 30px 80px rgba(0,0,0,0.18); transform: scale(0.95) translateY(20px); transition: transform 0.3s ease; }
 .modal-overlay.open .modal { transform: scale(1) translateY(0); }
 .modal-header { background: linear-gradient(135deg,var(--rojo) 0%,var(--rojo-dark) 100%); padding: 28px 32px; display: flex; align-items: center; justify-content: space-between; }
 .modal-header h2 { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: #fff; letter-spacing: 3px; }
@@ -237,9 +243,9 @@ header {
 .auth-submit:hover { background: var(--rojo-dark); }
 .auth-submit:disabled { background: var(--texto4); cursor: not-allowed; }
 /* PHONE INPUT */
-.phone-input-wrap { display: flex; gap: 0; border: 1px solid var(--borde); border-radius: 8px; overflow: hidden; background: var(--fondo); transition: var(--transition); }
+.phone-input-wrap { display: flex; gap: 0; border: 1px solid var(--borde); border-radius: 8px; overflow: hidden; background: var(--fondo2); transition: var(--transition); }
 .phone-input-wrap:focus-within { border-color: var(--rojo); box-shadow: 0 0 0 3px var(--rojo-glow); }
-.phone-prefix { background: var(--fondo3); border: none; border-right: 1px solid var(--borde); color: var(--texto2); font-family: var(--font-body); font-size: 13px; font-weight: 600; padding: 0 12px; cursor: default; outline: none; appearance: none; -webkit-appearance: none; min-width: 90px; }
+.phone-prefix { background: var(--fondo2); border: none; border-right: 1px solid var(--borde); color: var(--texto2); font-family: var(--font-body); font-size: 13px; font-weight: 600; padding: 0 12px; cursor: default; outline: none; appearance: none; -webkit-appearance: none; min-width: 90px; }
 .phone-number { border: none !important; box-shadow: none !important; border-radius: 0 !important; flex: 1; background: transparent; }
 .phone-number:focus { box-shadow: none !important; border: none !important; }
 
@@ -310,7 +316,7 @@ footer { background: var(--fondo3); border-top: 1px solid var(--borde); margin-t
 <body>
 
 <script>
-  const API_URL = 'https://script.google.com/macros/s/AKfycby8R4Y-TZoqUFhX_DWObW0rYrIFcqneVOtibdJdYET2tgpE196qJ8dKFNsAFqdDW9A2Ag/exec';
+  const API_URL = 'https://script.google.com/macros/s/AKfycbyu_xhDKcgd-EobLUEoT8pblgDi89k5GEfpT8PS0o5BVGQSkAkYehIvDie6OnLXDunc4A/exec';
 </script>
 
 <!-- TOPBAR -->
@@ -322,7 +328,7 @@ footer { background: var(--fondo3); border-top: 1px solid var(--borde); margin-t
     <div class="logo-wrapper" onclick="scrollToShop()">
       <img src="https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png" alt="Activo Motors">
       <div class="logo-text">
-        <span class="brand" style="color:#2d1a1a;">ACTIVO <span style="color:var(--rojo);">MOTORS</span></span>
+        <span><span class="brand-activo">ACTIVO</span> <span class="brand-motors">MOTORS</span></span>
         <span class="slogan">Repuestos Automotrices</span>
       </div>
     </div>
