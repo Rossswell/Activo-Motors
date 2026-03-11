@@ -1,1196 +1,2769 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ACTIVO MOTORS — Repuestos Originales Toyota & Multimarca</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Kanit:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root {
-  --rojo:       #AE040F;
-  --rojo-dark:  #8a0009;
-  --rojo-glow:  rgba(174,4,15,0.15);
-  --jet:        #1a1a1a;
-  --jet2:       #252525;
-  --jet3:       #2e2e2e;
-  --plata:      #BEBEBE;
-  --fondo:      #FFFFFF;
-  --fondo2:     #F4F4F4;
-  --fondo3:     #EFEFEF;
-  --borde:      #E0E0E0;
-  --texto:      #1a1a1a;
-  --texto2:     #3d3d3d;
-  --texto3:     #6b6b6b;
-  --texto4:     #9e9e9e;
-  --font-title: 'Archivo Black', sans-serif;
-  --font-price: 'Kanit', sans-serif;
-  --font-body:  'Inter', sans-serif;
-  --radius:     10px;
-  --shadow:     0 4px 24px rgba(0,0,0,0.07);
-  --shadow2:    0 10px 40px rgba(0,0,0,0.13);
-  --tr:         all 0.3s cubic-bezier(0.4,0,0.2,1);
-}
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior: smooth; }
-body { font-family: var(--font-body); background: var(--fondo); color: var(--texto); overflow-x: hidden; }
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: var(--fondo3); }
-::-webkit-scrollbar-thumb { background: var(--rojo); border-radius: 3px; }
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>ACTIVO MOTORS — Repuestos Originales Toyota & Multimarca</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Kanit:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+		<style>
+			:root {
+				--rojo: #AE040F;
+				--rojo-dark: #8a0009;
+				--rojo-glow: rgba(174, 4, 15, 0.15);
+				--jet: #1a1a1a;
+				--jet2: #252525;
+				--jet3: #2e2e2e;
+				--plata: #BEBEBE;
+				--fondo: #FFFFFF;
+				--fondo2: #F4F4F4;
+				--fondo3: #EFEFEF;
+				--borde: #E0E0E0;
+				--texto: #1a1a1a;
+				--texto2: #3d3d3d;
+				--texto3: #6b6b6b;
+				--texto4: #9e9e9e;
+				--font-title: 'Archivo Black', sans-serif;
+				--font-price: 'Kanit', sans-serif;
+				--font-body: 'Inter', sans-serif;
+				--radius: 10px;
+				--shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+				--shadow2: 0 10px 40px rgba(0, 0, 0, 0.13);
+				--tr: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+			}
 
-/* ── TOPBAR ── */
-.topbar {
-  background: var(--jet);
-  padding: 9px 24px;
-  text-align: center;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  color: var(--plata);
-  text-transform: uppercase;
-  font-family: var(--font-body);
-}
+			*,
+			*::before,
+			*::after {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
 
-/* ── HEADER ── */
-header {
-  background: rgba(255,255,255,0.97);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--borde);
-  position: sticky; top: 0; z-index: 1000;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
-}
-.nav {
-  max-width: 1400px; margin: 0 auto;
-  padding: 0 30px;
-  display: flex; align-items: center; justify-content: space-between;
-  height: 72px;
-}
-.logo { display: flex; align-items: center; gap: 12px; cursor: pointer; text-decoration: none; }
-.logo img { height: 46px; object-fit: contain; }
-.logo-text { display: flex; flex-direction: column; }
-.logo-activo { font-family: var(--font-title); font-size: 19px; color: var(--jet); letter-spacing: 2px; line-height: 1; }
-.logo-motors { font-family: var(--font-title); font-size: 19px; color: var(--rojo); letter-spacing: 2px; line-height: 1; }
-.logo-slogan { font-size: 8px; color: var(--texto4); letter-spacing: 3px; text-transform: uppercase; margin-top: 3px; }
-.nav-links { display: flex; gap: 4px; align-items: center; }
-.nav-a {
-  background: none; border: none;
-  font-family: var(--font-body); font-size: 13px; font-weight: 500;
-  color: var(--texto3); padding: 8px 14px; border-radius: 6px;
-  cursor: pointer; transition: var(--tr); text-decoration: none;
-}
-.nav-a:hover, .nav-a.active { color: var(--rojo); background: rgba(174,4,15,0.05); }
-.nav-right { display: flex; align-items: center; gap: 10px; }
+			html {
+				scroll-behavior: smooth;
+			}
 
-/* USER */
-.user-wrap { position: relative; }
-.user-btn {
-  display: flex; align-items: center; gap: 7px;
-  background: var(--fondo2); border: 1px solid var(--borde);
-  color: var(--texto2); font-family: var(--font-body);
-  font-size: 13px; font-weight: 500;
-  padding: 8px 14px; border-radius: 8px;
-  cursor: pointer; transition: var(--tr);
-}
-.user-btn:hover { border-color: var(--rojo); color: var(--rojo); }
-.user-btn.logged { border-color: var(--plata); }
-.user-btn svg { width: 15px; height: 15px; }
-.user-dot { width: 7px; height: 7px; background: #22c55e; border-radius: 50%; flex-shrink: 0; }
-.user-dropdown {
-  position: absolute; top: calc(100% + 8px); right: 0;
-  background: #fff; border: 1px solid var(--borde);
-  border-radius: 10px; min-width: 200px;
-  box-shadow: var(--shadow2); overflow: hidden;
-  display: none; z-index: 1100;
-}
-.user-dropdown.open { display: block; }
-.ud-head { padding: 12px 16px; background: var(--fondo2); border-bottom: 1px solid var(--borde); }
-.ud-name { font-size: 14px; font-weight: 600; color: var(--texto); }
-.ud-email { font-size: 11px; color: var(--texto4); margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.ud-btn { display: block; width: 100%; background: none; border: none; font-family: var(--font-body); font-size: 13px; color: var(--texto2); padding: 11px 16px; text-align: left; cursor: pointer; transition: var(--tr); }
-.ud-btn:hover { background: var(--fondo2); color: var(--texto); }
-.ud-btn.danger:hover { background: rgba(174,4,15,0.06); color: var(--rojo); }
+			body {
+				font-family: var(--font-body);
+				background: var(--fondo);
+				color: var(--texto);
+				overflow-x: hidden;
+			}
 
-/* CART BTN */
-.cart-btn {
-  position: relative; background: var(--rojo); border: none;
-  color: #fff; font-family: var(--font-body); font-size: 13px; font-weight: 600;
-  padding: 9px 20px; border-radius: 8px;
-  cursor: pointer; display: flex; align-items: center; gap: 8px;
-  transition: var(--tr);
-}
-.cart-btn:hover { background: var(--rojo-dark); transform: translateY(-1px); box-shadow: var(--shadow2); }
-.cart-btn svg { width: 17px; height: 17px; }
-.cart-count {
-  position: absolute; top: -8px; right: -8px;
-  background: var(--jet); color: #fff;
-  font-size: 10px; font-weight: 700;
-  width: 19px; height: 19px; border-radius: 50%;
-  display: none; align-items: center; justify-content: center;
-}
-.cart-count.visible { display: flex; }
+			::-webkit-scrollbar {
+				width: 5px;
+			}
 
-/* ── HERO ── */
-.hero {
-  position: relative;
-  background: linear-gradient(135deg, var(--fondo2) 0%, var(--fondo) 55%);
-  min-height: 460px;
-  display: flex; align-items: center;
-  overflow: hidden;
-  border-bottom: 1px solid var(--borde);
-}
-.hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 50% 70% at 85% 50%, rgba(174,4,15,0.07) 0%, transparent 70%); }
-.hero-grid {
-  position: absolute; inset: 0;
-  background-image: linear-gradient(var(--borde) 1px, transparent 1px), linear-gradient(90deg, var(--borde) 1px, transparent 1px);
-  background-size: 55px 55px;
-  opacity: 0.45;
-}
-.hero-inner {
-  position: relative; z-index: 2;
-  max-width: 1400px; margin: 0 auto;
-  padding: 55px 30px;
-  display: grid; grid-template-columns: 1.1fr 0.9fr;
-  align-items: center; gap: 50px;
-  width: 100%;
-}
-.hero-tag {
-  display: inline-flex; align-items: center; gap: 7px;
-  background: rgba(174,4,15,0.08); border: 1px solid rgba(174,4,15,0.22);
-  color: var(--rojo); font-size: 10px; font-weight: 700;
-  padding: 5px 13px; border-radius: 30px;
-  letter-spacing: 2.5px; text-transform: uppercase;
-  margin-bottom: 18px;
-}
-.hero-tag::before { content: ''; width: 6px; height: 6px; background: var(--rojo); border-radius: 50%; animation: pulse 1.6s infinite; }
-@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
-.hero-title {
-  font-family: var(--font-title);
-  font-size: clamp(34px, 4.8vw, 62px);
-  line-height: 1.08; text-transform: uppercase; color: var(--texto);
-}
-.hero-title .outline { color: transparent; -webkit-text-stroke: 2px var(--jet); }
-.hero-title .red { color: var(--rojo); }
-.hero-desc { margin-top: 16px; font-size: 14px; color: var(--texto2); line-height: 1.85; max-width: 500px; }
-.hero-desc strong { color: var(--rojo); }
-.hero-cta { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
-.btn-primary {
-  background: var(--rojo); color: #fff;
-  font-family: var(--font-body); font-size: 14px; font-weight: 600;
-  padding: 13px 28px; border: none; border-radius: 8px;
-  cursor: pointer; transition: var(--tr);
-}
-.btn-primary:hover { background: var(--rojo-dark); transform: translateY(-2px); box-shadow: var(--shadow2); }
-.btn-outline {
-  background: transparent; color: var(--texto);
-  font-family: var(--font-body); font-size: 14px; font-weight: 500;
-  padding: 13px 28px; border: 1px solid var(--borde);
-  border-radius: 8px; cursor: pointer; transition: var(--tr);
-}
-.btn-outline:hover { border-color: var(--rojo); color: var(--rojo); background: rgba(174,4,15,0.04); }
+			::-webkit-scrollbar-track {
+				background: var(--fondo3);
+			}
 
-/* STATS */
-.hero-stats {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 3px; background: var(--borde);
-  border-radius: var(--radius); overflow: hidden;
-  border: 1px solid var(--borde);
-}
-.stat-box { background: var(--fondo); padding: 28px 20px; text-align: center; }
-.stat-num { font-family: var(--font-price); font-size: 40px; font-weight: 700; color: var(--rojo); line-height: 1; }
-.stat-label { font-size: 10px; color: var(--texto4); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 4px; }
-.stat-review { font-size: 12px; color: var(--texto3); margin-top: 10px; line-height: 1.6; font-style: italic; }
+			::-webkit-scrollbar-thumb {
+				background: var(--rojo);
+				border-radius: 3px;
+			}
 
-/* ── SECCIÓN WRAPPER ── */
-.section-wrap { max-width: 1400px; margin: 0 auto; padding: 56px 30px 40px; }
-.section-title {
-  font-family: var(--font-title); font-size: 22px;
-  color: var(--texto); text-transform: uppercase; letter-spacing: 1px;
-  margin-bottom: 28px;
-  display: flex; align-items: center; gap: 10px;
-}
-.section-title.centered { justify-content: center; }
-.section-title::after { content: ''; display: block; width: 36px; height: 3px; background: var(--rojo); border-radius: 2px; }
-.section-title.red { color: var(--rojo); }
+			/* ── TOPBAR ── */
+			.topbar {
+				background: var(--jet);
+				padding: 9px 24px;
+				text-align: center;
+				font-size: 11px;
+				font-weight: 600;
+				letter-spacing: 2px;
+				color: var(--plata);
+				text-transform: uppercase;
+				font-family: var(--font-body);
+			}
 
-/* ── MODELOS ── */
-.models-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  gap: 14px;
-}
-.model-card {
-  background: var(--fondo);
-  border: 2px solid var(--borde);
-  border-radius: 12px;
-  padding: 18px 12px 14px;
-  text-align: center;
-  cursor: pointer;
-  transition: var(--tr);
-  position: relative;
-  overflow: hidden;
-  user-select: none;
-}
-.model-card::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: rgba(174,4,15,0.04);
-  opacity: 0; transition: var(--tr);
-}
-.model-card:hover { border-color: var(--rojo); transform: translateY(-3px); box-shadow: 0 8px 28px rgba(174,4,15,0.14); }
-.model-card:hover::before { opacity: 1; }
-.model-card.active { border-color: var(--rojo); background: rgba(174,4,15,0.03); }
-.model-card.active::before { opacity: 1; }
-.model-card img {
-  width: 100%; max-height: 65px; object-fit: contain;
-  margin-bottom: 8px;
-  transition: transform 0.4s ease;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
-}
-.model-card:hover img, .model-card.active img { transform: scale(1.06) translateY(-2px); }
-.model-name { font-family: var(--font-title); font-size: 13px; color: var(--texto); letter-spacing: 0.5px; }
-.model-brand { font-size: 10px; color: var(--texto4); letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
-.model-card.active .model-name { color: var(--rojo); }
+			/* ── HEADER ── */
+			header {
+				background: rgba(255, 255, 255, 0.97);
+				backdrop-filter: blur(20px);
+				border-bottom: 1px solid var(--borde);
+				position: sticky;
+				top: 0;
+				z-index: 1000;
+				box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+			}
 
-/* Indicador de modelo seleccionado */
-.model-selected-bar {
-  display: none;
-  align-items: center;
-  gap: 10px;
-  background: rgba(174,4,15,0.06);
-  border: 1px solid rgba(174,4,15,0.2);
-  border-radius: 8px;
-  padding: 10px 16px;
-  margin-bottom: 22px;
-  font-size: 13px;
-  color: var(--rojo);
-  font-weight: 600;
-}
-.model-selected-bar.visible { display: flex; }
-.model-selected-bar span { font-family: var(--font-title); font-size: 14px; }
+			.nav {
+				max-width: 1400px;
+				margin: 0 auto;
+				padding: 0 30px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				height: 72px;
+			}
 
-/* ── CATEGORÍAS ── */
-.categories-section { margin-top: 48px; }
-.categories-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-}
-.cat-card {
-  position: relative;
-  border-radius: 12px;
-  overflow: hidden;
-  cursor: pointer;
-  aspect-ratio: 4/3;
-  border: 2px solid transparent;
-  transition: var(--tr);
-  background: #111;
-}
-.cat-card:hover {
-  border-color: var(--rojo);
-  transform: translateY(-5px);
-  box-shadow: 0 16px 40px rgba(174,4,15,0.25);
-}
+			.logo {
+				display: flex;
+				align-items: center;
+				gap: 12px;
+				cursor: pointer;
+				text-decoration: none;
+			}
 
-/* IMAGEN CON ANIMACIÓN */
-.cat-card-img {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.4,0,0.2,1), filter 0.4s ease;
-  transform-origin: center center;
-  will-change: transform, filter;
-}
-.cat-card:hover .cat-card-img {
-  transform: scale(1.12);
-  filter: brightness(0.6) saturate(1.2);
-}
+			.logo img {
+				height: 46px;
+				object-fit: contain;
+			}
 
-/* OVERLAY NORMAL */
-.cat-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.18) 55%, transparent 100%);
-  transition: background 0.4s ease;
-}
-.cat-card:hover .cat-overlay {
-  background: linear-gradient(to top, rgba(174,4,15,0.82) 0%, rgba(0,0,0,0.35) 60%, transparent 100%);
-}
+			.logo-text {
+				display: flex;
+				flex-direction: column;
+			}
 
-/* SHIMMER al hover */
-.cat-card::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(110deg, transparent 38%, rgba(255,255,255,0.1) 50%, transparent 62%);
-  transform: translateX(-100%);
-  transition: transform 0.7s ease;
-  pointer-events: none;
-}
-.cat-card:hover::after { transform: translateX(100%); }
+			.logo-activo {
+				font-family: var(--font-title);
+				font-size: 19px;
+				color: var(--jet);
+				letter-spacing: 2px;
+				line-height: 1;
+			}
 
-.cat-label {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 14px 16px;
-  font-family: var(--font-title);
-  font-size: 16px; color: #fff;
-  letter-spacing: 1.5px; text-transform: uppercase;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-  transition: padding 0.3s ease, letter-spacing 0.3s ease;
-}
-.cat-card:hover .cat-label { padding-bottom: 20px; letter-spacing: 2px; }
+			.logo-motors {
+				font-family: var(--font-title);
+				font-size: 19px;
+				color: var(--rojo);
+				letter-spacing: 2px;
+				line-height: 1;
+			}
 
-.cat-arrow {
-  position: absolute; top: 12px; right: 12px;
-  width: 30px; height: 30px;
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(4px);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  color: #fff;
-  opacity: 0; transform: scale(0.7) rotate(-45deg);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.cat-card:hover .cat-arrow { opacity: 1; transform: scale(1) rotate(0deg); }
+			.logo-slogan {
+				font-size: 8px;
+				color: var(--texto4);
+				letter-spacing: 3px;
+				text-transform: uppercase;
+				margin-top: 3px;
+			}
 
-/* Tooltip modelo necesario */
-.cat-hint {
-  position: absolute; bottom: -36px; left: 0; right: 0;
-  background: var(--jet); color: #fff;
-  font-size: 11px; font-weight: 500;
-  text-align: center; padding: 8px;
-  transition: bottom 0.3s ease;
-  letter-spacing: 0.5px;
-}
-.cat-card.no-model:hover .cat-hint { bottom: 0; }
+			.nav-links {
+				display: flex;
+				gap: 4px;
+				align-items: center;
+			}
 
-/* ── PROMESAS DE SERVICIO ── */
-.promises-section {
-  background: var(--jet);
-  padding: 56px 30px;
-  margin-top: 10px;
-}
-.promises-inner { max-width: 1400px; margin: 0 auto; }
-.promises-title {
-  font-family: var(--font-title); font-size: 22px;
-  color: #fff; text-transform: uppercase; letter-spacing: 1px;
-  margin-bottom: 36px;
-  display: flex; align-items: center; gap: 10px;
-}
-.promises-title::after { content: ''; display: block; width: 36px; height: 3px; background: var(--rojo); border-radius: 2px; }
-.promises-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 1px; background: rgba(255,255,255,0.08);
-  border-radius: 12px; overflow: hidden;
-}
-.promise-item {
-  background: var(--jet2);
-  padding: 36px 24px;
-  text-align: center;
-  transition: var(--tr);
-  position: relative; overflow: hidden;
-}
-.promise-item::before {
-  content: '';
-  position: absolute; bottom: 0; left: 0; right: 0;
-  height: 2px; background: var(--rojo);
-  transform: scaleX(0); transition: transform 0.3s ease;
-}
-.promise-item:hover::before { transform: scaleX(1); }
-.promise-item:hover { background: #333; }
-.promise-icon {
-  width: 54px; height: 54px;
-  margin: 0 auto 14px;
-  background: rgba(174,4,15,0.12);
-  border: 1px solid rgba(174,4,15,0.25);
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px;
-  transition: var(--tr);
-}
-.promise-item:hover .promise-icon { background: rgba(174,4,15,0.22); transform: scale(1.1) translateY(-2px); }
-.promise-name {
-  font-family: var(--font-title); font-size: 13px;
-  color: #fff; letter-spacing: 1px; text-transform: uppercase;
-  margin-bottom: 6px;
-}
-.promise-desc { font-size: 12px; color: var(--plata); line-height: 1.7; }
+			.nav-a {
+				background: none;
+				border: none;
+				font-family: var(--font-body);
+				font-size: 13px;
+				font-weight: 500;
+				color: var(--texto3);
+				padding: 8px 14px;
+				border-radius: 6px;
+				cursor: pointer;
+				transition: var(--tr);
+				text-decoration: none;
+			}
 
-/* ── CART SIDEBAR ── */
-.cart-overlay { position: fixed; inset: 0; background: rgba(20,20,20,.45); z-index: 2000; opacity: 0; pointer-events: none; transition: opacity .3s; backdrop-filter: blur(4px); }
-.cart-overlay.open { opacity: 1; pointer-events: all; }
-.cart-sidebar { position: fixed; top: 0; right: -480px; width: 440px; height: 100vh; background: #fff; border-left: 1px solid var(--borde); z-index: 2001; display: flex; flex-direction: column; transition: right .4s cubic-bezier(.4,0,.2,1); box-shadow: -10px 0 40px rgba(0,0,0,.12); }
-.cart-sidebar.open { right: 0; }
-.cart-head { padding: 22px 26px; border-bottom: 1px solid var(--borde); display: flex; align-items: center; justify-content: space-between; background: var(--fondo2); }
-.cart-title { font-family: var(--font-title); font-size: 17px; letter-spacing: 2px; text-transform: uppercase; }
-.cart-close { background: var(--fondo3); border: 1px solid var(--borde); color: var(--texto3); width: 32px; height: 32px; border-radius: 7px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--tr); }
-.cart-close:hover { border-color: var(--rojo); color: var(--rojo); }
-.cart-items { flex: 1; overflow-y: auto; padding: 18px 26px; }
-.cart-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 60%; text-align: center; gap: 12px; color: var(--texto4); }
-.cart-empty svg { width: 56px; height: 56px; opacity: .4; }
-.cart-item { display: flex; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--borde); animation: slideIn .3s ease; }
-@keyframes slideIn { from{opacity:0;transform:translateX(20px)} to{opacity:1;transform:translateX(0)} }
-.ci-img { width: 58px; height: 58px; background: var(--fondo2); border-radius: 8px; border: 1px solid var(--borde); overflow: hidden; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-.ci-img img { width: 90%; height: 90%; object-fit: contain; }
-.ci-info { flex: 1; }
-.ci-name { font-size: 13px; font-weight: 600; color: var(--texto); line-height: 1.4; margin-bottom: 3px; }
-.ci-price { font-family: var(--font-price); font-size: 14px; color: var(--rojo); font-weight: 600; }
-.qty-ctrl { display: flex; align-items: center; gap: 7px; margin-top: 7px; }
-.qty-btn { background: var(--fondo2); border: 1px solid var(--borde); color: var(--texto); width: 24px; height: 24px; border-radius: 5px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; transition: var(--tr); }
-.qty-btn:hover { border-color: var(--rojo); color: var(--rojo); }
-.qty-num { font-size: 13px; font-weight: 600; min-width: 20px; text-align: center; }
-.ci-del { background: none; border: none; color: var(--texto4); cursor: pointer; padding: 4px; border-radius: 5px; transition: var(--tr); align-self: flex-start; }
-.ci-del:hover { color: var(--rojo); }
-.cart-foot { padding: 18px 26px 26px; border-top: 1px solid var(--borde); background: var(--fondo2); }
-.cart-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 13px; color: var(--texto3); }
-.cart-row.grand { font-family: var(--font-price); font-size: 18px; font-weight: 700; color: var(--texto); padding-top: 10px; margin-top: 5px; border-top: 1px solid var(--borde); }
-.cart-row.grand span:last-child { color: var(--rojo); }
-.checkout-btn { width: 100%; background: var(--rojo); border: none; color: #fff; font-family: var(--font-body); font-size: 14px; font-weight: 700; padding: 15px; border-radius: 9px; cursor: pointer; margin-top: 16px; letter-spacing: .5px; transition: var(--tr); text-transform: uppercase; }
-.checkout-btn:hover { background: var(--rojo-dark); transform: translateY(-2px); box-shadow: var(--shadow2); }
+			.nav-a:hover,
+			.nav-a.active {
+				color: var(--rojo);
+				background: rgba(174, 4, 15, 0.05);
+			}
 
-/* ── MODALES ── */
-.modal-overlay { position: fixed; inset: 0; background: rgba(20,20,20,.65); z-index: 3000; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity .3s; backdrop-filter: blur(6px); }
-.modal-overlay.open { opacity: 1; pointer-events: all; }
-.modal { background: #fff; border: 1px solid var(--borde); border-radius: 14px; width: 100%; max-width: 540px; max-height: 90vh; overflow-y: auto; box-shadow: 0 30px 80px rgba(0,0,0,.18); transform: scale(.95) translateY(20px); transition: transform .3s; }
-.modal-overlay.open .modal { transform: scale(1) translateY(0); }
-.modal-head { background: linear-gradient(135deg, var(--rojo), var(--rojo-dark)); padding: 26px 30px; display: flex; align-items: center; justify-content: space-between; }
-.modal-head h2 { font-family: var(--font-title); font-size: 19px; color: #fff; letter-spacing: 2px; }
-.modal-x { background: rgba(255,255,255,.15); border: none; color: #fff; width: 30px; height: 30px; border-radius: 6px; cursor: pointer; font-size: 17px; display: flex; align-items: center; justify-content: center; transition: var(--tr); }
-.modal-x:hover { background: rgba(255,255,255,.25); }
-.modal-body { padding: 30px; }
-.form-group { margin-bottom: 18px; }
-.form-label { display: block; font-size: 11px; font-weight: 600; color: var(--texto3); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 7px; }
-.form-input, .form-textarea { width: 100%; background: var(--fondo2); border: 1px solid var(--borde); color: var(--texto); font-family: var(--font-body); font-size: 14px; padding: 11px 14px; border-radius: 8px; outline: none; transition: var(--tr); }
-.form-input:focus, .form-textarea:focus { border-color: var(--rojo); box-shadow: 0 0 0 3px var(--rojo-glow); background: #fff; }
-.form-input::placeholder, .form-textarea::placeholder { color: var(--texto4); }
-.form-textarea { resize: vertical; min-height: 80px; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.order-summary { background: var(--fondo2); border: 1px solid var(--borde); border-radius: 9px; padding: 16px; margin-bottom: 22px; }
-.order-summary h4 { font-size: 10px; color: var(--rojo); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; margin-bottom: 10px; padding-bottom: 7px; border-bottom: 1px solid var(--borde); }
-.sum-item { display: flex; justify-content: space-between; font-size: 13px; color: var(--texto3); padding: 3px 0; }
-.sum-item.total { font-size: 16px; font-weight: 700; color: var(--texto); padding-top: 9px; margin-top: 6px; border-top: 1px solid var(--borde); }
-.sum-item.total span:last-child { color: var(--rojo); }
-.submit-btn { width: 100%; background: var(--rojo); border: none; color: #fff; font-family: var(--font-body); font-size: 14px; font-weight: 700; padding: 15px; border-radius: 9px; cursor: pointer; letter-spacing: .5px; text-transform: uppercase; transition: var(--tr); display: flex; align-items: center; justify-content: center; gap: 9px; }
-.submit-btn:hover { background: var(--rojo-dark); transform: translateY(-2px); box-shadow: var(--shadow2); }
-.submit-btn:disabled { background: var(--texto4); cursor: not-allowed; transform: none; box-shadow: none; }
+			.nav-right {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
 
-/* AUTH MODAL */
-.auth-modal { background: #fff; border: 1px solid var(--borde); border-radius: 14px; width: 100%; max-width: 460px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,.2); transform: scale(.95) translateY(20px); transition: transform .3s; }
-.modal-overlay.open .auth-modal { transform: scale(1) translateY(0); }
-.auth-tabs { display: flex; border-bottom: 1px solid var(--borde); }
-.auth-tab { flex: 1; background: var(--fondo2); border: none; color: var(--texto3); font-family: var(--font-body); font-size: 13px; font-weight: 600; padding: 15px; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; transition: var(--tr); border-bottom: 2px solid transparent; }
-.auth-tab.active { color: var(--rojo); border-bottom-color: var(--rojo); background: rgba(174,4,15,0.03); }
-.auth-form { padding: 26px 30px 30px; display: none; }
-.auth-form.active { display: block; }
-.auth-logo { text-align: center; margin-bottom: 22px; }
-.auth-logo img { height: 52px; margin-bottom: 8px; }
-.auth-logo p { font-size: 12px; color: var(--texto3); letter-spacing: 1px; }
-.auth-submit { width: 100%; background: var(--rojo); border: none; color: #fff; font-family: var(--font-body); font-size: 14px; font-weight: 700; padding: 13px; border-radius: 8px; cursor: pointer; letter-spacing: .5px; text-transform: uppercase; transition: var(--tr); margin-top: 6px; }
-.auth-submit:hover { background: var(--rojo-dark); }
-.auth-submit:disabled { background: var(--texto4); cursor: not-allowed; }
-.auth-div { text-align: center; color: var(--texto4); font-size: 12px; margin: 14px 0; }
-.phone-wrap { display: flex; border: 1px solid var(--borde); border-radius: 8px; overflow: hidden; background: var(--fondo2); transition: var(--tr); }
-.phone-wrap:focus-within { border-color: var(--rojo); box-shadow: 0 0 0 3px var(--rojo-glow); }
-.phone-prefix { background: var(--fondo3); border: none; border-right: 1px solid var(--borde); color: var(--texto2); font-family: var(--font-body); font-size: 13px; font-weight: 600; padding: 0 11px; cursor: default; outline: none; appearance: none; min-width: 88px; }
-.phone-num { border: none!important; box-shadow: none!important; border-radius: 0!important; flex: 1; background: transparent; }
-.phone-num:focus { box-shadow: none!important; border: none!important; }
-.user-checkout-card { background: var(--fondo2); border: 1px solid rgba(174,4,15,.25); border-radius: 10px; padding: 14px 16px; margin-bottom: 20px; display: flex; align-items: center; gap: 13px; }
-.uc-av { width: 42px; height: 42px; background: rgba(174,4,15,.1); border: 1px solid rgba(174,4,15,.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--rojo); font-size: 17px; flex-shrink: 0; }
-.uc-name { font-size: 14px; font-weight: 600; }
-.uc-email { font-size: 12px; color: var(--texto3); margin-top: 2px; }
-.uc-badge { font-size: 10px; color: #22c55e; font-weight: 600; letter-spacing: 1px; margin-top: 3px; }
+			/* USER */
+			.user-wrap {
+				position: relative;
+			}
 
-/* SUCCESS MODAL */
-.success-modal { background: #fff; border: 1px solid var(--borde); border-radius: 14px; width: 100%; max-width: 440px; padding: 46px 38px; text-align: center; box-shadow: 0 30px 80px rgba(0,0,0,.15); transform: scale(.9); transition: transform .3s; }
-.modal-overlay.open .success-modal { transform: scale(1); }
-.success-icon { width: 78px; height: 78px; background: rgba(174,4,15,.08); border: 2px solid var(--rojo); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 22px; animation: pop .8s ease; }
-@keyframes pop { 0%{transform:scale(0)} 70%{transform:scale(1.1)} 100%{transform:scale(1)} }
-.success-icon svg { width: 34px; height: 34px; color: var(--rojo); }
-.success-title { font-family: var(--font-title); font-size: 24px; color: var(--texto); letter-spacing: 1px; margin-bottom: 10px; }
-.success-msg { font-size: 14px; color: var(--texto3); line-height: 1.8; margin-bottom: 8px; }
-.success-num { font-family: var(--font-price); font-size: 17px; color: var(--rojo); font-weight: 700; letter-spacing: 2px; margin: 14px 0; }
-.success-close { background: var(--rojo); border: none; color: #fff; font-family: var(--font-body); font-size: 14px; font-weight: 600; padding: 12px 30px; border-radius: 8px; cursor: pointer; margin-top: 18px; transition: var(--tr); }
-.success-close:hover { background: var(--rojo-dark); }
+			.user-btn {
+				display: flex;
+				align-items: center;
+				gap: 7px;
+				background: var(--fondo2);
+				border: 1px solid var(--borde);
+				color: var(--texto2);
+				font-family: var(--font-body);
+				font-size: 13px;
+				font-weight: 500;
+				padding: 8px 14px;
+				border-radius: 8px;
+				cursor: pointer;
+				transition: var(--tr);
+			}
 
-/* TOAST */
-.toast-wrap { position: fixed; bottom: 26px; right: 26px; z-index: 9999; display: flex; flex-direction: column; gap: 9px; pointer-events: none; }
-.toast { background: #fff; border: 1px solid var(--borde); border-left: 4px solid var(--rojo); color: var(--texto); font-size: 13px; font-weight: 500; padding: 13px 16px; border-radius: 8px; box-shadow: var(--shadow); animation: toastIn .3s ease; min-width: 250px; display: flex; align-items: center; gap: 9px; }
-@keyframes toastIn { from{opacity:0;transform:translateX(30px)} to{opacity:1;transform:translateX(0)} }
-.toast.success { border-left-color: #22c55e; }
+			.user-btn:hover {
+				border-color: var(--rojo);
+				color: var(--rojo);
+			}
 
-/* SPINNER */
-.spinner { width: 38px; height: 38px; border: 3px solid var(--fondo3); border-top-color: var(--rojo); border-radius: 50%; animation: spin .8s linear infinite; margin-bottom: 14px; }
-@keyframes spin { to{transform:rotate(360deg)} }
+			.user-btn.logged {
+				border-color: var(--plata);
+			}
 
-/* ── FOOTER ── */
-footer { background: var(--jet); border-top: 3px solid var(--rojo); }
-.foot-main { max-width: 1400px; margin: 0 auto; padding: 50px 30px 28px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
-.foot-brand .fn { font-family: var(--font-title); font-size: 20px; color: var(--rojo); letter-spacing: 2px; margin-bottom: 8px; }
-.foot-brand p { font-size: 13px; color: var(--plata); line-height: 1.8; }
-.foot-col h4 { font-size: 10px; font-weight: 700; color: #fff; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 14px; padding-bottom: 7px; border-bottom: 1px solid rgba(255,255,255,.1); }
-.foot-col ul { list-style: none; }
-.foot-col ul li { margin-bottom: 9px; font-size: 13px; color: var(--plata); }
-.foot-col ul li a { color: var(--plata); text-decoration: none; transition: var(--tr); }
-.foot-col ul li a:hover { color: var(--rojo); }
-.foot-bottom { border-top: 1px solid rgba(255,255,255,.08); max-width: 1400px; margin: 0 auto; padding: 18px 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
-.foot-bottom p { font-size: 11px; color: rgba(255,255,255,.35); }
-.foot-social { display: flex; gap: 10px; }
-.social-btn { width: 32px; height: 32px; border: 1px solid rgba(255,255,255,.15); border-radius: 7px; display: flex; align-items: center; justify-content: center; color: var(--plata); font-size: 14px; cursor: pointer; transition: var(--tr); text-decoration: none; }
-.social-btn:hover { border-color: var(--rojo); color: var(--rojo); background: rgba(174,4,15,.1); }
+			.user-btn svg {
+				width: 15px;
+				height: 15px;
+			}
 
-@media(max-width:1024px){ .categories-grid { grid-template-columns: repeat(3,1fr); } }
-@media(max-width:900px){ .hero-inner,.foot-main{ grid-template-columns:1fr } .hero-stats{display:none} .promises-grid{grid-template-columns:1fr 1fr} .models-grid{grid-template-columns:repeat(3,1fr)} .foot-main{grid-template-columns:1fr 1fr} }
-@media(max-width:600px){ .nav-links{display:none} .categories-grid{grid-template-columns:1fr 1fr} .models-grid{grid-template-columns:repeat(2,1fr)} .cart-sidebar{width:100%;right:-100%} .form-row{grid-template-columns:1fr} .promises-grid{grid-template-columns:1fr 1fr} }
-</style>
-</head>
-<body>
+			.user-dot {
+				width: 7px;
+				height: 7px;
+				background: #22c55e;
+				border-radius: 50%;
+				flex-shrink: 0;
+			}
 
-<!-- TOPBAR -->
-<div class="topbar">🚗 ACTIVO MOTORS · Repuestos 100% Originales Toyota & Multimarca · San Diego, Valle Verde · 0412-2004902</div>
+			.user-dropdown {
+				position: absolute;
+				top: calc(100% + 8px);
+				right: 0;
+				background: #fff;
+				border: 1px solid var(--borde);
+				border-radius: 10px;
+				min-width: 200px;
+				box-shadow: var(--shadow2);
+				overflow: hidden;
+				display: none;
+				z-index: 1100;
+			}
 
-<!-- HEADER -->
-<header>
-  <div class="nav">
-    <a class="logo" href="#">
-      <img src="https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png" alt="Activo Motors">
-      <div class="logo-text">
-        <div><span class="logo-activo">ACTIVO</span> <span class="logo-motors">MOTORS</span></div>
-        <span class="logo-slogan">Repuestos Automotrices</span>
-      </div>
-    </a>
-    <nav class="nav-links">
-      <a class="nav-a active" href="#">Inicio</a>
-      <a class="nav-a" href="catalogo.html">Catálogo</a>
-      <a class="nav-a" href="#modelos">Modelos</a>
-      <a class="nav-a" href="#" onclick="event.preventDefault();showContact()">Contacto</a>
-    </nav>
-    <div class="nav-right">
-      <div class="user-wrap">
-        <button class="user-btn" id="userNavBtn" onclick="toggleUserMenu()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          <span id="userNavLabel">Mi cuenta</span>
-        </button>
-        <div class="user-dropdown" id="userDropdown">
-          <div class="ud-head" id="udHead" style="display:none">
-            <div class="ud-name" id="udName"></div>
-            <div class="ud-email" id="udEmail"></div>
-          </div>
-          <button class="ud-btn" id="udLoginBtn" onclick="openAuthModal('login')">Iniciar sesión</button>
-          <button class="ud-btn" id="udRegBtn" onclick="openAuthModal('register')">Registrarse</button>
-          <button class="ud-btn danger" id="udLogoutBtn" onclick="cerrarSesion()" style="display:none">Cerrar sesión</button>
-        </div>
-      </div>
-      <button class="cart-btn" onclick="toggleCart()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-        Carrito
-        <span class="cart-count" id="cartCount">0</span>
-      </button>
-    </div>
-  </div>
-</header>
+			.user-dropdown.open {
+				display: block;
+			}
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-inner">
-    <div>
-      <div class="hero-tag">Especialistas en Toyota · Tienda Oficial</div>
-      <h1 class="hero-title">
-        ¡Bienvenido a<br>
-        <span class="outline">ACTIVO</span> <span class="red">MOTORS</span>!
-      </h1>
-      <p class="hero-desc">Tu tienda especializada en <strong>repuestos 100% originales Toyota</strong> en San Diego, Valle Verde. También contamos con repuestos de alta calidad para todas las marcas. Envío coordinado, garantía de calidad y atención personalizada.</p>
-      <div class="hero-cta">
-        <button class="btn-primary" onclick="document.getElementById('modelos').scrollIntoView({behavior:'smooth'})">Buscar Repuesto →</button>
-        <button class="btn-outline" onclick="showContact()">📞 Contactar</button>
-      </div>
-    </div>
-    <div class="hero-stats">
-      <div class="stat-box">
-        <div class="stat-num">100+</div>
-        <div class="stat-label">Repuestos</div>
-        <p class="stat-review">"Especialistas en Toyota, servicio en San Diego."</p>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num">100%</div>
-        <div class="stat-label">Calidad</div>
-        <p class="stat-review">"Encontré la pieza original rápidamente."</p>
-      </div>
-    </div>
-  </div>
-</section>
+			.ud-head {
+				padding: 12px 16px;
+				background: var(--fondo2);
+				border-bottom: 1px solid var(--borde);
+			}
 
-<!-- BUSCADOR POR MODELO + CATEGORÍAS -->
-<div class="section-wrap" id="modelos">
-  <h2 class="section-title red">Buscador de Repuestos por Modelo</h2>
+			.ud-name {
+				font-size: 14px;
+				font-weight: 600;
+				color: var(--texto);
+			}
 
-  <!-- Barra indicador modelo seleccionado -->
-  <div class="model-selected-bar" id="modelSelectedBar">
-    <span id="modelSelectedText">Modelo seleccionado</span>
-    <span style="color:var(--texto3);font-size:12px;font-weight:400"> — Ahora selecciona una categoría</span>
-  </div>
+			.ud-email {
+				font-size: 11px;
+				color: var(--texto4);
+				margin-top: 2px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
 
-  <div class="models-grid" id="modelsGrid"></div>
+			.ud-btn {
+				display: block;
+				width: 100%;
+				background: none;
+				border: none;
+				font-family: var(--font-body);
+				font-size: 13px;
+				color: var(--texto2);
+				padding: 11px 16px;
+				text-align: left;
+				cursor: pointer;
+				transition: var(--tr);
+			}
 
-  <!-- CATEGORÍAS — aparecen al seleccionar modelo -->
-  <div class="categories-section" id="categoriesSection" style="display:none">
-    <h2 class="section-title">Categorías Destacadas</h2>
-    <div class="categories-grid" id="categoriesGrid"></div>
-  </div>
-</div>
+			.ud-btn:hover {
+				background: var(--fondo2);
+				color: var(--texto);
+			}
 
-<!-- PROMESAS DE SERVICIO -->
-<section class="promises-section">
-  <div class="promises-inner">
-    <h2 class="promises-title">Promesas de Servicio</h2>
-    <div class="promises-grid">
-      <div class="promise-item">
-        <div class="promise-icon">🚚</div>
-        <div class="promise-name">Envíos Rápidos</div>
-        <div class="promise-desc">Coordinamos la entrega directamente contigo en San Diego y alrededores.</div>
-      </div>
-      <div class="promise-item">
-        <div class="promise-icon">✅</div>
-        <div class="promise-name">Garantía Total</div>
-        <div class="promise-desc">Todos nuestros repuestos originales Toyota vienen con garantía de calidad.</div>
-      </div>
-      <div class="promise-item">
-        <div class="promise-icon">🔧</div>
-        <div class="promise-name">Asesoría Técnica</div>
-        <div class="promise-desc">Te ayudamos a identificar la pieza exacta que necesita tu vehículo.</div>
-      </div>
-      <div class="promise-item">
-        <div class="promise-icon">📍</div>
-        <div class="promise-name">Retiro en Valle Verde</div>
-        <div class="promise-desc">Visítanos en San Diego, Valle Verde, cerca de la Av. Don Julio Centeno.</div>
-      </div>
-    </div>
-  </div>
-</section>
+			.ud-btn.danger:hover {
+				background: rgba(174, 4, 15, 0.06);
+				color: var(--rojo);
+			}
 
-<!-- FOOTER -->
-<footer>
-  <div class="foot-main">
-    <div class="foot-brand">
-      <div class="fn">ACTIVO MOTORS</div>
-      <p>Especialistas en repuestos 100% originales Toyota y repuestos de calidad para todas las marcas. Ubicados en San Diego, Valle Verde — atención personalizada y los mejores precios.</p>
-    </div>
-    <div class="foot-col">
-      <h4>Navegación</h4>
-      <ul>
-        <li><a href="#">Inicio</a></li>
-        <li><a href="catalogo.html">Catálogo completo</a></li>
-        <li><a href="#modelos">Modelos</a></li>
-        <li><a href="#" onclick="event.preventDefault();showContact()">Contacto</a></li>
-      </ul>
-    </div>
-    <div class="foot-col">
-      <h4>Ubicación</h4>
-      <ul>
-        <li>📍 San Diego, Valle Verde</li>
-        <li>Av. Don Julio Centeno</li>
-        <li>📞 <strong style="color:#fff">0412-2004902</strong></li>
-      </ul>
-    </div>
-    <div class="foot-col">
-      <h4>Categorías</h4>
-      <ul>
-        <li>⚙️ Motor</li>
-        <li>🛑 Frenos</li>
-        <li>⚡ Eléctrico</li>
-        <li>🔧 Mantenimiento</li>
-        <li>🔩 Suspensión</li>
-        <li>🔄 Transmisión</li>
-      </ul>
-    </div>
-  </div>
-  <div class="foot-bottom">
-    <p>© 2025 ACTIVO MOTORS · Todos los derechos reservados · San Diego, Venezuela</p>
-    <div class="foot-social">
-      <a class="social-btn" href="#" title="Instagram">📸</a>
-      <a class="social-btn" href="#" title="Facebook">👍</a>
-      <a class="social-btn" href="#" title="WhatsApp" onclick="event.preventDefault();showContact()">💬</a>
-    </div>
-  </div>
-</footer>
+			/* CART BTN */
+			.cart-btn {
+				position: relative;
+				background: var(--rojo);
+				border: none;
+				color: #fff;
+				font-family: var(--font-body);
+				font-size: 13px;
+				font-weight: 600;
+				padding: 9px 20px;
+				border-radius: 8px;
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				transition: var(--tr);
+			}
 
-<!-- CARRITO -->
-<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
-<div class="cart-sidebar" id="cartSidebar">
-  <div class="cart-head">
-    <div class="cart-title">🛒 Carrito</div>
-    <button class="cart-close" onclick="toggleCart()">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-  </div>
-  <div class="cart-items" id="cartItems">
-    <div class="cart-empty">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-      <p>Tu carrito está vacío</p>
-    </div>
-  </div>
-  <div class="cart-foot" id="cartFoot" style="display:none">
-    <div class="cart-row"><span>Subtotal</span><span id="cSubtotal">$0.00</span></div>
-    <div class="cart-row"><span>IVA (16%)</span><span id="cIVA">$0.00</span></div>
-    <div class="cart-row grand"><span>TOTAL</span><span id="cTotal">$0.00</span></div>
-    <button class="checkout-btn" onclick="openCheckout()">Proceder al Pago →</button>
-  </div>
-</div>
+			.cart-btn:hover {
+				background: var(--rojo-dark);
+				transform: translateY(-1px);
+				box-shadow: var(--shadow2);
+			}
 
-<!-- MODAL AUTH -->
-<div class="modal-overlay" id="authOverlay" onclick="closeAuthBg(event)">
-  <div class="auth-modal">
-    <div class="auth-tabs">
-      <button class="auth-tab active" id="tabLogin" onclick="switchTab('login')">Iniciar Sesión</button>
-      <button class="auth-tab" id="tabReg" onclick="switchTab('register')">Registrarse</button>
-    </div>
-    <div class="auth-form active" id="fLogin">
-      <div class="auth-logo"><img src="https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png" alt="Logo"><p>Ingresa a tu cuenta</p></div>
-      <div class="form-group"><label class="form-label">Correo electrónico</label><input class="form-input" type="email" id="lEmail" placeholder="tu@correo.com"></div>
-      <div class="form-group"><label class="form-label">Contraseña</label><input class="form-input" type="password" id="lPass" placeholder="••••••••"></div>
-      <button class="auth-submit" id="loginBtn" onclick="doLogin()">Entrar</button>
-      <div class="auth-div">¿No tienes cuenta? <span style="color:var(--rojo);cursor:pointer" onclick="switchTab('register')">Regístrate aquí</span></div>
-    </div>
-    <div class="auth-form" id="fReg">
-      <div class="auth-logo"><img src="https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png" alt="Logo"><p>Crea tu cuenta</p></div>
-      <div class="form-group"><label class="form-label">Nombre completo *</label><input class="form-input" type="text" id="rNombre" placeholder="Ej: Carlos García"></div>
-      <div class="form-row">
-        <div class="form-group"><label class="form-label">Cédula *</label><input class="form-input" type="text" id="rCedula" placeholder="V-12345678"></div>
-        <div class="form-group">
-          <label class="form-label">Teléfono *</label>
-          <div class="phone-wrap">
-            <select class="phone-prefix" id="rPrefijo" disabled><option value="+58">🇻🇪 +58</option></select>
-            <input class="form-input phone-num" type="tel" id="rTelefono" placeholder="4144062649" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
-          </div>
-        </div>
-      </div>
-      <div class="form-group"><label class="form-label">Correo *</label><input class="form-input" type="email" id="rEmail" placeholder="tu@correo.com"></div>
-      <div class="form-group"><label class="form-label">Dirección</label><input class="form-input" type="text" id="rDireccion" placeholder="Calle, urbanización, municipio..."></div>
-      <div class="form-row">
-        <div class="form-group"><label class="form-label">Contraseña *</label><input class="form-input" type="password" id="rPass" placeholder="Mínimo 6 caracteres"></div>
-        <div class="form-group"><label class="form-label">Confirmar *</label><input class="form-input" type="password" id="rPass2" placeholder="Repetir contraseña"></div>
-      </div>
-      <button class="auth-submit" id="regBtn" onclick="doRegister()">Crear Cuenta</button>
-      <div class="auth-div">¿Ya tienes cuenta? <span style="color:var(--rojo);cursor:pointer" onclick="switchTab('login')">Inicia sesión</span></div>
-    </div>
-  </div>
-</div>
+			.cart-btn svg {
+				width: 17px;
+				height: 17px;
+			}
 
-<!-- MODAL CHECKOUT -->
-<div class="modal-overlay" id="checkoutOverlay">
-  <div class="modal">
-    <div class="modal-head"><h2>FINALIZAR PEDIDO</h2><button class="modal-x" onclick="closeCheckout()">✕</button></div>
-    <div class="modal-body">
-      <div class="order-summary" id="orderSummary"></div>
-      <div id="ckUserCard" style="display:none">
-        <div class="user-checkout-card">
-          <div class="uc-av">👤</div>
-          <div><div class="uc-name" id="ckName"></div><div class="uc-email" id="ckEmail"></div><div class="uc-badge">✔ USUARIO REGISTRADO</div></div>
-        </div>
-      </div>
-      <div id="ckGuestForm">
-        <div class="form-group"><label class="form-label">Nombre Completo *</label><input class="form-input" type="text" id="gNombre" placeholder="Ej: Carlos García"></div>
-        <div class="form-row">
-          <div class="form-group"><label class="form-label">Email *</label><input class="form-input" type="email" id="gEmail" placeholder="tu@correo.com"></div>
-          <div class="form-group"><label class="form-label">Teléfono *</label><input class="form-input" type="tel" id="gTel" placeholder="0412-0000000"></div>
-        </div>
-        <div class="form-group"><label class="form-label">Dirección de Entrega</label><textarea class="form-textarea" id="gDir" placeholder="Calle, urbanización, municipio..."></textarea></div>
-      </div>
-      <button class="submit-btn" id="submitBtn" onclick="confirmarPedido()">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-        Confirmar Pedido
-      </button>
-    </div>
-  </div>
-</div>
+			.cart-count {
+				position: absolute;
+				top: -8px;
+				right: -8px;
+				background: var(--jet);
+				color: #fff;
+				font-size: 10px;
+				font-weight: 700;
+				width: 19px;
+				height: 19px;
+				border-radius: 50%;
+				display: none;
+				align-items: center;
+				justify-content: center;
+			}
 
-<!-- MODAL ÉXITO -->
-<div class="modal-overlay" id="successOverlay">
-  <div class="success-modal">
-    <div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
-    <div class="success-title">¡PEDIDO EXITOSO!</div>
-    <p class="success-msg">Tu pedido ha sido confirmado. Recibirás un correo con tu factura en PDF.</p>
-    <div class="success-num" id="successNum"></div>
-    <p class="success-msg">Nuestro equipo se comunicará contigo para coordinar el pago y la entrega.<br><strong style="color:var(--rojo)">0412-2004902</strong></p>
-    <button class="success-close" onclick="closeSuccess()">Continuar</button>
-  </div>
-</div>
+			.cart-count.visible {
+				display: flex;
+			}
 
-<div class="toast-wrap" id="toastWrap"></div>
+			/* ── HERO ── */
+			.hero {
+				position: relative;
+				background: linear-gradient(135deg, var(--fondo2) 0%, var(--fondo) 55%);
+				min-height: 460px;
+				display: flex;
+				align-items: center;
+				overflow: hidden;
+				border-bottom: 1px solid var(--borde);
+			}
 
-<script>
-const API_URL = 'https://script.google.com/macros/s/AKfycbyfnYne5VXTSlgtKfrT4wNW5R8Z5LSjUw8KjfbW-gZIZvQQBqn3EIlksPI6QYOwaIt4Og/exec';
-const LOGO_URL = 'https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png';
+			.hero-bg {
+				position: absolute;
+				inset: 0;
+				background: radial-gradient(ellipse 50% 70% at 85% 50%, rgba(174, 4, 15, 0.07) 0%, transparent 70%);
+			}
 
-/* ══════════════════════════════════════
-   DATOS ESTÁTICOS
-══════════════════════════════════════ */
-const MODELOS = [
-  { id:'hilux',     nombre:'Hilux',     marca:'Toyota',
-    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/2016_Toyota_Hilux_SR5_%284x4%29%2C_front_8.25.18.jpg/320px-2016_Toyota_Hilux_SR5_%284x4%29%2C_front_8.25.18.jpg' },
-  { id:'corolla',   nombre:'Corolla',   marca:'Toyota',
-    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/2019_Toyota_Corolla_sedan_%28facelift%2C_white%29%2C_front_8.15.19.jpg/320px-2019_Toyota_Corolla_sedan_%28facelift%2C_white%29%2C_front_8.15.19.jpg' },
-  { id:'yaris',     nombre:'Yaris',     marca:'Toyota',
-    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/2020_Toyota_Yaris_hybrid_GR_Sport_%28Europe%29%2C_front_8.2.20.jpg/320px-2020_Toyota_Yaris_hybrid_GR_Sport_%28Europe%29%2C_front_8.2.20.jpg' },
-  { id:'fortuner',  nombre:'Fortuner',  marca:'Toyota',
-    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/2016_Toyota_Fortuner_2.7_VVT-i_4WD_%28facelift%2C_white%29%2C_front_8.18.18.jpg/320px-2016_Toyota_Fortuner_2.7_VVT-i_4WD_%28facelift%2C_white%29%2C_front_8.18.18.jpg' },
-  { id:'prado',     nombre:'Prado',     marca:'Toyota',
-    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/2018_Toyota_Land_Cruiser_Prado_%28facelift%2C_TXL%29%2C_front_8.10.18.jpg/320px-2018_Toyota_Land_Cruiser_Prado_%28facelift%2C_TXL%29%2C_front_8.10.18.jpg' },
-  { id:'avanza',    nombre:'Avanza',    marca:'Toyota',
-    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Toyota_Avanza_2012_%28Indonesia%29.jpg/320px-Toyota_Avanza_2012_%28Indonesia%29.jpg' },
-  { id:'multimarca',nombre:'Otros',     marca:'Multimarca',
-    img:'https://cdn-icons-png.flaticon.com/512/3774/3774278.png' },
-];
+			.hero-grid {
+				position: absolute;
+				inset: 0;
+				background-image: linear-gradient(var(--borde) 1px, transparent 1px), linear-gradient(90deg, var(--borde) 1px, transparent 1px);
+				background-size: 55px 55px;
+				opacity: 0.45;
+			}
 
-const CATEGORIAS = [
-  { id:'motor',        nombre:'Motor',        filtro:'MOTOR',
-    img:'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&q=80' },
-  { id:'suspension',   nombre:'Suspensión',   filtro:'SUSPENSION',
-    img:'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600&q=80' },
-  { id:'frenos',       nombre:'Frenos',       filtro:'FRENOS',
-    img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80' },
-  { id:'mantenimiento',nombre:'Mantenimiento',filtro:'MANTENIMIENTO',
-    img:'https://images.unsplash.com/photo-1599983549399-6a0c8b62dff8?w=600&q=80' },
-  { id:'electrico',    nombre:'Eléctrico',    filtro:'ELECTRICO',
-    img:'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=600&q=80' },
-  { id:'transmision',  nombre:'Transmisión',  filtro:'TRANSMISION',
-    img:'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=600&q=80' },
-  { id:'carroceria',   nombre:'Carrocería',   filtro:'CARROCERIA',
-    img:'https://images.unsplash.com/photo-1609868085878-440a59f1d78e?w=600&q=80' },
-  { id:'todos',        nombre:'Ver Todo',     filtro:'TODOS',
-    img:'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&q=80' },
-];
+			.hero-inner {
+				position: relative;
+				z-index: 2;
+				max-width: 1400px;
+				margin: 0 auto;
+				padding: 55px 30px;
+				display: grid;
+				grid-template-columns: 1.1fr 0.9fr;
+				align-items: center;
+				gap: 50px;
+				width: 100%;
+			}
 
-/* ══════════════════════════════════════
-   ESTADO
-══════════════════════════════════════ */
-let carrito = [];
-let usuarioActual = null;
-let modeloSeleccionado = null;
+			.hero-tag {
+				display: inline-flex;
+				align-items: center;
+				gap: 7px;
+				background: rgba(174, 4, 15, 0.08);
+				border: 1px solid rgba(174, 4, 15, 0.22);
+				color: var(--rojo);
+				font-size: 10px;
+				font-weight: 700;
+				padding: 5px 13px;
+				border-radius: 30px;
+				letter-spacing: 2.5px;
+				text-transform: uppercase;
+				margin-bottom: 18px;
+			}
 
-/* ══════════════════════════════════════
-   INIT
-══════════════════════════════════════ */
-document.addEventListener('DOMContentLoaded', () => {
-  // Restaurar sesión
-  try { const s = localStorage.getItem('am_usuario'); if(s) { usuarioActual = JSON.parse(s); actualizarUIUsuario(); } } catch(e){}
-  // Restaurar carrito
-  try { const c = localStorage.getItem('am_carrito'); if(c) { carrito = JSON.parse(c); actualizarCarritoUI(); } } catch(e){}
+			.hero-tag::before {
+				content: '';
+				width: 6px;
+				height: 6px;
+				background: var(--rojo);
+				border-radius: 50%;
+				animation: pulse 1.6s infinite;
+			}
 
-  renderModelos();
+			@keyframes pulse {
 
-  // Cerrar dropdown al click afuera
-  document.addEventListener('click', e => {
-    if (!document.getElementById('userNavBtn').closest('.user-wrap').contains(e.target))
-      document.getElementById('userDropdown').classList.remove('open');
-  });
-});
+				0%,
+				100% {
+					opacity: 1;
+					transform: scale(1)
+				}
 
-/* ══════════════════════════════════════
-   RENDER MODELOS
-══════════════════════════════════════ */
-function renderModelos() {
-  document.getElementById('modelsGrid').innerHTML = MODELOS.map(m => `
-    <div class="model-card" id="mc-${m.id}" onclick="seleccionarModelo('${m.id}')">
-      <img src="${m.img}" alt="${m.nombre}"
+				50% {
+					opacity: .4;
+					transform: scale(.7)
+				}
+			}
+
+			.hero-title {
+				font-family: var(--font-title);
+				font-size: clamp(34px, 4.8vw, 62px);
+				line-height: 1.08;
+				text-transform: uppercase;
+				color: var(--texto);
+			}
+
+			.hero-title .outline {
+				color: transparent;
+				-webkit-text-stroke: 2px var(--jet);
+			}
+
+			.hero-title .red {
+				color: var(--rojo);
+			}
+
+			.hero-desc {
+				margin-top: 16px;
+				font-size: 14px;
+				color: var(--texto2);
+				line-height: 1.85;
+				max-width: 500px;
+			}
+
+			.hero-desc strong {
+				color: var(--rojo);
+			}
+
+			.hero-cta {
+				margin-top: 28px;
+				display: flex;
+				gap: 12px;
+				flex-wrap: wrap;
+			}
+
+			.btn-primary {
+				background: var(--rojo);
+				color: #fff;
+				font-family: var(--font-body);
+				font-size: 14px;
+				font-weight: 600;
+				padding: 13px 28px;
+				border: none;
+				border-radius: 8px;
+				cursor: pointer;
+				transition: var(--tr);
+			}
+
+			.btn-primary:hover {
+				background: var(--rojo-dark);
+				transform: translateY(-2px);
+				box-shadow: var(--shadow2);
+			}
+
+			.btn-outline {
+				background: transparent;
+				color: var(--texto);
+				font-family: var(--font-body);
+				font-size: 14px;
+				font-weight: 500;
+				padding: 13px 28px;
+				border: 1px solid var(--borde);
+				border-radius: 8px;
+				cursor: pointer;
+				transition: var(--tr);
+			}
+
+			.btn-outline:hover {
+				border-color: var(--rojo);
+				color: var(--rojo);
+				background: rgba(174, 4, 15, 0.04);
+			}
+
+			/* STATS */
+			.hero-stats {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 3px;
+				background: var(--borde);
+				border-radius: var(--radius);
+				overflow: hidden;
+				border: 1px solid var(--borde);
+			}
+
+			.stat-box {
+				background: var(--fondo);
+				padding: 28px 20px;
+				text-align: center;
+			}
+
+			.stat-num {
+				font-family: var(--font-price);
+				font-size: 40px;
+				font-weight: 700;
+				color: var(--rojo);
+				line-height: 1;
+			}
+
+			.stat-label {
+				font-size: 10px;
+				color: var(--texto4);
+				letter-spacing: 1.5px;
+				text-transform: uppercase;
+				margin-top: 4px;
+			}
+
+			.stat-review {
+				font-size: 12px;
+				color: var(--texto3);
+				margin-top: 10px;
+				line-height: 1.6;
+				font-style: italic;
+			}
+
+			/* ── SECCIÓN WRAPPER ── */
+			.section-wrap {
+				max-width: 1400px;
+				margin: 0 auto;
+				padding: 56px 30px 40px;
+			}
+
+			.section-title {
+				font-family: var(--font-title);
+				font-size: 22px;
+				color: var(--texto);
+				text-transform: uppercase;
+				letter-spacing: 1px;
+				margin-bottom: 28px;
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
+
+			.section-title.centered {
+				justify-content: center;
+			}
+
+			.section-title::after {
+				content: '';
+				display: block;
+				width: 36px;
+				height: 3px;
+				background: var(--rojo);
+				border-radius: 2px;
+			}
+
+			.section-title.red {
+				color: var(--rojo);
+			}
+
+			/* ── MODELOS ── */
+			.models-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+				gap: 14px;
+			}
+
+			.model-card {
+				background: var(--fondo);
+				border: 2px solid var(--borde);
+				border-radius: 12px;
+				padding: 18px 12px 14px;
+				text-align: center;
+				cursor: pointer;
+				transition: var(--tr);
+				position: relative;
+				overflow: hidden;
+				user-select: none;
+			}
+
+			.model-card::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background: rgba(174, 4, 15, 0.04);
+				opacity: 0;
+				transition: var(--tr);
+			}
+
+			.model-card:hover {
+				border-color: var(--rojo);
+				transform: translateY(-3px);
+				box-shadow: 0 8px 28px rgba(174, 4, 15, 0.14);
+			}
+
+			.model-card:hover::before {
+				opacity: 1;
+			}
+
+			.model-card.active {
+				border-color: var(--rojo);
+				background: rgba(174, 4, 15, 0.03);
+			}
+
+			.model-card.active::before {
+				opacity: 1;
+			}
+
+			.model-card img {
+				width: 100%;
+				max-height: 65px;
+				object-fit: contain;
+				margin-bottom: 8px;
+				transition: transform 0.4s ease;
+				filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+			}
+
+			.model-card:hover img,
+			.model-card.active img {
+				transform: scale(1.06) translateY(-2px);
+			}
+
+			.model-name {
+				font-family: var(--font-title);
+				font-size: 13px;
+				color: var(--texto);
+				letter-spacing: 0.5px;
+			}
+
+			.model-brand {
+				font-size: 10px;
+				color: var(--texto4);
+				letter-spacing: 1px;
+				text-transform: uppercase;
+				margin-top: 2px;
+			}
+
+			.model-card.active .model-name {
+				color: var(--rojo);
+			}
+
+			/* Indicador de modelo seleccionado */
+			.model-selected-bar {
+				display: none;
+				align-items: center;
+				gap: 10px;
+				background: rgba(174, 4, 15, 0.06);
+				border: 1px solid rgba(174, 4, 15, 0.2);
+				border-radius: 8px;
+				padding: 10px 16px;
+				margin-bottom: 22px;
+				font-size: 13px;
+				color: var(--rojo);
+				font-weight: 600;
+			}
+
+			.model-selected-bar.visible {
+				display: flex;
+			}
+
+			.model-selected-bar span {
+				font-family: var(--font-title);
+				font-size: 14px;
+			}
+
+			/* ── CATEGORÍAS ── */
+			.categories-section {
+				margin-top: 48px;
+			}
+
+			.categories-grid {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				gap: 16px;
+			}
+
+			.cat-card {
+				position: relative;
+				border-radius: 12px;
+				overflow: hidden;
+				cursor: pointer;
+				aspect-ratio: 4/3;
+				border: 2px solid transparent;
+				transition: var(--tr);
+				background: #111;
+			}
+
+			.cat-card:hover {
+				border-color: var(--rojo);
+				transform: translateY(-5px);
+				box-shadow: 0 16px 40px rgba(174, 4, 15, 0.25);
+			}
+
+			/* IMAGEN CON ANIMACIÓN */
+			.cat-card-img {
+				position: absolute;
+				inset: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s ease;
+				transform-origin: center center;
+				will-change: transform, filter;
+			}
+
+			.cat-card:hover .cat-card-img {
+				transform: scale(1.12);
+				filter: brightness(0.6) saturate(1.2);
+			}
+
+			/* OVERLAY NORMAL */
+			.cat-overlay {
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.18) 55%, transparent 100%);
+				transition: background 0.4s ease;
+			}
+
+			.cat-card:hover .cat-overlay {
+				background: linear-gradient(to top, rgba(174, 4, 15, 0.82) 0%, rgba(0, 0, 0, 0.35) 60%, transparent 100%);
+			}
+
+			/* SHIMMER al hover */
+			.cat-card::after {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(110deg, transparent 38%, rgba(255, 255, 255, 0.1) 50%, transparent 62%);
+				transform: translateX(-100%);
+				transition: transform 0.7s ease;
+				pointer-events: none;
+			}
+
+			.cat-card:hover::after {
+				transform: translateX(100%);
+			}
+
+			.cat-label {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				padding: 14px 16px;
+				font-family: var(--font-title);
+				font-size: 16px;
+				color: #fff;
+				letter-spacing: 1.5px;
+				text-transform: uppercase;
+				text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+				transition: padding 0.3s ease, letter-spacing 0.3s ease;
+			}
+
+			.cat-card:hover .cat-label {
+				padding-bottom: 20px;
+				letter-spacing: 2px;
+			}
+
+			.cat-arrow {
+				position: absolute;
+				top: 12px;
+				right: 12px;
+				width: 30px;
+				height: 30px;
+				background: rgba(255, 255, 255, 0.15);
+				backdrop-filter: blur(4px);
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: #fff;
+				opacity: 0;
+				transform: scale(0.7) rotate(-45deg);
+				transition: opacity 0.3s ease, transform 0.3s ease;
+			}
+
+			.cat-card:hover .cat-arrow {
+				opacity: 1;
+				transform: scale(1) rotate(0deg);
+			}
+
+			/* Tooltip modelo necesario */
+			.cat-hint {
+				position: absolute;
+				bottom: -36px;
+				left: 0;
+				right: 0;
+				background: var(--jet);
+				color: #fff;
+				font-size: 11px;
+				font-weight: 500;
+				text-align: center;
+				padding: 8px;
+				transition: bottom 0.3s ease;
+				letter-spacing: 0.5px;
+			}
+
+			.cat-card.no-model:hover .cat-hint {
+				bottom: 0;
+			}
+
+			/* ── PROMESAS DE SERVICIO ── */
+			.promises-section {
+				background: var(--jet);
+				padding: 56px 30px;
+				margin-top: 10px;
+			}
+
+			.promises-inner {
+				max-width: 1400px;
+				margin: 0 auto;
+			}
+
+			.promises-title {
+				font-family: var(--font-title);
+				font-size: 22px;
+				color: #fff;
+				text-transform: uppercase;
+				letter-spacing: 1px;
+				margin-bottom: 36px;
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
+
+			.promises-title::after {
+				content: '';
+				display: block;
+				width: 36px;
+				height: 3px;
+				background: var(--rojo);
+				border-radius: 2px;
+			}
+
+			.promises-grid {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				gap: 1px;
+				background: rgba(255, 255, 255, 0.08);
+				border-radius: 12px;
+				overflow: hidden;
+			}
+
+			.promise-item {
+				background: var(--jet2);
+				padding: 36px 24px;
+				text-align: center;
+				transition: var(--tr);
+				position: relative;
+				overflow: hidden;
+			}
+
+			.promise-item::before {
+				content: '';
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				height: 2px;
+				background: var(--rojo);
+				transform: scaleX(0);
+				transition: transform 0.3s ease;
+			}
+
+			.promise-item:hover::before {
+				transform: scaleX(1);
+			}
+
+			.promise-item:hover {
+				background: #333;
+			}
+
+			.promise-icon {
+				width: 54px;
+				height: 54px;
+				margin: 0 auto 14px;
+				background: rgba(174, 4, 15, 0.12);
+				border: 1px solid rgba(174, 4, 15, 0.25);
+				border-radius: 12px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 22px;
+				transition: var(--tr);
+			}
+
+			.promise-item:hover .promise-icon {
+				background: rgba(174, 4, 15, 0.22);
+				transform: scale(1.1) translateY(-2px);
+			}
+
+			.promise-name {
+				font-family: var(--font-title);
+				font-size: 13px;
+				color: #fff;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+				margin-bottom: 6px;
+			}
+
+			.promise-desc {
+				font-size: 12px;
+				color: var(--plata);
+				line-height: 1.7;
+			}
+
+			/* ── CART SIDEBAR ── */
+			.cart-overlay {
+				position: fixed;
+				inset: 0;
+				background: rgba(20, 20, 20, .45);
+				z-index: 2000;
+				opacity: 0;
+				pointer-events: none;
+				transition: opacity .3s;
+				backdrop-filter: blur(4px);
+			}
+
+			.cart-overlay.open {
+				opacity: 1;
+				pointer-events: all;
+			}
+
+			.cart-sidebar {
+				position: fixed;
+				top: 0;
+				right: -480px;
+				width: 440px;
+				height: 100vh;
+				background: #fff;
+				border-left: 1px solid var(--borde);
+				z-index: 2001;
+				display: flex;
+				flex-direction: column;
+				transition: right .4s cubic-bezier(.4, 0, .2, 1);
+				box-shadow: -10px 0 40px rgba(0, 0, 0, .12);
+			}
+
+			.cart-sidebar.open {
+				right: 0;
+			}
+
+			.cart-head {
+				padding: 22px 26px;
+				border-bottom: 1px solid var(--borde);
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				background: var(--fondo2);
+			}
+
+			.cart-title {
+				font-family: var(--font-title);
+				font-size: 17px;
+				letter-spacing: 2px;
+				text-transform: uppercase;
+			}
+
+			.cart-close {
+				background: var(--fondo3);
+				border: 1px solid var(--borde);
+				color: var(--texto3);
+				width: 32px;
+				height: 32px;
+				border-radius: 7px;
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				transition: var(--tr);
+			}
+
+			.cart-close:hover {
+				border-color: var(--rojo);
+				color: var(--rojo);
+			}
+
+			.cart-items {
+				flex: 1;
+				overflow-y: auto;
+				padding: 18px 26px;
+			}
+
+			.cart-empty {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				height: 60%;
+				text-align: center;
+				gap: 12px;
+				color: var(--texto4);
+			}
+
+			.cart-empty svg {
+				width: 56px;
+				height: 56px;
+				opacity: .4;
+			}
+
+			.cart-item {
+				display: flex;
+				gap: 12px;
+				padding: 14px 0;
+				border-bottom: 1px solid var(--borde);
+				animation: slideIn .3s ease;
+			}
+
+			@keyframes slideIn {
+				from {
+					opacity: 0;
+					transform: translateX(20px)
+				}
+
+				to {
+					opacity: 1;
+					transform: translateX(0)
+				}
+			}
+
+			.ci-img {
+				width: 58px;
+				height: 58px;
+				background: var(--fondo2);
+				border-radius: 8px;
+				border: 1px solid var(--borde);
+				overflow: hidden;
+				flex-shrink: 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.ci-img img {
+				width: 90%;
+				height: 90%;
+				object-fit: contain;
+			}
+
+			.ci-info {
+				flex: 1;
+			}
+
+			.ci-name {
+				font-size: 13px;
+				font-weight: 600;
+				color: var(--texto);
+				line-height: 1.4;
+				margin-bottom: 3px;
+			}
+
+			.ci-price {
+				font-family: var(--font-price);
+				font-size: 14px;
+				color: var(--rojo);
+				font-weight: 600;
+			}
+
+			.qty-ctrl {
+				display: flex;
+				align-items: center;
+				gap: 7px;
+				margin-top: 7px;
+			}
+
+			.qty-btn {
+				background: var(--fondo2);
+				border: 1px solid var(--borde);
+				color: var(--texto);
+				width: 24px;
+				height: 24px;
+				border-radius: 5px;
+				cursor: pointer;
+				font-size: 14px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				transition: var(--tr);
+			}
+
+			.qty-btn:hover {
+				border-color: var(--rojo);
+				color: var(--rojo);
+			}
+
+			.qty-num {
+				font-size: 13px;
+				font-weight: 600;
+				min-width: 20px;
+				text-align: center;
+			}
+
+			.ci-del {
+				background: none;
+				border: none;
+				color: var(--texto4);
+				cursor: pointer;
+				padding: 4px;
+				border-radius: 5px;
+				transition: var(--tr);
+				align-self: flex-start;
+			}
+
+			.ci-del:hover {
+				color: var(--rojo);
+			}
+
+			.cart-foot {
+				padding: 18px 26px 26px;
+				border-top: 1px solid var(--borde);
+				background: var(--fondo2);
+			}
+
+			.cart-row {
+				display: flex;
+				justify-content: space-between;
+				padding: 4px 0;
+				font-size: 13px;
+				color: var(--texto3);
+			}
+
+			.cart-row.grand {
+				font-family: var(--font-price);
+				font-size: 18px;
+				font-weight: 700;
+				color: var(--texto);
+				padding-top: 10px;
+				margin-top: 5px;
+				border-top: 1px solid var(--borde);
+			}
+
+			.cart-row.grand span:last-child {
+				color: var(--rojo);
+			}
+
+			.checkout-btn {
+				width: 100%;
+				background: var(--rojo);
+				border: none;
+				color: #fff;
+				font-family: var(--font-body);
+				font-size: 14px;
+				font-weight: 700;
+				padding: 15px;
+				border-radius: 9px;
+				cursor: pointer;
+				margin-top: 16px;
+				letter-spacing: .5px;
+				transition: var(--tr);
+				text-transform: uppercase;
+			}
+
+			.checkout-btn:hover {
+				background: var(--rojo-dark);
+				transform: translateY(-2px);
+				box-shadow: var(--shadow2);
+			}
+
+			/* ── MODALES ── */
+			.modal-overlay {
+				position: fixed;
+				inset: 0;
+				background: rgba(20, 20, 20, .65);
+				z-index: 3000;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 20px;
+				opacity: 0;
+				pointer-events: none;
+				transition: opacity .3s;
+				backdrop-filter: blur(6px);
+			}
+
+			.modal-overlay.open {
+				opacity: 1;
+				pointer-events: all;
+			}
+
+			.modal {
+				background: #fff;
+				border: 1px solid var(--borde);
+				border-radius: 14px;
+				width: 100%;
+				max-width: 540px;
+				max-height: 90vh;
+				overflow-y: auto;
+				box-shadow: 0 30px 80px rgba(0, 0, 0, .18);
+				transform: scale(.95) translateY(20px);
+				transition: transform .3s;
+			}
+
+			.modal-overlay.open .modal {
+				transform: scale(1) translateY(0);
+			}
+
+			.modal-head {
+				background: linear-gradient(135deg, var(--rojo), var(--rojo-dark));
+				padding: 26px 30px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+
+			.modal-head h2 {
+				font-family: var(--font-title);
+				font-size: 19px;
+				color: #fff;
+				letter-spacing: 2px;
+			}
+
+			.modal-x {
+				background: rgba(255, 255, 255, .15);
+				border: none;
+				color: #fff;
+				width: 30px;
+				height: 30px;
+				border-radius: 6px;
+				cursor: pointer;
+				font-size: 17px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				transition: var(--tr);
+			}
+
+			.modal-x:hover {
+				background: rgba(255, 255, 255, .25);
+			}
+
+			.modal-body {
+				padding: 30px;
+			}
+
+			.form-group {
+				margin-bottom: 18px;
+			}
+
+			.form-label {
+				display: block;
+				font-size: 11px;
+				font-weight: 600;
+				color: var(--texto3);
+				letter-spacing: 1.5px;
+				text-transform: uppercase;
+				margin-bottom: 7px;
+			}
+
+			.form-input,
+			.form-textarea {
+				width: 100%;
+				background: var(--fondo2);
+				border: 1px solid var(--borde);
+				color: var(--texto);
+				font-family: var(--font-body);
+				font-size: 14px;
+				padding: 11px 14px;
+				border-radius: 8px;
+				outline: none;
+				transition: var(--tr);
+			}
+
+			.form-input:focus,
+			.form-textarea:focus {
+				border-color: var(--rojo);
+				box-shadow: 0 0 0 3px var(--rojo-glow);
+				background: #fff;
+			}
+
+			.form-input::placeholder,
+			.form-textarea::placeholder {
+				color: var(--texto4);
+			}
+
+			.form-textarea {
+				resize: vertical;
+				min-height: 80px;
+			}
+
+			.form-row {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 14px;
+			}
+
+			.order-summary {
+				background: var(--fondo2);
+				border: 1px solid var(--borde);
+				border-radius: 9px;
+				padding: 16px;
+				margin-bottom: 22px;
+			}
+
+			.order-summary h4 {
+				font-size: 10px;
+				color: var(--rojo);
+				letter-spacing: 2px;
+				text-transform: uppercase;
+				font-weight: 600;
+				margin-bottom: 10px;
+				padding-bottom: 7px;
+				border-bottom: 1px solid var(--borde);
+			}
+
+			.sum-item {
+				display: flex;
+				justify-content: space-between;
+				font-size: 13px;
+				color: var(--texto3);
+				padding: 3px 0;
+			}
+
+			.sum-item.total {
+				font-size: 16px;
+				font-weight: 700;
+				color: var(--texto);
+				padding-top: 9px;
+				margin-top: 6px;
+				border-top: 1px solid var(--borde);
+			}
+
+			.sum-item.total span:last-child {
+				color: var(--rojo);
+			}
+
+			.submit-btn {
+				width: 100%;
+				background: var(--rojo);
+				border: none;
+				color: #fff;
+				font-family: var(--font-body);
+				font-size: 14px;
+				font-weight: 700;
+				padding: 15px;
+				border-radius: 9px;
+				cursor: pointer;
+				letter-spacing: .5px;
+				text-transform: uppercase;
+				transition: var(--tr);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 9px;
+			}
+
+			.submit-btn:hover {
+				background: var(--rojo-dark);
+				transform: translateY(-2px);
+				box-shadow: var(--shadow2);
+			}
+
+			.submit-btn:disabled {
+				background: var(--texto4);
+				cursor: not-allowed;
+				transform: none;
+				box-shadow: none;
+			}
+
+			/* AUTH MODAL */
+			.auth-modal {
+				background: #fff;
+				border: 1px solid var(--borde);
+				border-radius: 14px;
+				width: 100%;
+				max-width: 460px;
+				overflow: hidden;
+				box-shadow: 0 30px 80px rgba(0, 0, 0, .2);
+				transform: scale(.95) translateY(20px);
+				transition: transform .3s;
+			}
+
+			.modal-overlay.open .auth-modal {
+				transform: scale(1) translateY(0);
+			}
+
+			.auth-tabs {
+				display: flex;
+				border-bottom: 1px solid var(--borde);
+			}
+
+			.auth-tab {
+				flex: 1;
+				background: var(--fondo2);
+				border: none;
+				color: var(--texto3);
+				font-family: var(--font-body);
+				font-size: 13px;
+				font-weight: 600;
+				padding: 15px;
+				cursor: pointer;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+				transition: var(--tr);
+				border-bottom: 2px solid transparent;
+			}
+
+			.auth-tab.active {
+				color: var(--rojo);
+				border-bottom-color: var(--rojo);
+				background: rgba(174, 4, 15, 0.03);
+			}
+
+			.auth-form {
+				padding: 26px 30px 30px;
+				display: none;
+			}
+
+			.auth-form.active {
+				display: block;
+			}
+
+			.auth-logo {
+				text-align: center;
+				margin-bottom: 22px;
+			}
+
+			.auth-logo img {
+				height: 52px;
+				margin-bottom: 8px;
+			}
+
+			.auth-logo p {
+				font-size: 12px;
+				color: var(--texto3);
+				letter-spacing: 1px;
+			}
+
+			.auth-submit {
+				width: 100%;
+				background: var(--rojo);
+				border: none;
+				color: #fff;
+				font-family: var(--font-body);
+				font-size: 14px;
+				font-weight: 700;
+				padding: 13px;
+				border-radius: 8px;
+				cursor: pointer;
+				letter-spacing: .5px;
+				text-transform: uppercase;
+				transition: var(--tr);
+				margin-top: 6px;
+			}
+
+			.auth-submit:hover {
+				background: var(--rojo-dark);
+			}
+
+			.auth-submit:disabled {
+				background: var(--texto4);
+				cursor: not-allowed;
+			}
+
+			.auth-div {
+				text-align: center;
+				color: var(--texto4);
+				font-size: 12px;
+				margin: 14px 0;
+			}
+
+			.phone-wrap {
+				display: flex;
+				border: 1px solid var(--borde);
+				border-radius: 8px;
+				overflow: hidden;
+				background: var(--fondo2);
+				transition: var(--tr);
+			}
+
+			.phone-wrap:focus-within {
+				border-color: var(--rojo);
+				box-shadow: 0 0 0 3px var(--rojo-glow);
+			}
+
+			.phone-prefix {
+				background: var(--fondo3);
+				border: none;
+				border-right: 1px solid var(--borde);
+				color: var(--texto2);
+				font-family: var(--font-body);
+				font-size: 13px;
+				font-weight: 600;
+				padding: 0 11px;
+				cursor: default;
+				outline: none;
+				appearance: none;
+				min-width: 88px;
+			}
+
+			.phone-num {
+				border: none !important;
+				box-shadow: none !important;
+				border-radius: 0 !important;
+				flex: 1;
+				background: transparent;
+			}
+
+			.phone-num:focus {
+				box-shadow: none !important;
+				border: none !important;
+			}
+
+			.user-checkout-card {
+				background: var(--fondo2);
+				border: 1px solid rgba(174, 4, 15, .25);
+				border-radius: 10px;
+				padding: 14px 16px;
+				margin-bottom: 20px;
+				display: flex;
+				align-items: center;
+				gap: 13px;
+			}
+
+			.uc-av {
+				width: 42px;
+				height: 42px;
+				background: rgba(174, 4, 15, .1);
+				border: 1px solid rgba(174, 4, 15, .2);
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: var(--rojo);
+				font-size: 17px;
+				flex-shrink: 0;
+			}
+
+			.uc-name {
+				font-size: 14px;
+				font-weight: 600;
+			}
+
+			.uc-email {
+				font-size: 12px;
+				color: var(--texto3);
+				margin-top: 2px;
+			}
+
+			.uc-badge {
+				font-size: 10px;
+				color: #22c55e;
+				font-weight: 600;
+				letter-spacing: 1px;
+				margin-top: 3px;
+			}
+
+			/* SUCCESS MODAL */
+			.success-modal {
+				background: #fff;
+				border: 1px solid var(--borde);
+				border-radius: 14px;
+				width: 100%;
+				max-width: 440px;
+				padding: 46px 38px;
+				text-align: center;
+				box-shadow: 0 30px 80px rgba(0, 0, 0, .15);
+				transform: scale(.9);
+				transition: transform .3s;
+			}
+
+			.modal-overlay.open .success-modal {
+				transform: scale(1);
+			}
+
+			.success-icon {
+				width: 78px;
+				height: 78px;
+				background: rgba(174, 4, 15, .08);
+				border: 2px solid var(--rojo);
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin: 0 auto 22px;
+				animation: pop .8s ease;
+			}
+
+			@keyframes pop {
+				0% {
+					transform: scale(0)
+				}
+
+				70% {
+					transform: scale(1.1)
+				}
+
+				100% {
+					transform: scale(1)
+				}
+			}
+
+			.success-icon svg {
+				width: 34px;
+				height: 34px;
+				color: var(--rojo);
+			}
+
+			.success-title {
+				font-family: var(--font-title);
+				font-size: 24px;
+				color: var(--texto);
+				letter-spacing: 1px;
+				margin-bottom: 10px;
+			}
+
+			.success-msg {
+				font-size: 14px;
+				color: var(--texto3);
+				line-height: 1.8;
+				margin-bottom: 8px;
+			}
+
+			.success-num {
+				font-family: var(--font-price);
+				font-size: 17px;
+				color: var(--rojo);
+				font-weight: 700;
+				letter-spacing: 2px;
+				margin: 14px 0;
+			}
+
+			.success-close {
+				background: var(--rojo);
+				border: none;
+				color: #fff;
+				font-family: var(--font-body);
+				font-size: 14px;
+				font-weight: 600;
+				padding: 12px 30px;
+				border-radius: 8px;
+				cursor: pointer;
+				margin-top: 18px;
+				transition: var(--tr);
+			}
+
+			.success-close:hover {
+				background: var(--rojo-dark);
+			}
+
+			/* TOAST */
+			.toast-wrap {
+				position: fixed;
+				bottom: 26px;
+				right: 26px;
+				z-index: 9999;
+				display: flex;
+				flex-direction: column;
+				gap: 9px;
+				pointer-events: none;
+			}
+
+			.toast {
+				background: #fff;
+				border: 1px solid var(--borde);
+				border-left: 4px solid var(--rojo);
+				color: var(--texto);
+				font-size: 13px;
+				font-weight: 500;
+				padding: 13px 16px;
+				border-radius: 8px;
+				box-shadow: var(--shadow);
+				animation: toastIn .3s ease;
+				min-width: 250px;
+				display: flex;
+				align-items: center;
+				gap: 9px;
+			}
+
+			@keyframes toastIn {
+				from {
+					opacity: 0;
+					transform: translateX(30px)
+				}
+
+				to {
+					opacity: 1;
+					transform: translateX(0)
+				}
+			}
+
+			.toast.success {
+				border-left-color: #22c55e;
+			}
+
+			/* SPINNER */
+			.spinner {
+				width: 38px;
+				height: 38px;
+				border: 3px solid var(--fondo3);
+				border-top-color: var(--rojo);
+				border-radius: 50%;
+				animation: spin .8s linear infinite;
+				margin-bottom: 14px;
+			}
+
+			@keyframes spin {
+				to {
+					transform: rotate(360deg)
+				}
+			}
+
+			/* ── FOOTER ── */
+			footer {
+				background: var(--jet);
+				border-top: 3px solid var(--rojo);
+			}
+
+			.foot-main {
+				max-width: 1400px;
+				margin: 0 auto;
+				padding: 50px 30px 28px;
+				display: grid;
+				grid-template-columns: 2fr 1fr 1fr 1fr;
+				gap: 40px;
+			}
+
+			.foot-brand .fn {
+				font-family: var(--font-title);
+				font-size: 20px;
+				color: var(--rojo);
+				letter-spacing: 2px;
+				margin-bottom: 8px;
+			}
+
+			.foot-brand p {
+				font-size: 13px;
+				color: var(--plata);
+				line-height: 1.8;
+			}
+
+			.foot-col h4 {
+				font-size: 10px;
+				font-weight: 700;
+				color: #fff;
+				letter-spacing: 2.5px;
+				text-transform: uppercase;
+				margin-bottom: 14px;
+				padding-bottom: 7px;
+				border-bottom: 1px solid rgba(255, 255, 255, .1);
+			}
+
+			.foot-col ul {
+				list-style: none;
+			}
+
+			.foot-col ul li {
+				margin-bottom: 9px;
+				font-size: 13px;
+				color: var(--plata);
+			}
+
+			.foot-col ul li a {
+				color: var(--plata);
+				text-decoration: none;
+				transition: var(--tr);
+			}
+
+			.foot-col ul li a:hover {
+				color: var(--rojo);
+			}
+
+			.foot-bottom {
+				border-top: 1px solid rgba(255, 255, 255, .08);
+				max-width: 1400px;
+				margin: 0 auto;
+				padding: 18px 30px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				flex-wrap: wrap;
+				gap: 8px;
+			}
+
+			.foot-bottom p {
+				font-size: 11px;
+				color: rgba(255, 255, 255, .35);
+			}
+
+			.foot-social {
+				display: flex;
+				gap: 10px;
+			}
+
+			.social-btn {
+				width: 32px;
+				height: 32px;
+				border: 1px solid rgba(255, 255, 255, .15);
+				border-radius: 7px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: var(--plata);
+				font-size: 14px;
+				cursor: pointer;
+				transition: var(--tr);
+				text-decoration: none;
+			}
+
+			.social-btn:hover {
+				border-color: var(--rojo);
+				color: var(--rojo);
+				background: rgba(174, 4, 15, .1);
+			}
+
+			@media(max-width:1024px) {
+				.categories-grid {
+					grid-template-columns: repeat(3, 1fr);
+				}
+			}
+
+			@media(max-width:900px) {
+
+				.hero-inner,
+				.foot-main {
+					grid-template-columns: 1fr
+				}
+
+				.hero-stats {
+					display: none
+				}
+
+				.promises-grid {
+					grid-template-columns: 1fr 1fr
+				}
+
+				.models-grid {
+					grid-template-columns: repeat(3, 1fr)
+				}
+
+				.foot-main {
+					grid-template-columns: 1fr 1fr
+				}
+			}
+
+			@media(max-width:600px) {
+				.nav-links {
+					display: none
+				}
+
+				.categories-grid {
+					grid-template-columns: 1fr 1fr
+				}
+
+				.models-grid {
+					grid-template-columns: repeat(2, 1fr)
+				}
+
+				.cart-sidebar {
+					width: 100%;
+					right: -100%
+				}
+
+				.form-row {
+					grid-template-columns: 1fr
+				}
+
+				.promises-grid {
+					grid-template-columns: 1fr 1fr
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<!-- TOPBAR -->
+		<div class="topbar">🚗 ACTIVO MOTORS · Repuestos 100% Originales Toyota & Multimarca · San Diego, Valle Verde · 0412-2004902</div>
+		<!-- HEADER -->
+		<header>
+			<div class="nav">
+				<a class="logo" href="#">
+					<img src="https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png" alt="Activo Motors">
+					<div class="logo-text">
+						<div>
+							<span class="logo-activo">ACTIVO</span>
+							<span class="logo-motors">MOTORS</span>
+						</div>
+						<span class="logo-slogan">Repuestos Automotrices</span>
+					</div>
+				</a>
+				<nav class="nav-links">
+					<a class="nav-a active" href="#">Inicio</a>
+					<a class="nav-a" href="catalogo.html">Catálogo</a>
+					<a class="nav-a" href="#modelos">Modelos</a>
+					<a class="nav-a" href="#" onclick="event.preventDefault();showContact()">Contacto</a>
+				</nav>
+				<div class="nav-right">
+					<div class="user-wrap">
+						<button class="user-btn" id="userNavBtn" onclick="toggleUserMenu()">
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+								<circle cx="12" cy="7" r="4" />
+							</svg>
+							<span id="userNavLabel">Mi cuenta</span>
+						</button>
+						<div class="user-dropdown" id="userDropdown">
+							<div class="ud-head" id="udHead" style="display:none">
+								<div class="ud-name" id="udName"></div>
+								<div class="ud-email" id="udEmail"></div>
+							</div>
+							<button class="ud-btn" id="udLoginBtn" onclick="openAuthModal('login')">Iniciar sesión</button>
+							<button class="ud-btn" id="udRegBtn" onclick="openAuthModal('register')">Registrarse</button>
+							<button class="ud-btn danger" id="udLogoutBtn" onclick="cerrarSesion()" style="display:none">Cerrar sesión</button>
+						</div>
+					</div>
+					<button class="cart-btn" onclick="toggleCart()">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<circle cx="9" cy="21" r="1" />
+							<circle cx="20" cy="21" r="1" />
+							<path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+						</svg> Carrito <span class="cart-count" id="cartCount">0</span>
+					</button>
+				</div>
+			</div>
+		</header>
+		<!-- HERO -->
+		<section class="hero">
+			<div class="hero-bg"></div>
+			<div class="hero-grid"></div>
+			<div class="hero-inner">
+				<div>
+					<div class="hero-tag">Especialistas en Toyota · Tienda Oficial</div>
+					<h1 class="hero-title"> ¡Bienvenido a <br>
+						<span class="outline">ACTIVO</span>
+						<span class="red">MOTORS</span>!
+					</h1>
+					<p class="hero-desc">Tu tienda especializada en <strong>repuestos 100% originales Toyota</strong> en San Diego, Valle Verde. También contamos con repuestos de alta calidad para todas las marcas. Envío coordinado, garantía de calidad y atención personalizada. </p>
+					<div class="hero-cta">
+						<button class="btn-primary" onclick="document.getElementById('modelos').scrollIntoView({behavior:'smooth'})">Buscar Repuesto →</button>
+						<button class="btn-outline" onclick="showContact()">📞 Contactar</button>
+					</div>
+				</div>
+				<div class="hero-stats">
+					<div class="stat-box">
+						<div class="stat-num">100+</div>
+						<div class="stat-label">Repuestos</div>
+						<p class="stat-review">"Especialistas en Toyota, servicio en San Diego."</p>
+					</div>
+					<div class="stat-box">
+						<div class="stat-num">100%</div>
+						<div class="stat-label">Calidad</div>
+						<p class="stat-review">"Encontré la pieza original rápidamente."</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- BUSCADOR POR MODELO + CATEGORÍAS -->
+		<div class="section-wrap" id="modelos">
+			<h2 class="section-title red">Buscador de Repuestos por Modelo</h2>
+			<!-- Barra indicador modelo seleccionado -->
+			<div class="model-selected-bar" id="modelSelectedBar">
+				<span id="modelSelectedText">Modelo seleccionado</span>
+				<span style="color:var(--texto3);font-size:12px;font-weight:400"> — Ahora selecciona una categoría</span>
+			</div>
+			<div class="models-grid" id="modelsGrid"></div>
+			<!-- CATEGORÍAS — aparecen al seleccionar modelo -->
+			<div class="categories-section" id="categoriesSection" style="display:none">
+				<h2 class="section-title">Categorías Destacadas</h2>
+				<div class="categories-grid" id="categoriesGrid"></div>
+			</div>
+		</div>
+		<!-- PROMESAS DE SERVICIO -->
+		<section class="promises-section">
+			<div class="promises-inner">
+				<h2 class="promises-title">Promesas de Servicio</h2>
+				<div class="promises-grid">
+					<div class="promise-item">
+						<div class="promise-icon">🚚</div>
+						<div class="promise-name">Envíos Rápidos</div>
+						<div class="promise-desc">Coordinamos la entrega directamente contigo en San Diego y alrededores.</div>
+					</div>
+					<div class="promise-item">
+						<div class="promise-icon">✅</div>
+						<div class="promise-name">Garantía Total</div>
+						<div class="promise-desc">Todos nuestros repuestos originales Toyota vienen con garantía de calidad.</div>
+					</div>
+					<div class="promise-item">
+						<div class="promise-icon">🔧</div>
+						<div class="promise-name">Asesoría Técnica</div>
+						<div class="promise-desc">Te ayudamos a identificar la pieza exacta que necesita tu vehículo.</div>
+					</div>
+					<div class="promise-item">
+						<div class="promise-icon">📍</div>
+						<div class="promise-name">Retiro en Valle Verde</div>
+						<div class="promise-desc">Visítanos en San Diego, Valle Verde, cerca de la Av. Don Julio Centeno.</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- FOOTER -->
+		<footer>
+			<div class="foot-main">
+				<div class="foot-brand">
+					<div class="fn">ACTIVO MOTORS</div>
+					<p>Especialistas en repuestos 100% originales Toyota y repuestos de calidad para todas las marcas. Ubicados en San Diego, Valle Verde — atención personalizada y los mejores precios.</p>
+				</div>
+				<div class="foot-col">
+					<h4>Navegación</h4>
+					<ul>
+						<li>
+							<a href="#">Inicio</a>
+						</li>
+						<li>
+							<a href="catalogo.html">Catálogo completo</a>
+						</li>
+						<li>
+							<a href="#modelos">Modelos</a>
+						</li>
+						<li>
+							<a href="#" onclick="event.preventDefault();showContact()">Contacto</a>
+						</li>
+					</ul>
+				</div>
+				<div class="foot-col">
+					<h4>Ubicación</h4>
+					<ul>
+						<li>📍 San Diego, Valle Verde</li>
+						<li>Av. Don Julio Centeno</li>
+						<li>📞 <strong style="color:#fff">0412-2004902</strong>
+						</li>
+					</ul>
+				</div>
+				<div class="foot-col">
+					<h4>Categorías</h4>
+					<ul>
+						<li>⚙️ Motor</li>
+						<li>🛑 Frenos</li>
+						<li>⚡ Eléctrico</li>
+						<li>🔧 Mantenimiento</li>
+						<li>🔩 Suspensión</li>
+						<li>🔄 Transmisión</li>
+					</ul>
+				</div>
+			</div>
+			<div class="foot-bottom">
+				<p>© 2025 ACTIVO MOTORS · Todos los derechos reservados · San Diego, Venezuela</p>
+				<div class="foot-social">
+					<a class="social-btn" href="#" title="Instagram">📸</a>
+					<a class="social-btn" href="#" title="Facebook">👍</a>
+					<a class="social-btn" href="#" title="WhatsApp" onclick="event.preventDefault();showContact()">💬</a>
+				</div>
+			</div>
+		</footer>
+		<!-- CARRITO -->
+		<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+		<div class="cart-sidebar" id="cartSidebar">
+			<div class="cart-head">
+				<div class="cart-title">🛒 Carrito</div>
+				<button class="cart-close" onclick="toggleCart()">
+					<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+						<line x1="18" y1="6" x2="6" y2="18" />
+						<line x1="6" y1="6" x2="18" y2="18" />
+					</svg>
+				</button>
+			</div>
+			<div class="cart-items" id="cartItems">
+				<div class="cart-empty">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+						<circle cx="9" cy="21" r="1" />
+						<circle cx="20" cy="21" r="1" />
+						<path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+					</svg>
+					<p>Tu carrito está vacío</p>
+				</div>
+			</div>
+			<div class="cart-foot" id="cartFoot" style="display:none">
+				<div class="cart-row">
+					<span>Subtotal</span>
+					<span id="cSubtotal">$0.00</span>
+				</div>
+				<div class="cart-row">
+					<span>IVA (16%)</span>
+					<span id="cIVA">$0.00</span>
+				</div>
+				<div class="cart-row grand">
+					<span>TOTAL</span>
+					<span id="cTotal">$0.00</span>
+				</div>
+				<button class="checkout-btn" onclick="openCheckout()">Proceder al Pago →</button>
+			</div>
+		</div>
+		<!-- MODAL AUTH -->
+		<div class="modal-overlay" id="authOverlay" onclick="closeAuthBg(event)">
+			<div class="auth-modal">
+				<div class="auth-tabs">
+					<button class="auth-tab active" id="tabLogin" onclick="switchTab('login')">Iniciar Sesión</button>
+					<button class="auth-tab" id="tabReg" onclick="switchTab('register')">Registrarse</button>
+				</div>
+				<div class="auth-form active" id="fLogin">
+					<div class="auth-logo">
+						<img src="https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png" alt="Logo">
+						<p>Ingresa a tu cuenta</p>
+					</div>
+					<div class="form-group">
+						<label class="form-label">Correo electrónico</label>
+						<input class="form-input" type="email" id="lEmail" placeholder="tu@correo.com">
+					</div>
+					<div class="form-group">
+						<label class="form-label">Contraseña</label>
+						<input class="form-input" type="password" id="lPass" placeholder="••••••••">
+					</div>
+					<button class="auth-submit" id="loginBtn" onclick="doLogin()">Entrar</button>
+					<div class="auth-div">¿No tienes cuenta? <span style="color:var(--rojo);cursor:pointer" onclick="switchTab('register')">Regístrate aquí</span>
+					</div>
+				</div>
+				<div class="auth-form" id="fReg">
+					<div class="auth-logo">
+						<img src="https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png" alt="Logo">
+						<p>Crea tu cuenta</p>
+					</div>
+					<div class="form-group">
+						<label class="form-label">Nombre completo *</label>
+						<input class="form-input" type="text" id="rNombre" placeholder="Ej: Carlos García">
+					</div>
+					<div class="form-row">
+						<div class="form-group">
+							<label class="form-label">Cédula *</label>
+							<input class="form-input" type="text" id="rCedula" placeholder="V-12345678">
+						</div>
+						<div class="form-group">
+							<label class="form-label">Teléfono *</label>
+							<div class="phone-wrap">
+								<select class="phone-prefix" id="rPrefijo" disabled>
+									<option value="+58">🇻🇪 +58</option>
+								</select>
+								<input class="form-input phone-num" type="tel" id="rTelefono" placeholder="4144062649" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="form-label">Correo *</label>
+						<input class="form-input" type="email" id="rEmail" placeholder="tu@correo.com">
+					</div>
+					<div class="form-group">
+						<label class="form-label">Dirección</label>
+						<input class="form-input" type="text" id="rDireccion" placeholder="Calle, urbanización, municipio...">
+					</div>
+					<div class="form-row">
+						<div class="form-group">
+							<label class="form-label">Contraseña *</label>
+							<input class="form-input" type="password" id="rPass" placeholder="Mínimo 6 caracteres">
+						</div>
+						<div class="form-group">
+							<label class="form-label">Confirmar *</label>
+							<input class="form-input" type="password" id="rPass2" placeholder="Repetir contraseña">
+						</div>
+					</div>
+					<button class="auth-submit" id="regBtn" onclick="doRegister()">Crear Cuenta</button>
+					<div class="auth-div">¿Ya tienes cuenta? <span style="color:var(--rojo);cursor:pointer" onclick="switchTab('login')">Inicia sesión</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- MODAL CHECKOUT -->
+		<div class="modal-overlay" id="checkoutOverlay">
+			<div class="modal">
+				<div class="modal-head">
+					<h2>FINALIZAR PEDIDO</h2>
+					<button class="modal-x" onclick="closeCheckout()">✕</button>
+				</div>
+				<div class="modal-body">
+					<div class="order-summary" id="orderSummary"></div>
+					<div id="ckUserCard" style="display:none">
+						<div class="user-checkout-card">
+							<div class="uc-av">👤</div>
+							<div>
+								<div class="uc-name" id="ckName"></div>
+								<div class="uc-email" id="ckEmail"></div>
+								<div class="uc-badge">✔ USUARIO REGISTRADO</div>
+							</div>
+						</div>
+					</div>
+					<div id="ckGuestForm">
+						<div class="form-group">
+							<label class="form-label">Nombre Completo *</label>
+							<input class="form-input" type="text" id="gNombre" placeholder="Ej: Carlos García">
+						</div>
+						<div class="form-row">
+							<div class="form-group">
+								<label class="form-label">Email *</label>
+								<input class="form-input" type="email" id="gEmail" placeholder="tu@correo.com">
+							</div>
+							<div class="form-group">
+								<label class="form-label">Teléfono *</label>
+								<input class="form-input" type="tel" id="gTel" placeholder="0412-0000000">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="form-label">Dirección de Entrega</label>
+							<textarea class="form-textarea" id="gDir" placeholder="Calle, urbanización, municipio..."></textarea>
+						</div>
+					</div>
+					<button class="submit-btn" id="submitBtn" onclick="confirmarPedido()">
+						<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<polyline points="20 6 9 17 4 12" />
+						</svg> Confirmar Pedido </button>
+				</div>
+			</div>
+		</div>
+		<!-- MODAL ÉXITO -->
+		<div class="modal-overlay" id="successOverlay">
+			<div class="success-modal">
+				<div class="success-icon">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+						<polyline points="20 6 9 17 4 12" />
+					</svg>
+				</div>
+				<div class="success-title">¡PEDIDO EXITOSO!</div>
+				<p class="success-msg">Tu pedido ha sido confirmado. Recibirás un correo con tu factura en PDF.</p>
+				<div class="success-num" id="successNum"></div>
+				<p class="success-msg">Nuestro equipo se comunicará contigo para coordinar el pago y la entrega. <br>
+					<strong style="color:var(--rojo)">0412-2004902</strong>
+				</p>
+				<button class="success-close" onclick="closeSuccess()">Continuar</button>
+			</div>
+		</div>
+		<div class="toast-wrap" id="toastWrap"></div>
+		<script>
+			const API_URL = 'https://script.google.com/macros/s/AKfycbyfnYne5VXTSlgtKfrT4wNW5R8Z5LSjUw8KjfbW-gZIZvQQBqn3EIlksPI6QYOwaIt4Og/exec';
+			const LOGO_URL = 'https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png';
+			/* ══════════════════════════════════════
+			   DATOS ESTÁTICOS
+			══════════════════════════════════════ */
+			const MODELOS = [{
+				id: 'hilux',
+				nombre: 'Hilux',
+				marca: 'Toyota',
+				img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/2016_Toyota_Hilux_SR5_%284x4%29%2C_front_8.25.18.jpg/320px-2016_Toyota_Hilux_SR5_%284x4%29%2C_front_8.25.18.jpg'
+			}, {
+				id: 'corolla',
+				nombre: 'Corolla',
+				marca: 'Toyota',
+				img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/2019_Toyota_Corolla_sedan_%28facelift%2C_white%29%2C_front_8.15.19.jpg/320px-2019_Toyota_Corolla_sedan_%28facelift%2C_white%29%2C_front_8.15.19.jpg'
+			}, {
+				id: 'yaris',
+				nombre: 'Yaris',
+				marca: 'Toyota',
+				img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/2020_Toyota_Yaris_hybrid_GR_Sport_%28Europe%29%2C_front_8.2.20.jpg/320px-2020_Toyota_Yaris_hybrid_GR_Sport_%28Europe%29%2C_front_8.2.20.jpg'
+			}, {
+				id: 'fortuner',
+				nombre: 'Fortuner',
+				marca: 'Toyota',
+				img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/2016_Toyota_Fortuner_2.7_VVT-i_4WD_%28facelift%2C_white%29%2C_front_8.18.18.jpg/320px-2016_Toyota_Fortuner_2.7_VVT-i_4WD_%28facelift%2C_white%29%2C_front_8.18.18.jpg'
+			}, {
+				id: 'prado',
+				nombre: 'Prado',
+				marca: 'Toyota',
+				img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/2018_Toyota_Land_Cruiser_Prado_%28facelift%2C_TXL%29%2C_front_8.10.18.jpg/320px-2018_Toyota_Land_Cruiser_Prado_%28facelift%2C_TXL%29%2C_front_8.10.18.jpg'
+			}, {
+				id: 'avanza',
+				nombre: 'Avanza',
+				marca: 'Toyota',
+				img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Toyota_Avanza_2012_%28Indonesia%29.jpg/320px-Toyota_Avanza_2012_%28Indonesia%29.jpg'
+			}, {
+				id: 'multimarca',
+				nombre: 'Otros',
+				marca: 'Multimarca',
+				img: 'https://cdn-icons-png.flaticon.com/512/3774/3774278.png'
+			}, ];
+			const CATEGORIAS = [{
+				id: 'motor',
+				nombre: 'Motor',
+				filtro: 'MOTOR',
+				img: 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&q=80'
+			}, {
+				id: 'suspension',
+				nombre: 'Suspensión',
+				filtro: 'SUSPENSION',
+				img: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600&q=80'
+			}, {
+				id: 'frenos',
+				nombre: 'Frenos',
+				filtro: 'FRENOS',
+				img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80'
+			}, {
+				id: 'mantenimiento',
+				nombre: 'Mantenimiento',
+				filtro: 'MANTENIMIENTO',
+				img: 'https://images.unsplash.com/photo-1599983549399-6a0c8b62dff8?w=600&q=80'
+			}, {
+				id: 'electrico',
+				nombre: 'Eléctrico',
+				filtro: 'ELECTRICO',
+				img: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=600&q=80'
+			}, {
+				id: 'transmision',
+				nombre: 'Transmisión',
+				filtro: 'TRANSMISION',
+				img: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=600&q=80'
+			}, {
+				id: 'carroceria',
+				nombre: 'Carrocería',
+				filtro: 'CARROCERIA',
+				img: 'https://images.unsplash.com/photo-1609868085878-440a59f1d78e?w=600&q=80'
+			}, {
+				id: 'todos',
+				nombre: 'Ver Todo',
+				filtro: 'TODOS',
+				img: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&q=80'
+			}, ];
+			/* ══════════════════════════════════════
+			   ESTADO
+			══════════════════════════════════════ */
+			let carrito = [];
+			let usuarioActual = null;
+			let modeloSeleccionado = null;
+			/* ══════════════════════════════════════
+			   INIT
+			══════════════════════════════════════ */
+			document.addEventListener('DOMContentLoaded', () => {
+				// Restaurar sesión
+				try {
+					const s = localStorage.getItem('am_usuario');
+					if (s) {
+						usuarioActual = JSON.parse(s);
+						actualizarUIUsuario();
+					}
+				} catch (e) {}
+				// Restaurar carrito
+				try {
+					const c = localStorage.getItem('am_carrito');
+					if (c) {
+						carrito = JSON.parse(c);
+						actualizarCarritoUI();
+					}
+				} catch (e) {}
+				renderModelos();
+				// Cerrar dropdown al click afuera
+				document.addEventListener('click', e => {
+					if (!document.getElementById('userNavBtn').closest('.user-wrap').contains(e.target)) document.getElementById('userDropdown').classList.remove('open');
+				});
+			});
+			/* ══════════════════════════════════════
+			   RENDER MODELOS
+			══════════════════════════════════════ */
+			function renderModelos() {
+				document.getElementById('modelsGrid').innerHTML = MODELOS.map(m => `
+    
+																									<div class="model-card" id="mc-${m.id}" onclick="seleccionarModelo('${m.id}')">
+																										<img src="${m.img}" alt="${m.nombre}"
            onerror="this.src='https://cdn-icons-png.flaticon.com/512/3774/3774278.png'">
-      <div class="model-name">${m.nombre}</div>
-      <div class="model-brand">${m.marca}</div>
-    </div>`).join('');
-}
-
-/* ══════════════════════════════════════
-   SELECCIONAR MODELO
-══════════════════════════════════════ */
-function seleccionarModelo(id) {
-  modeloSeleccionado = MODELOS.find(m => m.id === id);
-
-  // Quitar active de todos, poner en el seleccionado
-  document.querySelectorAll('.model-card').forEach(c => c.classList.remove('active'));
-  document.getElementById('mc-' + id).classList.add('active');
-
-  // Mostrar barra indicadora
-  const bar = document.getElementById('modelSelectedBar');
-  bar.classList.add('visible');
-  document.getElementById('modelSelectedText').textContent =
-    `🚗 ${modeloSeleccionado.nombre} (${modeloSeleccionado.marca})`;
-
-  // Mostrar sección de categorías
-  const sec = document.getElementById('categoriesSection');
-  sec.style.display = 'block';
-  renderCategorias();
-
-  // Scroll a categorías
-  setTimeout(() => sec.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
-}
-
-/* ══════════════════════════════════════
-   RENDER CATEGORÍAS
-══════════════════════════════════════ */
-function renderCategorias() {
-  document.getElementById('categoriesGrid').innerHTML = CATEGORIAS.map(cat => `
-    <div class="cat-card" onclick="irACatalogo('${cat.filtro}')">
-      <img class="cat-card-img" src="${cat.img}" alt="${cat.nombre}"
+																											<div class="model-name">${m.nombre}</div>
+																											<div class="model-brand">${m.marca}</div>
+																										</div>`).join('');
+			}
+			/* ══════════════════════════════════════
+			   SELECCIONAR MODELO
+			══════════════════════════════════════ */
+			function seleccionarModelo(id) {
+				modeloSeleccionado = MODELOS.find(m => m.id === id);
+				// Quitar active de todos, poner en el seleccionado
+				document.querySelectorAll('.model-card').forEach(c => c.classList.remove('active'));
+				document.getElementById('mc-' + id).classList.add('active');
+				// Mostrar barra indicadora
+				const bar = document.getElementById('modelSelectedBar');
+				bar.classList.add('visible');
+				document.getElementById('modelSelectedText').textContent = `🚗 ${modeloSeleccionado.nombre} (${modeloSeleccionado.marca})`;
+				// Mostrar sección de categorías
+				const sec = document.getElementById('categoriesSection');
+				sec.style.display = 'block';
+				renderCategorias();
+				// Scroll a categorías
+				setTimeout(() => sec.scrollIntoView({
+					behavior: 'smooth',
+					block: 'start'
+				}), 120);
+			}
+			/* ══════════════════════════════════════
+			   RENDER CATEGORÍAS
+			══════════════════════════════════════ */
+			function renderCategorias() {
+				document.getElementById('categoriesGrid').innerHTML = CATEGORIAS.map(cat => `
+    
+																										<div class="cat-card" onclick="irACatalogo('${cat.filtro}')">
+																											<img class="cat-card-img" src="${cat.img}" alt="${cat.nombre}"
            onerror="this.parentElement.style.background='#555'">
-      <div class="cat-overlay"></div>
-      <div class="cat-label">${cat.nombre}</div>
-      <div class="cat-arrow">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-        </svg>
-      </div>
-    </div>`).join('');
-}
+																												<div class="cat-overlay"></div>
+																												<div class="cat-label">${cat.nombre}</div>
+																												<div class="cat-arrow">
+																													<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+																														<line x1="5" y1="12" x2="19" y2="12"/>
+																														<polyline points="12 5 19 12 12 19"/>
+																													</svg>
+																												</div>
+																											</div>`).join('');
+			}
+			/* ══════════════════════════════════════
+			   NAVEGAR AL CATÁLOGO
+			══════════════════════════════════════ */
+			function irACatalogo(categoria) {
+				const modelo = modeloSeleccionado ? modeloSeleccionado.id : 'todos';
+				const modeloNombre = modeloSeleccionado ? modeloSeleccionado.nombre : 'Todos';
+				window.location.href = `catalogo.html?modelo=${encodeURIComponent(modelo)}&modeloNombre=${encodeURIComponent(modeloNombre)}&categoria=${encodeURIComponent(categoria)}`;
+			}
+			/* ══════════════════════════════════════
+			   API
+			══════════════════════════════════════ */
+			async function apiCall(params = {}) {
+				let url = API_URL + '?';
+				const parts = [];
+				for (const [k, v] of Object.entries(params)) {
+					if (v !== undefined && v !== null) parts.push(`${k}=${encodeURIComponent(typeof v === 'object' ? JSON.stringify(v) : v)}`);
+				}
+				url += parts.join('&');
+				const res = await fetch(url);
+				return await res.json();
+			}
+			/* ══════════════════════════════════════
+			   AUTH
+			══════════════════════════════════════ */
+			function openAuthModal(tab) {
+				document.getElementById('userDropdown').classList.remove('open');
+				document.getElementById('authOverlay').classList.add('open');
+				switchTab(tab || 'login');
+			}
 
-/* ══════════════════════════════════════
-   NAVEGAR AL CATÁLOGO
-══════════════════════════════════════ */
-function irACatalogo(categoria) {
-  const modelo = modeloSeleccionado ? modeloSeleccionado.id : 'todos';
-  const modeloNombre = modeloSeleccionado ? modeloSeleccionado.nombre : 'Todos';
-  window.location.href =
-    `catalogo.html?modelo=${encodeURIComponent(modelo)}&modeloNombre=${encodeURIComponent(modeloNombre)}&categoria=${encodeURIComponent(categoria)}`;
-}
+			function closeAuthBg(e) {
+				if (e.target === document.getElementById('authOverlay')) document.getElementById('authOverlay').classList.remove('open');
+			}
 
-/* ══════════════════════════════════════
-   API
-══════════════════════════════════════ */
-async function apiCall(params = {}) {
-  let url = API_URL + '?';
-  const parts = [];
-  for (const [k, v] of Object.entries(params)) {
-    if (v !== undefined && v !== null)
-      parts.push(`${k}=${encodeURIComponent(typeof v === 'object' ? JSON.stringify(v) : v)}`);
-  }
-  url += parts.join('&');
-  const res = await fetch(url);
-  return await res.json();
-}
+			function switchTab(tab) {
+				document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
+				document.getElementById('tabReg').classList.toggle('active', tab === 'register');
+				document.getElementById('fLogin').classList.toggle('active', tab === 'login');
+				document.getElementById('fReg').classList.toggle('active', tab === 'register');
+			}
+			async function doLogin() {
+				const email = document.getElementById('lEmail').value.trim();
+				const pass = document.getElementById('lPass').value;
+				if (!email || !pass) {
+					showToast('Completa todos los campos', 'error');
+					return;
+				}
+				const btn = document.getElementById('loginBtn');
+				btn.disabled = true;
+				btn.textContent = 'Verificando...';
+				try {
+					const res = await apiCall({
+						accion: 'login',
+						email,
+						password: pass
+					});
+					btn.disabled = false;
+					btn.textContent = 'Entrar';
+					if (res.ok) {
+						usuarioActual = res.usuario;
+						localStorage.setItem('am_usuario', JSON.stringify(usuarioActual));
+						document.getElementById('authOverlay').classList.remove('open');
+						actualizarUIUsuario();
+						showToast(`¡Bienvenido, ${usuarioActual.nombre}!`, 'success');
+					} else {
+						showToast(res.error || 'Error al iniciar sesión', 'error');
+					}
+				} catch (e) {
+					btn.disabled = false;
+					btn.textContent = 'Entrar';
+					showToast('Error de conexión', 'error');
+				}
+			}
+			async function doRegister() {
+				const nombre = document.getElementById('rNombre').value.trim();
+				const cedula = document.getElementById('rCedula').value.trim();
+				const prefijo = document.getElementById('rPrefijo').value;
+				const numRaw = document.getElementById('rTelefono').value.trim().replace(/^0/, '');
+				const telefono = prefijo + numRaw;
+				const email = document.getElementById('rEmail').value.trim();
+				const direccion = document.getElementById('rDireccion').value.trim();
+				const pass = document.getElementById('rPass').value;
+				const pass2 = document.getElementById('rPass2').value;
+				if (!nombre || !cedula || !email || !numRaw || !pass) {
+					showToast('Completa los campos obligatorios (*)', 'error');
+					return;
+				}
+				if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+					showToast('Correo inválido', 'error');
+					return;
+				}
+				if (pass.length < 6) {
+					showToast('La contraseña debe tener al menos 6 caracteres', 'error');
+					return;
+				}
+				if (pass !== pass2) {
+					showToast('Las contraseñas no coinciden', 'error');
+					return;
+				}
+				const btn = document.getElementById('regBtn');
+				btn.disabled = true;
+				btn.textContent = 'Creando cuenta...';
+				try {
+					const res = await apiCall({
+						accion: 'registrar',
+						usuario: JSON.stringify({
+							nombre,
+							cedula,
+							email,
+							telefono,
+							direccion,
+							password: pass
+						})
+					});
+					btn.disabled = false;
+					btn.textContent = 'Crear Cuenta';
+					if (res.ok) {
+						usuarioActual = res.usuario;
+						localStorage.setItem('am_usuario', JSON.stringify(usuarioActual));
+						document.getElementById('authOverlay').classList.remove('open');
+						actualizarUIUsuario();
+						showToast(`¡Cuenta creada! Bienvenido, ${usuarioActual.nombre}!`, 'success');
+					} else {
+						showToast(res.error || 'Error al registrar', 'error');
+					}
+				} catch (e) {
+					btn.disabled = false;
+					btn.textContent = 'Crear Cuenta';
+					showToast('Error de conexión', 'error');
+				}
+			}
 
-/* ══════════════════════════════════════
-   AUTH
-══════════════════════════════════════ */
-function openAuthModal(tab) {
-  document.getElementById('userDropdown').classList.remove('open');
-  document.getElementById('authOverlay').classList.add('open');
-  switchTab(tab || 'login');
-}
-function closeAuthBg(e) {
-  if (e.target === document.getElementById('authOverlay'))
-    document.getElementById('authOverlay').classList.remove('open');
-}
-function switchTab(tab) {
-  document.getElementById('tabLogin').classList.toggle('active', tab==='login');
-  document.getElementById('tabReg').classList.toggle('active', tab==='register');
-  document.getElementById('fLogin').classList.toggle('active', tab==='login');
-  document.getElementById('fReg').classList.toggle('active', tab==='register');
-}
-async function doLogin() {
-  const email = document.getElementById('lEmail').value.trim();
-  const pass  = document.getElementById('lPass').value;
-  if (!email || !pass) { showToast('Completa todos los campos','error'); return; }
-  const btn = document.getElementById('loginBtn');
-  btn.disabled = true; btn.textContent = 'Verificando...';
-  try {
-    const res = await apiCall({ accion:'login', email, password:pass });
-    btn.disabled = false; btn.textContent = 'Entrar';
-    if (res.ok) {
-      usuarioActual = res.usuario;
-      localStorage.setItem('am_usuario', JSON.stringify(usuarioActual));
-      document.getElementById('authOverlay').classList.remove('open');
-      actualizarUIUsuario();
-      showToast(`¡Bienvenido, ${usuarioActual.nombre}!`, 'success');
-    } else { showToast(res.error || 'Error al iniciar sesión','error'); }
-  } catch(e) { btn.disabled=false; btn.textContent='Entrar'; showToast('Error de conexión','error'); }
-}
-async function doRegister() {
-  const nombre    = document.getElementById('rNombre').value.trim();
-  const cedula    = document.getElementById('rCedula').value.trim();
-  const prefijo   = document.getElementById('rPrefijo').value;
-  const numRaw    = document.getElementById('rTelefono').value.trim().replace(/^0/,'');
-  const telefono  = prefijo + numRaw;
-  const email     = document.getElementById('rEmail').value.trim();
-  const direccion = document.getElementById('rDireccion').value.trim();
-  const pass      = document.getElementById('rPass').value;
-  const pass2     = document.getElementById('rPass2').value;
-  if (!nombre||!cedula||!email||!numRaw||!pass) { showToast('Completa los campos obligatorios (*)','error'); return; }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showToast('Correo inválido','error'); return; }
-  if (pass.length < 6) { showToast('La contraseña debe tener al menos 6 caracteres','error'); return; }
-  if (pass !== pass2) { showToast('Las contraseñas no coinciden','error'); return; }
-  const btn = document.getElementById('regBtn');
-  btn.disabled = true; btn.textContent = 'Creando cuenta...';
-  try {
-    const res = await apiCall({ accion:'registrar', usuario: JSON.stringify({nombre,cedula,email,telefono,direccion,password:pass}) });
-    btn.disabled = false; btn.textContent = 'Crear Cuenta';
-    if (res.ok) {
-      usuarioActual = res.usuario;
-      localStorage.setItem('am_usuario', JSON.stringify(usuarioActual));
-      document.getElementById('authOverlay').classList.remove('open');
-      actualizarUIUsuario();
-      showToast(`¡Cuenta creada! Bienvenido, ${usuarioActual.nombre}!`, 'success');
-    } else { showToast(res.error || 'Error al registrar','error'); }
-  } catch(e) { btn.disabled=false; btn.textContent='Crear Cuenta'; showToast('Error de conexión','error'); }
-}
-function cerrarSesion() {
-  usuarioActual = null;
-  localStorage.removeItem('am_usuario');
-  document.getElementById('userDropdown').classList.remove('open');
-  actualizarUIUsuario();
-  showToast('Sesión cerrada');
-}
-function actualizarUIUsuario() {
-  const btn = document.getElementById('userNavBtn');
-  const lbl = document.getElementById('userNavLabel');
-  if (usuarioActual) {
-    btn.classList.add('logged');
-    lbl.innerHTML = `<span class="user-dot"></span> ${usuarioActual.nombre.split(' ')[0]}`;
-    document.getElementById('udHead').style.display = 'block';
-    document.getElementById('udName').textContent  = usuarioActual.nombre;
-    document.getElementById('udEmail').textContent = usuarioActual.email;
-    document.getElementById('udLoginBtn').style.display = 'none';
-    document.getElementById('udRegBtn').style.display   = 'none';
-    document.getElementById('udLogoutBtn').style.display = 'block';
-  } else {
-    btn.classList.remove('logged');
-    lbl.textContent = 'Mi cuenta';
-    document.getElementById('udHead').style.display = 'none';
-    document.getElementById('udLoginBtn').style.display = 'block';
-    document.getElementById('udRegBtn').style.display   = 'block';
-    document.getElementById('udLogoutBtn').style.display = 'none';
-  }
-}
-function toggleUserMenu() { document.getElementById('userDropdown').classList.toggle('open'); }
+			function cerrarSesion() {
+				usuarioActual = null;
+				localStorage.removeItem('am_usuario');
+				document.getElementById('userDropdown').classList.remove('open');
+				actualizarUIUsuario();
+				showToast('Sesión cerrada');
+			}
 
-/* ══════════════════════════════════════
-   CARRITO
-══════════════════════════════════════ */
-function actualizarCarritoUI() {
-  const total = carrito.reduce((s,i) => s+i.cantidad, 0);
-  const el = document.getElementById('cartCount');
-  el.textContent = total; el.classList.toggle('visible', total > 0);
-  const itemsEl = document.getElementById('cartItems');
-  const footEl  = document.getElementById('cartFoot');
-  if (!carrito.length) {
-    itemsEl.innerHTML = `<div class="cart-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><p>Tu carrito está vacío</p></div>`;
-    footEl.style.display = 'none'; return;
-  }
-  itemsEl.innerHTML = carrito.map(item => `
-    <div class="cart-item">
-      <div class="ci-img"><img src="${item.imagen||LOGO_URL}" alt="${item.nombre}" onerror="this.src='${LOGO_URL}'"></div>
-      <div class="ci-info">
-        <div class="ci-name">${item.nombre}</div>
-        <div class="ci-price">$${(item.precio*item.cantidad).toFixed(2)}</div>
-        <div class="qty-ctrl">
-          <button class="qty-btn" onclick="cambiarCantidad('${item.id}',-1)">−</button>
-          <span class="qty-num">${item.cantidad}</span>
-          <button class="qty-btn" onclick="cambiarCantidad('${item.id}',1)">+</button>
-        </div>
-      </div>
-      <button class="ci-del" onclick="eliminarItem('${item.id}')">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
-      </button>
-    </div>`).join('');
-  const sub = carrito.reduce((s,i) => s+i.precio*i.cantidad, 0);
-  const iva = sub * 0.16;
-  document.getElementById('cSubtotal').textContent = `$${sub.toFixed(2)}`;
-  document.getElementById('cIVA').textContent = `$${iva.toFixed(2)}`;
-  document.getElementById('cTotal').textContent = `$${(sub+iva).toFixed(2)}`;
-  footEl.style.display = 'block';
-}
-function cambiarCantidad(id, delta) {
-  const item = carrito.find(i => i.id===id);
-  if (!item) return;
-  const nueva = item.cantidad + delta;
-  if (nueva <= 0) { eliminarItem(id); return; }
-  item.cantidad = nueva;
-  localStorage.setItem('am_carrito', JSON.stringify(carrito));
-  actualizarCarritoUI();
-}
-function eliminarItem(id) {
-  carrito = carrito.filter(i => i.id!==id);
-  localStorage.setItem('am_carrito', JSON.stringify(carrito));
-  actualizarCarritoUI();
-}
-function toggleCart() {
-  document.getElementById('cartSidebar').classList.toggle('open');
-  document.getElementById('cartOverlay').classList.toggle('open');
-}
+			function actualizarUIUsuario() {
+				const btn = document.getElementById('userNavBtn');
+				const lbl = document.getElementById('userNavLabel');
+				if (usuarioActual) {
+					btn.classList.add('logged');
+					lbl.innerHTML = `
+																											<span class="user-dot"></span> ${usuarioActual.nombre.split(' ')[0]}`;
+					document.getElementById('udHead').style.display = 'block';
+					document.getElementById('udName').textContent = usuarioActual.nombre;
+					document.getElementById('udEmail').textContent = usuarioActual.email;
+					document.getElementById('udLoginBtn').style.display = 'none';
+					document.getElementById('udRegBtn').style.display = 'none';
+					document.getElementById('udLogoutBtn').style.display = 'block';
+				} else {
+					btn.classList.remove('logged');
+					lbl.textContent = 'Mi cuenta';
+					document.getElementById('udHead').style.display = 'none';
+					document.getElementById('udLoginBtn').style.display = 'block';
+					document.getElementById('udRegBtn').style.display = 'block';
+					document.getElementById('udLogoutBtn').style.display = 'none';
+				}
+			}
 
-/* ══════════════════════════════════════
-   CHECKOUT
-══════════════════════════════════════ */
-function openCheckout() {
-  if (!carrito.length) { showToast('El carrito está vacío','error'); return; }
-  toggleCart();
-  const sub = carrito.reduce((s,i) => s+i.precio*i.cantidad, 0);
-  const iva = sub * 0.16;
-  document.getElementById('orderSummary').innerHTML = `
-    <h4>Resumen del Pedido</h4>
-    ${carrito.map(i => `<div class="sum-item"><span>${i.nombre} ×${i.cantidad}</span><span>$${(i.precio*i.cantidad).toFixed(2)}</span></div>`).join('')}
-    <div class="sum-item"><span>Subtotal</span><span>$${sub.toFixed(2)}</span></div>
-    <div class="sum-item"><span>IVA (16%)</span><span>$${iva.toFixed(2)}</span></div>
-    <div class="sum-item total"><span>TOTAL</span><span>$${(sub+iva).toFixed(2)}</span></div>`;
-  if (usuarioActual) {
-    document.getElementById('ckUserCard').style.display  = 'block';
-    document.getElementById('ckGuestForm').style.display = 'none';
-    document.getElementById('ckName').textContent  = usuarioActual.nombre;
-    document.getElementById('ckEmail').textContent = usuarioActual.email + ' · ' + (usuarioActual.telefono||'');
-  } else {
-    document.getElementById('ckUserCard').style.display  = 'none';
-    document.getElementById('ckGuestForm').style.display = 'block';
-  }
-  document.getElementById('checkoutOverlay').classList.add('open');
-}
-function closeCheckout() { document.getElementById('checkoutOverlay').classList.remove('open'); }
-async function confirmarPedido() {
-  let cliente;
-  if (usuarioActual) {
-    cliente = { nombre:usuarioActual.nombre, email:usuarioActual.email, telefono:usuarioActual.telefono||'N/A', direccion:usuarioActual.direccion||'N/A' };
-  } else {
-    const nombre = document.getElementById('gNombre').value.trim();
-    const email  = document.getElementById('gEmail').value.trim();
-    const tel    = document.getElementById('gTel').value.trim();
-    const dir    = document.getElementById('gDir').value.trim();
-    if (!nombre||!email||!tel) { showToast('Completa los campos obligatorios','error'); return; }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showToast('Correo inválido','error'); return; }
-    cliente = { nombre, email, telefono:tel, direccion:dir||'N/A' };
-  }
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = true;
-  btn.innerHTML = '<div class="spinner" style="width:20px;height:20px;border-width:2px;margin:0"></div> Procesando...';
-  try {
-    const res = await apiCall({ accion:'pedido', cliente:JSON.stringify(cliente), carrito:JSON.stringify(carrito.map(i=>({id:i.id,nombre:i.nombre,precio:i.precio,cantidad:i.cantidad,imagen:i.imagen}))) });
-    btn.disabled = false;
-    btn.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Confirmar Pedido';
-    if (res.ok || res.success) {
-      closeCheckout();
-      carrito = []; localStorage.removeItem('am_carrito');
-      actualizarCarritoUI();
-      document.getElementById('successNum').textContent = `N° ${res.numeroPedido} · Total: $${res.total}`;
-      document.getElementById('successOverlay').classList.add('open');
-    } else { showToast('Error: '+(res.error||'Intenta de nuevo'),'error'); }
-  } catch(e) {
-    btn.disabled = false;
-    btn.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Confirmar Pedido';
-    showToast('Error de conexión','error');
-  }
-}
-function closeSuccess() { document.getElementById('successOverlay').classList.remove('open'); }
+			function toggleUserMenu() {
+				document.getElementById('userDropdown').classList.toggle('open');
+			}
+			/* ══════════════════════════════════════
+			   CARRITO
+			══════════════════════════════════════ */
+			function actualizarCarritoUI() {
+				const total = carrito.reduce((s, i) => s + i.cantidad, 0);
+				const el = document.getElementById('cartCount');
+				el.textContent = total;
+				el.classList.toggle('visible', total > 0);
+				const itemsEl = document.getElementById('cartItems');
+				const footEl = document.getElementById('cartFoot');
+				if (!carrito.length) {
+					itemsEl.innerHTML = `
+																											<div class="cart-empty">
+																												<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+																													<circle cx="9" cy="21" r="1"/>
+																													<circle cx="20" cy="21" r="1"/>
+																													<path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+																												</svg>
+																												<p>Tu carrito está vacío</p>
+																											</div>`;
+					footEl.style.display = 'none';
+					return;
+				}
+				itemsEl.innerHTML = carrito.map(item => `
+    
+																											<div class="cart-item">
+																												<div class="ci-img">
+																													<img src="${item.imagen||LOGO_URL}" alt="${item.nombre}" onerror="this.src='${LOGO_URL}'">
+																													</div>
+																													<div class="ci-info">
+																														<div class="ci-name">${item.nombre}</div>
+																														<div class="ci-price">$${(item.precio*item.cantidad).toFixed(2)}</div>
+																														<div class="qty-ctrl">
+																															<button class="qty-btn" onclick="cambiarCantidad('${item.id}',-1)">−</button>
+																															<span class="qty-num">${item.cantidad}</span>
+																															<button class="qty-btn" onclick="cambiarCantidad('${item.id}',1)">+</button>
+																														</div>
+																													</div>
+																													<button class="ci-del" onclick="eliminarItem('${item.id}')">
+																														<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+																															<polyline points="3 6 5 6 21 6"/>
+																															<path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+																														</svg>
+																													</button>
+																												</div>`).join('');
+				const sub = carrito.reduce((s, i) => s + i.precio * i.cantidad, 0);
+				const iva = sub * 0.16;
+				document.getElementById('cSubtotal').textContent = `$${sub.toFixed(2)}`;
+				document.getElementById('cIVA').textContent = `$${iva.toFixed(2)}`;
+				document.getElementById('cTotal').textContent = `$${(sub+iva).toFixed(2)}`;
+				footEl.style.display = 'block';
+			}
 
-/* ══════════════════════════════════════
-   TOAST
-══════════════════════════════════════ */
-function showToast(msg, type='success') {
-  const c = document.getElementById('toastWrap');
-  const t = document.createElement('div');
-  t.className = `toast ${type}`;
-  t.innerHTML = `<span style="font-weight:700;color:${type==='success'?'#22c55e':'var(--rojo)'}">${type==='success'?'✓':'✗'}</span> ${msg}`;
-  c.appendChild(t);
-  setTimeout(() => { t.style.cssText += 'opacity:0;transform:translateX(30px);transition:all .3s'; setTimeout(()=>t.remove(),300); }, 3500);
-}
+			function cambiarCantidad(id, delta) {
+				const item = carrito.find(i => i.id === id);
+				if (!item) return;
+				const nueva = item.cantidad + delta;
+				if (nueva <= 0) {
+					eliminarItem(id);
+					return;
+				}
+				item.cantidad = nueva;
+				localStorage.setItem('am_carrito', JSON.stringify(carrito));
+				actualizarCarritoUI();
+			}
 
-function showContact() {
-  alert('📞 ACTIVO MOTORS\n\nTeléfono: 0412-2004902\nUbicación: San Diego, Valle Verde\nCerca de la Av. Don Julio Centeno\n\n¡Contáctanos para identificar el repuesto que necesitas!');
-}
-</script>
-</body>
+			function eliminarItem(id) {
+				carrito = carrito.filter(i => i.id !== id);
+				localStorage.setItem('am_carrito', JSON.stringify(carrito));
+				actualizarCarritoUI();
+			}
+
+			function toggleCart() {
+				document.getElementById('cartSidebar').classList.toggle('open');
+				document.getElementById('cartOverlay').classList.toggle('open');
+			}
+			/* ══════════════════════════════════════
+			   CHECKOUT
+			══════════════════════════════════════ */
+			function openCheckout() {
+				if (!carrito.length) {
+					showToast('El carrito está vacío', 'error');
+					return;
+				}
+				toggleCart();
+				const sub = carrito.reduce((s, i) => s + i.precio * i.cantidad, 0);
+				const iva = sub * 0.16;
+				document.getElementById('orderSummary').innerHTML = `
+    
+																												<h4>Resumen del Pedido</h4>
+    ${carrito.map(i => `
+																												<div class="sum-item">
+																													<span>${i.nombre} ×${i.cantidad}</span>
+																													<span>$${(i.precio*i.cantidad).toFixed(2)}</span>
+																												</div>`).join('')}
+    
+																												<div class="sum-item">
+																													<span>Subtotal</span>
+																													<span>$${sub.toFixed(2)}</span>
+																												</div>
+																												<div class="sum-item">
+																													<span>IVA (16%)</span>
+																													<span>$${iva.toFixed(2)}</span>
+																												</div>
+																												<div class="sum-item total">
+																													<span>TOTAL</span>
+																													<span>$${(sub+iva).toFixed(2)}</span>
+																												</div>`;
+				if (usuarioActual) {
+					document.getElementById('ckUserCard').style.display = 'block';
+					document.getElementById('ckGuestForm').style.display = 'none';
+					document.getElementById('ckName').textContent = usuarioActual.nombre;
+					document.getElementById('ckEmail').textContent = usuarioActual.email + ' · ' + (usuarioActual.telefono || '');
+				} else {
+					document.getElementById('ckUserCard').style.display = 'none';
+					document.getElementById('ckGuestForm').style.display = 'block';
+				}
+				document.getElementById('checkoutOverlay').classList.add('open');
+			}
+
+			function closeCheckout() {
+				document.getElementById('checkoutOverlay').classList.remove('open');
+			}
+			async function confirmarPedido() {
+				let cliente;
+				if (usuarioActual) {
+					cliente = {
+						nombre: usuarioActual.nombre,
+						email: usuarioActual.email,
+						telefono: usuarioActual.telefono || 'N/A',
+						direccion: usuarioActual.direccion || 'N/A'
+					};
+				} else {
+					const nombre = document.getElementById('gNombre').value.trim();
+					const email = document.getElementById('gEmail').value.trim();
+					const tel = document.getElementById('gTel').value.trim();
+					const dir = document.getElementById('gDir').value.trim();
+					if (!nombre || !email || !tel) {
+						showToast('Completa los campos obligatorios', 'error');
+						return;
+					}
+					if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+						showToast('Correo inválido', 'error');
+						return;
+					}
+					cliente = {
+						nombre,
+						email,
+						telefono: tel,
+						direccion: dir || 'N/A'
+					};
+				}
+				const btn = document.getElementById('submitBtn');
+				btn.disabled = true;
+				btn.innerHTML = ' < div class = "spinner"
+				style = "width:20px;height:20px;border-width:2px;margin:0" > < /div> Procesando...';
+				try {
+					const res = await apiCall({
+						accion: 'pedido',
+						cliente: JSON.stringify(cliente),
+						carrito: JSON.stringify(carrito.map(i => ({
+							id: i.id,
+							nombre: i.nombre,
+							precio: i.precio,
+							cantidad: i.cantidad,
+							imagen: i.imagen
+						})))
+					});
+					btn.disabled = false;
+					btn.innerHTML = ' < svg width = "17"
+					height = "17"
+					viewBox = "0 0 24 24"
+					fill = "none"
+					stroke = "currentColor"
+					stroke - width = "2" > < polyline points = "20 6 9 17 4 12" / > < /svg> Confirmar Pedido';
+					if (res.ok || res.success) {
+						closeCheckout();
+						carrito = [];
+						localStorage.removeItem('am_carrito');
+						actualizarCarritoUI();
+						document.getElementById('successNum').textContent = `N° ${res.numeroPedido} · Total: $${res.total}`;
+						document.getElementById('successOverlay').classList.add('open');
+					} else {
+						showToast('Error: ' + (res.error || 'Intenta de nuevo'), 'error');
+					}
+				} catch (e) {
+					btn.disabled = false;
+					btn.innerHTML = ' < svg width = "17"
+					height = "17"
+					viewBox = "0 0 24 24"
+					fill = "none"
+					stroke = "currentColor"
+					stroke - width = "2" > < polyline points = "20 6 9 17 4 12" / > < /svg> Confirmar Pedido';
+					showToast('Error de conexión', 'error');
+				}
+			}
+
+			function closeSuccess() {
+				document.getElementById('successOverlay').classList.remove('open');
+			}
+			/* ══════════════════════════════════════
+			   TOAST
+			══════════════════════════════════════ */
+			function showToast(msg, type = 'success') {
+				const c = document.getElementById('toastWrap');
+				const t = document.createElement('div');
+				t.className = `toast ${type}`;
+				t.innerHTML = `
+																												<span style="font-weight:700;color:${type==='success'?'#22c55e':'var(--rojo)'}">${type==='success'?'✓':'✗'}</span> ${msg}`;
+				c.appendChild(t);
+				setTimeout(() => {
+					t.style.cssText += 'opacity:0;transform:translateX(30px);transition:all .3s';
+					setTimeout(() => t.remove(), 300);
+				}, 3500);
+			}
+
+			function showContact() {
+				alert('📞 ACTIVO MOTORS\n\nTeléfono: 0412-2004902\nUbicación: San Diego, Valle Verde\nCerca de la Av. Don Julio Centeno\n\n¡Contáctanos para identificar el repuesto que necesitas!');
+			}
+		</script>
+	</body>
 </html>
