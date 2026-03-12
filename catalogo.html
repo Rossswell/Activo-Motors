@@ -81,20 +81,20 @@ header{background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-bottom
 .brand-sec-in{max-width:1400px;margin:0 auto;padding:0 40px}
 .brand-label{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--texto4);margin-bottom:14px;text-align:center}
 .brand-row{display:flex;align-items:center;gap:14px;justify-content:center}
-.barrow{background:var(--fondo2);border:1.5px solid var(--borde);border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:var(--tr);flex-shrink:0;color:var(--texto3)}
+.barrow{background:var(--fondo2);border:1.5px solid var(--borde);border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:var(--tr);flex-shrink:0;color:var(--texto3);opacity:.35;pointer-events:none}
 .barrow:hover{background:var(--rojo);border-color:var(--rojo);color:#fff}
 .barrow svg{width:17px;height:17px}
-.brand-vp{overflow:hidden;flex:1;max-width:700px}
+.brand-vp{overflow:hidden;flex:1;max-width:500px}
 .brand-track{display:flex;transition:transform .4s cubic-bezier(.4,0,.2,1)}
-.brand-card{flex:0 0 20%;display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px 6px 14px;border:2px solid var(--borde);border-radius:12px;background:#fff;cursor:pointer;transition:var(--tr);position:relative;overflow:hidden;margin:0 4px}
+.brand-card{flex:0 0 calc(50% - 8px);display:flex;flex-direction:column;align-items:center;gap:10px;padding:22px 20px 20px;border:2px solid var(--borde);border-radius:14px;background:#fff;cursor:pointer;transition:var(--tr);position:relative;overflow:hidden;margin:0 4px}
 .brand-card:hover{border-color:var(--rojo);box-shadow:0 4px 16px var(--rojo-glow);transform:translateY(-2px)}
 .brand-card.sel{border-color:var(--rojo);background:#fff6f6;box-shadow:0 4px 20px var(--rojo-glow)}
 .brand-card.sel::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--rojo);border-radius:0 0 10px 10px}
-.brand-card img{height:32px;object-fit:contain;filter:grayscale(20%);transition:var(--tr)}
+.brand-card img{height:42px;object-fit:contain;filter:grayscale(10%);transition:var(--tr)}
 .brand-card:hover img,.brand-card.sel img{filter:grayscale(0%)}
-.brand-card-name{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--texto4)}
+.brand-card-name{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--texto4)}
 .brand-card.sel .brand-card-name{color:var(--rojo)}
-.brand-dots{display:flex;gap:5px;justify-content:center;padding:12px 0}
+.brand-dots{display:none}
 .bdot{width:5px;height:5px;border-radius:50%;background:var(--borde);cursor:pointer;transition:var(--tr)}
 .bdot.on{background:var(--rojo);width:16px;border-radius:3px}
 
@@ -256,7 +256,7 @@ footer{background:var(--jet);color:var(--plata);padding:36px 30px;margin-top:50p
 </head>
 <body>
 
-<div class="topbar">🚗 ACTIVO MOTORS · Repuestos 100% Originales Toyota &amp; ¡y más! · San Diego, Valle Verde · 0412-2004902</div>
+<div class="topbar">· ACTIVO MOTORS · Repuestos 100% Originales Toyota &amp; ¡y más! · San Diego, Valle Verde · 0412-2004902</div>
 
 <header>
   <nav class="nav">
@@ -312,7 +312,7 @@ footer{background:var(--jet);color:var(--plata);padding:36px 30px;margin-top:50p
 <!-- BRAND SELECTOR -->
 <div class="brand-sec">
   <div class="brand-sec-in">
-    <div class="brand-label">Selecciona la marca de tu vehículo</div>
+    <div class="brand-label">Marca del vehículo</div>
     <div class="brand-row">
       <button class="barrow" onclick="slideBrand(-1)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
@@ -374,7 +374,7 @@ footer{background:var(--jet);color:var(--plata);padding:36px 30px;margin-top:50p
   <div class="cart-bg" onclick="toggleCart()"></div>
   <div class="cart-panel">
     <div class="cart-hd">
-      <h3>🛒 Mi Carrito</h3>
+      <h3>Mi Carrito</h3>
       <button class="cart-x" onclick="toggleCart()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
     </div>
     <div class="cart-items" id="cartItems"></div>
@@ -395,7 +395,7 @@ footer{background:var(--jet);color:var(--plata);padding:36px 30px;margin-top:50p
 <!-- CHECKOUT -->
 <div class="overlay" id="ckOV">
   <div class="modal">
-    <div class="m-hd"><h3>FINALIZAR PEDIDO</h3><button class="m-x" onclick="closeCheckout()">✕</button></div>
+    <div class="m-hd"><h3>FINALIZAR PEDIDO</h3><button class="m-x" onclick="closeCheckout()">&times;</button></div>
     <div class="m-body">
       <div class="ord-sum">
         <div class="ord-sum-title">Resumen del Pedido</div>
@@ -466,13 +466,8 @@ const API_URL  = 'https://script.google.com/macros/s/AKfycbwtmJK93bBqVArBlZ6PohJ
 const LOGO_URL = 'https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png';
 
 const BRANDS = [
-  { id:'toyota',     n:'Toyota',     img:'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Toyota_carlogo.svg/200px-Toyota_carlogo.svg.png' },
-  { id:'mitsubishi', n:'Mitsubishi', img:'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Mitsubishi_logo.svg/200px-Mitsubishi_logo.svg.png' },
-  { id:'nissan',     n:'Nissan',     img:'https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Nissan-logo.png/200px-Nissan-logo.png' },
-  { id:'ford',       n:'Ford',       img:'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ford_logo_flat.svg/200px-Ford_logo_flat.svg.png' },
-  { id:'hyundai',    n:'Hyundai',    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Hyundai_Motor_Company_logo.svg/200px-Hyundai_Motor_Company_logo.svg.png' },
-  { id:'chevrolet',  n:'Chevrolet',  img:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Chevrolet_logo.svg/200px-Chevrolet_logo.svg.png' },
-  { id:'kia',        n:'Kia',        img:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Kia-logo.svg/200px-Kia-logo.svg.png' },
+  { id:'toyota',     n:'Toyota',     img:'https://upload.wikimedia.org/wikipedia/commons/e/ee/Toyota_logo_%28Red%29.svg' },
+  { id:'mitsubishi', n:'Mitsubishi', img:'https://upload.wikimedia.org/wikipedia/commons/9/9a/Mitsubishi_motors_new_logo.svg' },
 ];
 
 const MODELOS = {
@@ -489,7 +484,7 @@ const MODELOS = {
 let allProds = [], cart = [], user = null;
 let selBrand = null, selModel = null, selCat = 'TODOS', search = '';
 let bOffset = 0;
-const BPP = 5; // brands per page
+const BPP = 2; // brands per page
 
 /* ══ BRAND SLIDER ══ */
 function initBrands() {
@@ -504,11 +499,12 @@ function initBrands() {
 }
 
 function sizeBrands() {
-  const vw = document.getElementById('brandVP').offsetWidth || 660;
-  const w  = vw / BPP;
+  // With 2 brands, each card is 50% of viewport minus gap
+  const vw = document.getElementById('brandVP').offsetWidth || 500;
+  const w  = Math.floor(vw / 2) - 8;
   document.querySelectorAll('.brand-card').forEach(c => {
-    c.style.flex     = `0 0 ${w - 8}px`;
-    c.style.maxWidth = `${w - 8}px`;
+    c.style.flex     = `0 0 ${w}px`;
+    c.style.maxWidth = `${w}px`;
   });
 }
 
@@ -553,8 +549,8 @@ function showModels(marca) {
   if (!ms.length) { sec.style.display = 'none'; return; }
   lbl.textContent = `Modelo de ${marca}`;
   sec.style.display = 'block';
-  chips.innerHTML = `<div class="mchip on" id="mc-all" onclick="pickModel(null,this)">🚗 Todos</div>` +
-    ms.map(m => `<div class="mchip" onclick="pickModel('${m}',this)">🚗 ${m}</div>`).join('');
+  chips.innerHTML = `<div class="mchip on" id="mc-all" onclick="pickModel(null,this)">Todos</div>` +
+    ms.map(m => `<div class="mchip" onclick="pickModel('${m}',this)"> ${m}</div>`).join('');
 }
 
 function pickModel(m, el) {
@@ -589,7 +585,7 @@ async function loadProds() {
     } else throw new Error(d.error || 'Sin datos');
   } catch(e) {
     document.getElementById('prodsGrid').innerHTML =
-      `<div class="ph"><div class="ph-icon">⚠️</div><div class="ph-title">Error al cargar</div><p>${e.message}</p></div>`;
+      `<div class="ph"><div class="ph-icon">️</div><div class="ph-title">Error al cargar</div><p>${e.message}</p></div>`;
   }
 }
 
@@ -634,7 +630,7 @@ function renderProds(prods) {
   const count = document.getElementById('prodsCount');
   count.innerHTML = `<strong>${prods.length}</strong> producto${prods.length!==1?'s':''} encontrado${prods.length!==1?'s':''}`;
   if (!prods.length) {
-    grid.innerHTML = '<div class="ph"><div class="ph-icon">🔍</div><div class="ph-title">Sin resultados</div><p>Prueba con otro filtro</p></div>';
+    grid.innerHTML = '<div class="ph"><div class="ph-icon"></div><div class="ph-title">Sin resultados</div><p>Prueba con otro filtro</p></div>';
     return;
   }
   grid.innerHTML = prods.map(p => {
@@ -665,9 +661,9 @@ function renderProds(prods) {
 function updateBadges() {
   const el = document.getElementById('activeFilt');
   let h = '';
-  if (selBrand)          h += `<div class="fbadge">🔧 ${selBrand} <button onclick="clearFilter('brand')">×</button></div>`;
-  if (selModel)          h += `<div class="fbadge">🚗 ${selModel} <button onclick="clearFilter('model')">×</button></div>`;
-  if (selCat !== 'TODOS')h += `<div class="fbadge">📦 ${selCat} <button onclick="clearFilter('cat')">×</button></div>`;
+  if (selBrand)          h += `<div class="fbadge">${selBrand} <button onclick="clearFilter('brand')">×</button></div>`;
+  if (selModel)          h += `<div class="fbadge">${selModel} <button onclick="clearFilter('model')">×</button></div>`;
+  if (selCat !== 'TODOS')h += `<div class="fbadge">${selCat} <button onclick="clearFilter('cat')">×</button></div>`;
   el.innerHTML = h;
   const parts = [selBrand, selModel, selCat !== 'TODOS' ? selCat : null].filter(Boolean);
   document.getElementById('bcLabel').textContent = parts.length ? parts.join(' › ') : 'Catálogo';
@@ -708,7 +704,7 @@ function addToCart(id) {
   }
   localStorage.setItem('am_carrito', JSON.stringify(cart));
   updateCartUI();
-  toast('Agregado al carrito ✓');
+  toast('Agregado al carrito ');
 }
 
 function updateCartUI() {
@@ -864,7 +860,7 @@ function toast(msg, type='ok') {
   const w = document.getElementById('toastW');
   const t = document.createElement('div');
   t.className = `toast ${type}`;
-  t.textContent = (type==='ok'?'✓ ':'⚠ ') + msg;
+  t.textContent = msg;
   w.appendChild(t);
   setTimeout(()=>t.remove(), 3500);
 }
@@ -899,7 +895,7 @@ document.addEventListener('DOMContentLoaded', () => {
     selModel = uModelo;
     setTimeout(() => {
       document.querySelectorAll('.mchip').forEach(c => {
-        const txt = c.textContent.replace(/^🚗\s*/,'').trim();
+        const txt = c.textContent.replace(/^\s*/,'').trim();
         if (txt === uModelo) { document.querySelectorAll('.mchip').forEach(x=>x.classList.remove('on')); c.classList.add('on'); }
       });
     }, 250);
