@@ -584,18 +584,38 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
 
 /* ── BRAND CAROUSEL ── */
 /* ── TOYOTA BANNER ── */
-.toyota-banner{position:relative;width:100%;height:520px;overflow:hidden;display:flex;align-items:flex-end}.toyota-banner::after{content:"";position:absolute;bottom:0;left:0;width:100%;height:4px;background:var(--rojo);z-index:3}
-.toyota-banner-img{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.04);transition:transform 8s ease;filter:brightness(.88)}
+.toyota-banner{position:relative;width:100%;height:580px;overflow:hidden;display:flex;align-items:center}
+.toyota-banner-img{position:absolute;inset:0;background-size:cover;background-position:center 30%;transform:scale(1.06);transition:transform 12s ease;filter:brightness(.7) saturate(1.2) contrast(1.05)}
 .toyota-banner:hover .toyota-banner-img{transform:scale(1)}
-.toyota-banner-overlay{position:absolute;inset:0;background:linear-gradient(115deg, rgba(0,0,0,.85) 0%, rgba(0,0,0,.5) 45%, rgba(0,0,0,.08) 100%)}
-.toyota-banner-content{position:relative;z-index:2;padding:40px 60px 50px;max-width:480px}
-.tb-logo{width:190px;display:block;margin-bottom:16px;filter:drop-shadow(0 2px 16px rgba(0,0,0,.6))}
-.tb-tagline{font-family:var(--font-body);font-size:15px;color:rgba(255,255,255,.8);line-height:1.65;font-style:italic;margin:0;border-left:3px solid var(--rojo);padding-left:12px}
-@media(max-width:640px){
-  .toyota-banner{height:300px}
-  .toyota-banner-content{padding:28px 24px 36px}
-  .tb-logo{width:120px}
-  .tb-tagline{font-size:13px}
+/* dark base overlay */
+.toyota-banner-overlay{position:absolute;inset:0;background:linear-gradient(105deg,rgba(0,0,0,.92) 0%,rgba(0,0,0,.75) 35%,rgba(0,0,0,.15) 65%,rgba(0,0,0,.05) 100%)}
+/* diagonal slash accent — rojo */
+.toyota-banner-overlay::before{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(105deg,transparent 38%,rgba(174,4,15,.18) 38%,rgba(174,4,15,.18) 41%,transparent 41%)}
+/* second slash — lighter */
+.toyota-banner-overlay::after{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.04) 42%,rgba(255,255,255,.04) 44%,transparent 44%)}
+.toyota-banner-content{position:relative;z-index:2;padding:0 0 0 72px;display:flex;flex-direction:column;align-items:flex-start;max-width:680px}
+/* Eyebrow row */
+.tb-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.tb-eyebrow-line{width:36px;height:2px;background:var(--rojo)}
+.tb-eyebrow-text{font-family:var(--font-body);font-size:10px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:rgba(255,255,255,.5)}
+/* Main title — stacked, massive */
+.tb-title-wrap{margin-bottom:6px}
+.tb-title-1{font-family:var(--font-title);font-size:clamp(52px,7.5vw,96px);line-height:.9;color:#fff;text-transform:uppercase;letter-spacing:-3px;display:block}
+.tb-title-2{font-family:var(--font-title);font-size:clamp(52px,7.5vw,96px);line-height:.9;color:transparent;-webkit-text-stroke:2px rgba(255,255,255,.22);text-transform:uppercase;letter-spacing:-3px;display:block;margin-left:12px}
+.tb-title-3{font-family:var(--font-title);font-size:clamp(28px,4vw,52px);line-height:1;color:var(--rojo);text-transform:uppercase;letter-spacing:6px;display:block;margin-top:8px;margin-left:4px}
+/* Red tag badge */
+.tb-badge{display:inline-flex;align-items:center;gap:8px;background:var(--rojo);color:#fff;font-family:var(--font-body);font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 14px;margin:24px 0 20px;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%)}
+/* Tagline */
+.tb-tagline{font-family:var(--font-body);font-size:13px;color:rgba(255,255,255,.5);line-height:1.8;letter-spacing:.5px}
+.tb-tagline strong{color:rgba(255,255,255,.9);font-weight:600}
+/* Bottom edge cut */
+.toyota-banner-cut{position:absolute;bottom:-2px;left:0;width:100%;z-index:3;line-height:0}
+.toyota-banner-cut svg{display:block;width:100%;height:60px}
+.tb-logo{display:none}
+@media(max-width:768px){
+  .toyota-banner{height:460px}
+  .toyota-banner-content{padding:0 24px}
+  .tb-title-1,.tb-title-2{letter-spacing:-1px}
 }
 .brands-section { background: var(--fondo2); border-top: 1px solid var(--borde); border-bottom: 1px solid var(--borde); padding: 0; overflow: hidden; }
 .brands-label { max-width: 1400px; margin: 0 auto; padding: 24px 30px 10px; font-family: var(--font-title); font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--texto3); text-align: center; }
@@ -708,8 +728,26 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
   <div class="toyota-banner-img" id="toyotaBannerImg"></div>
   <div class="toyota-banner-overlay"></div>
   <div class="toyota-banner-content">
-    <img src="https://i.postimg.cc/rFH77FfD/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png" alt="Activo Motors" class="tb-logo">
-    <p class="tb-tagline">Especialistas en repuestos Toyota<br>con una visión de profesionalismo y dedicación</p>
+    <div class="tb-eyebrow">
+      <span class="tb-eyebrow-line"></span>
+      <span class="tb-eyebrow-text">San Diego · Valle Verde · Venezuela</span>
+    </div>
+    <div class="tb-title-wrap">
+      <span class="tb-title-1">ACTIVO</span>
+      <span class="tb-title-2">MOTORS</span>
+      <span class="tb-title-3">REPUESTOS</span>
+    </div>
+    <div class="tb-badge">100% Originales Toyota &amp; más</div>
+    <p class="tb-tagline">
+      <strong>Más de 100 repuestos disponibles.</strong><br>
+      Envío coordinado · Garantía de calidad · Atención directa
+    </p>
+  </div>
+  <!-- diagonal cut at bottom -->
+  <div class="toyota-banner-cut">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="0,60 1440,0 1440,60" fill="#f4f4f4"/>
+    </svg>
   </div>
 </section>
 
