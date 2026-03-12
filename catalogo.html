@@ -408,7 +408,7 @@ footer{background:var(--jet);color:var(--plata);padding:36px 30px;margin-top:50p
     <div class="cart-ft">
       <div class="ctotals">
         <div class="crow"><span>Subtotal</span><span id="cSub">$0.00</span></div>
-        <div class="crow"><span>IVA (16%)</span><span id="cIva">$0.00</span></div>
+        <div class="crow disc-row" id="cDiscRow" style="display:none"><span>Descuento</span><span id="cDesc" style="color:#22c55e">-$0.00</span></div>
         <div class="crow tot"><span>TOTAL</span><span id="cTot">$0.00</span></div>
       </div>
       <button class="ck-btn" onclick="openCheckout()">
@@ -429,7 +429,7 @@ footer{background:var(--jet);color:var(--plata);padding:36px 30px;margin-top:50p
         <div id="ckItems"></div>
         <hr class="sdiv">
         <div class="si-row"><span>Subtotal</span><span id="ckSub"></span></div>
-        <div class="si-row"><span>IVA (16%)</span><span id="ckIva"></span></div>
+        <div class="si-row" id="ckDiscRow" style="display:none"><span>Descuento</span><span id="ckDesc" style="color:#22c55e"></span></div>
         <div class="stot"><span>TOTAL</span><span id="ckTot"></span></div>
       </div>
       <div class="ubox" id="ckUBox">
@@ -453,6 +453,14 @@ footer{background:var(--jet);color:var(--plata);padding:36px 30px;margin-top:50p
         <div id="dirWrap" style="margin-top:12px">
           <textarea class="fi" id="ckDir" rows="2" placeholder="Calle, urbanización, municipio..." style="resize:vertical"></textarea>
         </div>
+      </div>
+      <div class="fg" id="cuponFg">
+        <label class="fl">Cupón de descuento <span style="font-weight:400;color:var(--texto4)">(opcional)</span></label>
+        <div class="cupon-wrap">
+          <input class="fi cupon-input" type="text" id="ckCupon" placeholder="Ingresa tu código" autocomplete="off" style="text-transform:uppercase">
+          <button class="cupon-btn" type="button" onclick="aplicarCupon()">Aplicar</button>
+        </div>
+        <div id="cuponMsg" class="cupon-msg"></div>
       </div>
       <button class="cf-btn" onclick="confirmOrder()" id="cfBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M20 6 9 17l-5-5"/></svg>
@@ -509,7 +517,7 @@ footer{background:var(--jet);color:var(--plata);padding:36px 30px;margin-top:50p
 /* ═══════════════════════════════════════
    ACTIVO MOTORS — CATÁLOGO v3
 ═══════════════════════════════════════ */
-const API_URL  = 'https://script.google.com/macros/s/AKfycbwIhYJ-Akp7PPzX63-TZ3-3EHI063LKMGjKoIvwj2bW2WsZzhwAn2HYTtmEifDap0cT3w/exec';
+const API_URL  = 'https://script.google.com/macros/s/AKfycbzAJJtbC-qaAQC2yK6AqzMmxsFVhpVZnenqhCOOs1igGWBbbGS-SEzd6DgGFTnzcQx08A/exec';
 const LOGO_URL = 'https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png';
 
 const BRANDS = [
@@ -528,7 +536,7 @@ const MODELOS = {
 };
 
 /* STATE */
-let allProds = [], cart = [], user = null;
+let allProds = [], cart = [], user = null, activeCupon = null;
 let selBrand = null, selModel = null, selCat = 'TODOS', search = '';
 let bOffset = 0;
 const BPP = 2; // brands per page
@@ -780,10 +788,14 @@ function updateCartUI() {
       </div>`).join('');
   }
   const sub = cart.reduce((s,i) => s + i.precio*i.cantidad, 0);
-  const iva = sub * 0.16;
   document.getElementById('cSub').textContent = `$${sub.toFixed(2)}`;
-  document.getElementById('cIva').textContent = `$${iva.toFixed(2)}`;
-  document.getElementById('cTot').textContent = `$${(sub+iva).toFixed(2)}`;
+  const desc = activeCupon ? activeCupon.monto : 0;
+  const discRow = document.getElementById('cDiscRow');
+  if (desc > 0) {
+    discRow.style.display = '';
+    document.getElementById('cDesc').textContent = `-$${desc.toFixed(2)}`;
+  } else { discRow.style.display = 'none'; }
+  document.getElementById('cTot').textContent = `$${Math.max(0,sub-desc).toFixed(2)}`;
 }
 
 function changeQty(id, d) {
@@ -815,12 +827,16 @@ function openCheckout() {
   }
   toggleCart();
   const sub = cart.reduce((s,i) => s + i.precio*i.cantidad, 0);
-  const iva = sub * 0.16;
   document.getElementById('ckItems').innerHTML = cart.map(i =>
     `<div class="si-row"><span>${i.nombre} ×${i.cantidad}</span><span>$${(i.precio*i.cantidad).toFixed(2)}</span></div>`).join('');
   document.getElementById('ckSub').textContent = `$${sub.toFixed(2)}`;
-  document.getElementById('ckIva').textContent = `$${iva.toFixed(2)}`;
-  document.getElementById('ckTot').textContent = `$${(sub+iva).toFixed(2)}`;
+  // Reset coupon on open
+  activeCupon = null;
+  document.getElementById('ckCupon').value = '';
+  document.getElementById('cuponMsg').textContent = '';
+  document.getElementById('cuponMsg').className = 'cupon-msg';
+  document.getElementById('ckDiscRow').style.display = 'none';
+  document.getElementById('ckTot').textContent = `$${sub.toFixed(2)}`;
   document.getElementById('ckName').textContent = user.nombre;
   document.getElementById('ckInfo').textContent = user.email + (user.telefono ? ' · ' + user.telefono : '');
   document.getElementById('ckDir').value = user.direccion || '';
@@ -829,6 +845,39 @@ function openCheckout() {
 }
 
 function closeCheckout() { document.getElementById('ckOV').classList.remove('open'); }
+
+async function aplicarCupon() {
+  const codigo = document.getElementById('ckCupon').value.trim().toUpperCase();
+  const msgEl = document.getElementById('cuponMsg');
+  const btn = document.querySelector('.cupon-btn');
+  if (!codigo) { msgEl.textContent = 'Ingresa un código de cupón.'; msgEl.className = 'cupon-msg err'; return; }
+  btn.disabled = true; btn.textContent = 'Verificando...';
+  msgEl.textContent = ''; msgEl.className = 'cupon-msg';
+  try {
+    const r = await apiGET('validarCupon', { codigo });
+    if (r.ok) {
+      activeCupon = r;
+      const sub = cart.reduce((s,i) => s + i.precio*i.cantidad, 0);
+      const total = Math.max(0, sub - r.monto);
+      document.getElementById('ckDiscRow').style.display = '';
+      document.getElementById('ckDesc').textContent = `-$${parseFloat(r.monto).toFixed(2)}`;
+      document.getElementById('ckTot').textContent = `$${total.toFixed(2)}`;
+      msgEl.textContent = `Cupón aplicado: -$${parseFloat(r.monto).toFixed(2)} de descuento`;
+      msgEl.className = 'cupon-msg ok';
+      btn.textContent = 'Aplicado';
+      updateCartUI();
+    } else {
+      activeCupon = null;
+      msgEl.textContent = r.error || 'Cupón no válido';
+      msgEl.className = 'cupon-msg err';
+      btn.disabled = false; btn.textContent = 'Aplicar';
+    }
+  } catch(e) {
+    msgEl.textContent = 'Error al verificar el cupón.';
+    msgEl.className = 'cupon-msg err';
+    btn.disabled = false; btn.textContent = 'Aplicar';
+  }
+}
 
 function toggleDelivery(radio) {
   document.querySelectorAll('.dopt').forEach(d => d.classList.remove('selected'));
@@ -863,10 +912,12 @@ async function confirmOrder() {
   btn.disabled = true; btn.textContent = 'Procesando...';
   try {
     const cliente = { nombre:user.nombre, email:user.email, cedula:user.cedula||'N/A', telefono:user.telefono||'N/A', direccion:dir };
-    const res = await apiGET('pedido', {
+    const params = {
       cliente: JSON.stringify(cliente),
       carrito: JSON.stringify(cart.map(i => ({id:i.id,nombre:i.nombre,precio:i.precio,cantidad:i.cantidad,imagen:i.imagen})))
-    });
+    };
+    if (activeCupon) params.cupon = activeCupon.codigo;
+    const res = await apiGET('pedido', params);
     if (res.ok) {
       closeCheckout();
       cart = []; localStorage.removeItem('am_carrito'); updateCartUI();
