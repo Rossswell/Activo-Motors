@@ -489,13 +489,17 @@ header {
 .sum-item.total { font-size: 16px; font-weight: 700; color: var(--texto); padding-top: 9px; margin-top: 6px; border-top: 1px solid var(--borde); }
 .sum-item.total span:last-child { color: var(--rojo); }
 .submit-btn { width: 100%; background: var(--rojo); border: none; color: #fff; font-family: var(--font-body); font-size: 14px; font-weight: 700; padding: 15px; border-radius: 9px; cursor: pointer; letter-spacing: .5px; text-transform: uppercase; transition: var(--tr); display: flex; align-items: center; justify-content: center; gap: 9px; }
-.cupon-wrap{display:flex;gap:8px;align-items:stretch}
-.cupon-input{flex:1;min-width:0}
-.cupon-btn{flex-shrink:0;background:var(--jet);color:#fff;border:none;border-radius:8px;padding:0 16px;font-size:12px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:background .2s;white-space:nowrap}
-.cupon-btn:hover{background:var(--rojo)}
-.cupon-btn:disabled{background:#ccc;cursor:not-allowed}
-.cupon-msg.ok{color:#22c55e}
-.cupon-msg.err{color:var(--rojo)}
+/* ── CART COUPON ── */
+.idx-cart-cupon{padding-bottom:12px;border-bottom:1px solid var(--borde);margin-bottom:12px}
+.idx-cupon-wrap{display:flex;gap:6px;align-items:stretch}
+.idx-cupon-input{flex:1;min-width:0;border:1.5px solid var(--borde);border-radius:8px;padding:9px 12px;font-size:12px;font-family:var(--font-body);outline:none;background:var(--fondo);color:var(--texto);transition:border-color .2s;text-transform:uppercase;letter-spacing:1px;font-weight:700}
+.idx-cupon-input:focus{border-color:var(--rojo);background:#fff}
+.idx-cupon-btn{flex-shrink:0;background:var(--jet);color:#fff;border:none;border-radius:8px;padding:0 13px;font-size:10px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:background .2s;text-transform:uppercase;white-space:nowrap}
+.idx-cupon-btn:hover{background:var(--rojo)}
+.idx-cupon-btn:disabled{background:#ccc;cursor:not-allowed;color:#888}
+.idx-cupon-msg{font-size:11px;margin-top:5px;min-height:14px;font-weight:600}
+.idx-cupon-msg.ok{color:#22c55e}
+.idx-cupon-msg.err{color:var(--rojo)}
 .submit-btn:hover { background: var(--rojo-dark); transform: translateY(-2px); box-shadow: var(--shadow2); }
 .submit-btn:disabled { background: var(--texto4); cursor: not-allowed; transform: none; box-shadow: none; }
 
@@ -808,6 +812,13 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
  <div class="cart-row"><span>Subtotal</span><span id="cSubtotal">$0.00</span></div>
  <div class="cart-row disc-row" id="idxDiscRow" style="display:none"><span>Descuento</span><span id="idxDesc" style="color:#22c55e">-$0.00</span></div>
  <div class="cart-row grand"><span>TOTAL</span><span id="cTotal">$0.00</span></div>
+ <div class="idx-cart-cupon">
+  <div class="idx-cupon-wrap">
+    <input class="idx-cupon-input" type="text" id="idxCupon" placeholder="Código de descuento" autocomplete="off" spellcheck="false">
+    <button class="idx-cupon-btn" type="button" onclick="aplicarCuponIdx()">Aplicar</button>
+  </div>
+  <div id="idxCuponMsg" class="idx-cupon-msg"></div>
+ </div>
  <button class="checkout-btn" onclick="openCheckout()">Proceder al Pago →</button>
  </div>
 </div>
@@ -887,14 +898,7 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
   </div>
  </div>
  </div>
- <div class="form-group">
-  <label class="form-label">Cupón de descuento <span style="font-weight:400;color:#999">(opcional)</span></label>
-  <div class="cupon-wrap">
-    <input class="form-input cupon-input" type="text" id="idxCupon" placeholder="Ingresa tu código" autocomplete="off" style="letter-spacing:2px;font-weight:700;text-transform:uppercase">
-    <button class="cupon-btn" type="button" onclick="aplicarCuponIdx()">Aplicar</button>
-  </div>
-  <div id="idxCuponMsg" class="cupon-msg" style="font-size:12px;margin-top:6px;font-weight:600"></div>
- </div>
+
  <button class="submit-btn" id="submitBtn" onclick="confirmarPedido()">
  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
  Confirmar Pedido
@@ -1178,26 +1182,26 @@ function toggleUserMenu() { document.getElementById('userDropdown').classList.to
 async function aplicarCuponIdx() {
   const codigo = document.getElementById('idxCupon').value.trim().toUpperCase();
   const msgEl  = document.getElementById('idxCuponMsg');
-  const btn    = document.querySelector('.cupon-btn');
-  if (!codigo) { msgEl.textContent='Ingresa un código.'; msgEl.className='cupon-msg err'; return; }
+  const btn    = document.querySelector('.idx-cupon-btn');
+  if (!codigo) { msgEl.textContent='Ingresa un código.'; msgEl.className='idx-cupon-msg err'; return; }
   btn.disabled = true; btn.textContent = 'Verificando...';
-  msgEl.textContent = ''; msgEl.className = 'cupon-msg';
+  msgEl.textContent = ''; msgEl.className = 'idx-cupon-msg';
   try {
     const res = await apiCall({ accion:'validarCupon', codigo });
     if (res.ok) {
       idxActiveCupon = res;
-      msgEl.textContent = `Cupón aplicado: -$${parseFloat(res.monto).toFixed(2)} de descuento`;
-      msgEl.className = 'cupon-msg ok';
+      msgEl.textContent = `Cupón aplicado — descuento de $${parseFloat(res.monto).toFixed(2)}`;
+      msgEl.className = 'idx-cupon-msg ok';
       btn.textContent = 'Aplicado';
       actualizarCarritoUI();
     } else {
       idxActiveCupon = null;
       msgEl.textContent = res.error || 'Cupón no válido';
-      msgEl.className = 'cupon-msg err';
+      msgEl.className = 'idx-cupon-msg err';
       btn.disabled = false; btn.textContent = 'Aplicar';
     }
   } catch(e) {
-    msgEl.textContent = 'Error al verificar.'; msgEl.className = 'cupon-msg err';
+    msgEl.textContent = 'Error al verificar.'; msgEl.className = 'idx-cupon-msg err';
     btn.disabled = false; btn.textContent = 'Aplicar';
   }
 }
@@ -1282,14 +1286,7 @@ function openCheckout() {
  return;
  }
  toggleCart();
- // Reset coupon on open
- idxActiveCupon = null;
- const cuponElO = document.getElementById('idxCupon');
- const cuponMsgElO = document.getElementById('idxCuponMsg');
- if (cuponElO) { cuponElO.value=''; }
- if (cuponMsgElO) { cuponMsgElO.textContent=''; cuponMsgElO.className='cupon-msg'; }
- const cuponBtnO = document.querySelector('.cupon-btn');
- if (cuponBtnO) { cuponBtnO.disabled=false; cuponBtnO.textContent='Aplicar'; }
+ // El cupón se aplica desde el carrito; aquí solo se refleja el descuento activo
  const sub = carrito.reduce((s,i) => s+i.precio*i.cantidad, 0);
  const desc_idx = idxActiveCupon ? parseFloat(idxActiveCupon.monto) : 0;
  document.getElementById('orderSummary').innerHTML = `
