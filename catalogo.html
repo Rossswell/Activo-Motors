@@ -79,7 +79,7 @@ header{background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-bottom
 /* ══ BRAND SELECTOR ══ */
 .brand-sec{background:#fff;border-bottom:2px solid var(--borde);padding:20px 0 0}
 .brand-sec-in{max-width:1400px;margin:0 auto;padding:0 40px}
-.brand-label{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--texto4);margin-bottom:14px;text-align:center}
+.brand-label{font-size:13px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--texto3);margin-bottom:18px;text-align:center}
 .brand-row{display:flex;align-items:center;gap:14px;justify-content:center}
 .barrow{background:var(--fondo2);border:1.5px solid var(--borde);border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:var(--tr);flex-shrink:0;color:var(--texto3);opacity:.35;pointer-events:none}
 .barrow:hover{background:var(--rojo);border-color:var(--rojo);color:#fff}
@@ -209,6 +209,18 @@ header{background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-bottom
 .stot{display:flex;justify-content:space-between;font-family:var(--fp);font-size:17px;font-weight:700}
 .stot span:last-child{color:var(--rojo)}
 .fg{margin-bottom:14px}
+.delivery-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px}
+.dopt{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px solid var(--borde);border-radius:10px;cursor:pointer;transition:all .2s;background:#fff;user-select:none}
+.dopt input[type=radio]{display:none}
+.dopt.selected{border-color:var(--rojo);background:rgba(174,4,15,.04)}
+.dopt-icon{width:34px;height:34px;background:var(--fondo2);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.dopt-icon svg{width:16px;height:16px;stroke:var(--texto3);transition:stroke .2s}
+.dopt.selected .dopt-icon{background:rgba(174,4,15,.1)}
+.dopt.selected .dopt-icon svg{stroke:var(--rojo)}
+.dopt strong{display:block;font-size:12px;font-weight:700;color:var(--texto1);font-family:var(--fb)}
+.dopt span{font-size:11px;color:var(--texto4)}
+#dirWrap{transition:max-height .25s ease,opacity .2s ease;overflow:hidden;max-height:200px;opacity:1}
+#dirWrap.hidden{max-height:0!important;opacity:0;pointer-events:none;margin:0!important}
 .fl{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--texto3);margin-bottom:6px;display:block}
 .fi{width:100%;padding:10px 13px;border:1.5px solid var(--borde);border-radius:8px;font-family:var(--fb);font-size:13px;outline:none;transition:var(--tr);background:var(--fondo2);color:var(--texto)}
 .fi:focus{border-color:var(--rojo);background:#fff}
@@ -253,6 +265,13 @@ header{background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-bottom
 .toast.ok{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}
 .toast.err{background:#fef2f2;border:1px solid #fecaca;color:#991b1b}
 @keyframes tin{from{transform:translateX(120%);opacity:0}to{transform:translateX(0);opacity:1}}
+/* ── WHATSAPP BUTTON ── */
+.wa-btn{position:fixed;bottom:28px;right:28px;z-index:9000;width:54px;height:54px;border-radius:50%;background:#1a1a1a;border:1.5px solid #2e2e2e;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.35);transition:transform .25s cubic-bezier(.4,0,.2,1),box-shadow .25s,background .2s;text-decoration:none}
+.wa-btn:hover{transform:scale(1.1) translateY(-2px);background:#222;box-shadow:0 8px 28px rgba(0,0,0,.45);border-color:rgba(37,211,102,.4)}
+.wa-btn:hover .wa-icon{color:#25D366}
+.wa-icon{width:24px;height:24px;position:relative;z-index:1;transition:color .2s;color:rgba(255,255,255,.85)}
+.wa-pulse{position:absolute;width:100%;height:100%;border-radius:50%;background:rgba(37,211,102,.18);animation:wa-pulse 2.8s ease-out infinite;pointer-events:none}
+@keyframes wa-pulse{0%{transform:scale(1);opacity:.7}70%{transform:scale(1.55);opacity:0}100%{opacity:0}}
 
 footer{background:var(--jet);color:var(--plata);padding:36px 30px;margin-top:50px}
 .foot-in{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
@@ -418,8 +437,22 @@ footer{background:var(--jet);color:var(--plata);padding:36px 30px;margin-top:50p
         <div class="ubox-detail" id="ckInfo"></div>
       </div>
       <div class="fg">
-        <label class="fl">Dirección de Entrega</label>
-        <textarea class="fi" id="ckDir" rows="2" placeholder="Calle, urbanización, municipio..." style="resize:vertical"></textarea>
+        <label class="fl">Tipo de Entrega</label>
+        <div class="delivery-opts">
+          <label class="dopt" id="dopt-envio">
+            <input type="radio" name="entrega" value="envio" onchange="toggleDelivery(this)" checked>
+            <span class="dopt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span>
+            <div><strong>Envío a domicilio</strong><span>Coordinar entrega</span></div>
+          </label>
+          <label class="dopt" id="dopt-retiro">
+            <input type="radio" name="entrega" value="retiro" onchange="toggleDelivery(this)">
+            <span class="dopt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+            <div><strong>Retiro en tienda</strong><span>San Diego, Valle Verde</span></div>
+          </label>
+        </div>
+        <div id="dirWrap" style="margin-top:12px">
+          <textarea class="fi" id="ckDir" rows="2" placeholder="Calle, urbanización, municipio..." style="resize:vertical"></textarea>
+        </div>
       </div>
       <button class="cf-btn" onclick="confirmOrder()" id="cfBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M20 6 9 17l-5-5"/></svg>
@@ -476,7 +509,7 @@ footer{background:var(--jet);color:var(--plata);padding:36px 30px;margin-top:50p
 /* ═══════════════════════════════════════
    ACTIVO MOTORS — CATÁLOGO v3
 ═══════════════════════════════════════ */
-const API_URL  = 'https://script.google.com/macros/s/AKfycbxd7oxAqv08NVETNWnbG2qaYlQjE6rmW9JKOKnJuvSDyE2SZbIH5hzNnVrCMebcDj53jg/exec';
+const API_URL  = 'https://script.google.com/macros/s/AKfycbx00703lMtsfapxsz0nLQ3wc37w4WqStyJJ6EukSIhCoPHvH_veAzLfdAxnJvDrJDiEBQ/exec';
 const LOGO_URL = 'https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png';
 
 const BRANDS = [
@@ -791,15 +824,42 @@ function openCheckout() {
   document.getElementById('ckName').textContent = user.nombre;
   document.getElementById('ckInfo').textContent = user.email + (user.telefono ? ' · ' + user.telefono : '');
   document.getElementById('ckDir').value = user.direccion || '';
+  initDeliveryUI();
   document.getElementById('ckOV').classList.add('open');
 }
 
 function closeCheckout() { document.getElementById('ckOV').classList.remove('open'); }
 
+function toggleDelivery(radio) {
+  document.querySelectorAll('.dopt').forEach(d => d.classList.remove('selected'));
+  radio.closest('.dopt').classList.add('selected');
+  const wrap = document.getElementById('dirWrap');
+  if (radio.value === 'retiro') {
+    wrap.classList.add('hidden');
+  } else {
+    wrap.classList.remove('hidden');
+  }
+}
+// Init on open
+function initDeliveryUI() {
+  document.querySelectorAll('.dopt input[name=entrega]').forEach(r => { r.checked = false; });
+  const firstRadio = document.querySelector('.dopt input[value=envio]');
+  firstRadio.checked = true;
+  document.querySelectorAll('.dopt').forEach(d => d.classList.remove('selected'));
+  firstRadio.closest('.dopt').classList.add('selected');
+  document.getElementById('dirWrap').classList.remove('hidden');
+}
+
 async function confirmOrder() {
   const btn = document.getElementById('cfBtn');
-  const dir = document.getElementById('ckDir').value.trim();
-  if (!dir) { toast('Ingresa tu dirección de entrega','err'); return; }
+  const tipoEntrega = document.querySelector('input[name=entrega]:checked')?.value || 'envio';
+  let dir;
+  if (tipoEntrega === 'retiro') {
+    dir = 'Retiro en tienda — San Diego, Valle Verde, Av. Don Julio Centeno';
+  } else {
+    dir = document.getElementById('ckDir').value.trim();
+    if (!dir) { toast('Ingresa tu dirección de entrega','err'); return; }
+  }
   btn.disabled = true; btn.textContent = 'Procesando...';
   try {
     const cliente = { nombre:user.nombre, email:user.email, cedula:user.cedula||'N/A', telefono:user.telefono||'N/A', direccion:dir };
@@ -960,5 +1020,13 @@ document.addEventListener('DOMContentLoaded', () => {
   updateBadges();
 });
 </script>
+<!-- WHATSAPP BUTTON -->
+<a href="https://wa.me/584122004902" target="_blank" rel="noopener" class="wa-btn" title="Contactar por WhatsApp" aria-label="WhatsApp">
+  <span class="wa-pulse"></span>
+  <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.562 4.14 1.542 5.876L0 24l6.316-1.518A11.953 11.953 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.006-1.374l-.359-.213-3.741.9.934-3.625-.234-.372A9.796 9.796 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/>
+  </svg>
+</a>
 </body>
 </html>
