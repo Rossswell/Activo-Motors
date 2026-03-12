@@ -146,8 +146,8 @@ header{background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-bottom
 .pname{font-size:13px;font-weight:600;line-height:1.4;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .pdesc{font-size:11px;color:var(--texto4);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:12px}
 .pfoot{display:flex;align-items:center;justify-content:space-between}
-.pprice{font-family:var(--fp);font-size:20px;font-weight:700;color:var(--rojo)}
-.pprice span{font-size:12px;font-weight:400;color:var(--texto4)}
+.pprice{font-family:var(--fp);font-size:20px;font-weight:700;color:var(--texto)}
+.pprice span{font-size:20px;font-weight:700;color:var(--texto)}
 .padd{background:var(--rojo);border:none;color:#fff;width:36px;height:36px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--tr);flex-shrink:0}
 .padd:hover{background:var(--rojo-dark);transform:scale(1.1)}
 .padd svg{width:16px;height:16px}
@@ -294,6 +294,15 @@ header{background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-bottom
 .wa-pulse{position:absolute;width:100%;height:100%;border-radius:50%;background:rgba(37,211,102,.18);animation:wa-pulse 2.8s ease-out infinite;pointer-events:none}
 @keyframes wa-pulse{0%{transform:scale(1);opacity:.7}70%{transform:scale(1.55);opacity:0}100%{opacity:0}}
 
+/* PAGINATION */
+.pagination{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:36px;padding-bottom:10px}
+.ppage{background:#fff;border:1.5px solid var(--borde);border-radius:8px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;cursor:pointer;transition:var(--tr);color:var(--texto2)}
+.ppage:hover{border-color:var(--rojo);color:var(--rojo)}
+.ppage.on{background:var(--rojo);border-color:var(--rojo);color:#fff}
+.ppage.arr{width:auto;padding:0 12px;gap:4px;font-size:12px}
+.ppage.arr:disabled,.ppage.arr[disabled]{opacity:.35;cursor:not-allowed;pointer-events:none}
+.ppage-dots{color:var(--texto4);font-size:14px;padding:0 2px}
+
 footer{background:var(--jet);color:var(--plata);padding:36px 30px;margin-top:50px}
 .foot-in{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
 .foot-brand{font-family:var(--ft);font-size:16px;letter-spacing:2px}
@@ -405,6 +414,7 @@ footer{background:var(--jet);color:var(--plata);padding:36px 30px;margin-top:50p
     <div class="prods-grid" id="prodsGrid">
       <div class="ph"><div class="spin"></div><p style="color:var(--texto4)">Cargando productos...</p></div>
     </div>
+    <div class="pagination" id="pagination"></div>
   </div>
 </div>
 
@@ -572,6 +582,8 @@ let allProds = [], cart = [], user = null, activeCupon = null;
 let selBrand = null, selModel = null, selCat = 'TODOS', search = '';
 let bOffset = 0;
 const BPP = 2; // brands per page
+const PER_PAGE = 16;
+let currentPage = 1;
 
 /* ══ BRAND SLIDER ══ */
 function initBrands() {
@@ -617,7 +629,7 @@ function applySlide() {
 }
 
 function pickBrand(marca) {
-  selBrand = marca; selModel = null; search = '';
+  selBrand = marca; selModel = null; search = ''; currentPage = 1;
   document.getElementById('searchInp').value = '';
   document.querySelectorAll('.brand-card').forEach(c => c.classList.remove('sel'));
   const bid = BRANDS.find(b => b.n === marca)?.id;
@@ -641,7 +653,7 @@ function showModels(marca) {
 }
 
 function pickModel(m, el) {
-  selModel = m; search = '';
+  selModel = m; search = ''; currentPage = 1;
   document.getElementById('searchInp').value = '';
   document.querySelectorAll('.mchip').forEach(c => c.classList.remove('on'));
   el.classList.add('on');
@@ -699,7 +711,7 @@ function applyFilters(mode='') {
 }
 
 function filterCat(cat, el) {
-  selCat = cat;
+  selCat = cat; currentPage = 1;
   document.querySelectorAll('.citem').forEach(c => c.classList.remove('on'));
   el.classList.add('on');
   renderProds(applyFilters());
@@ -707,7 +719,7 @@ function filterCat(cat, el) {
 }
 
 function doSearch(q) {
-  search = q.trim();
+  search = q.trim(); currentPage = 1;
   renderProds(applyFilters());
 }
 
@@ -718,9 +730,15 @@ function renderProds(prods) {
   count.innerHTML = `<strong>${prods.length}</strong> producto${prods.length!==1?'s':''} encontrado${prods.length!==1?'s':''}`;
   if (!prods.length) {
     grid.innerHTML = '<div class="ph"><div class="ph-icon"></div><div class="ph-title">Sin resultados</div><p>Prueba con otro filtro</p></div>';
+    document.getElementById('pagination').innerHTML = '';
     return;
   }
-  grid.innerHTML = prods.map(p => {
+  const totalPages = Math.ceil(prods.length / PER_PAGE);
+  if (currentPage > totalPages) currentPage = totalPages;
+  const start = (currentPage - 1) * PER_PAGE;
+  const paginated = prods.slice(start, start + PER_PAGE);
+
+  grid.innerHTML = paginated.map(p => {
     const ag  = p.stock <= 0;
     const low = p.stock > 0 && p.stock <= 3;
     return `<div class="pcard">
@@ -742,6 +760,40 @@ function renderProds(prods) {
       </div>
     </div>`;
   }).join('');
+
+  renderPagination(totalPages);
+}
+
+function renderPagination(total) {
+  const el = document.getElementById('pagination');
+  if (total <= 1) { el.innerHTML = ''; return; }
+  const p = currentPage;
+  let html = '';
+  // Prev
+  html += `<button class="ppage arr" ${p===1?'disabled':''} onclick="goToPage(${p-1})">← Anterior</button>`;
+  // Pages with ellipsis
+  const pages = [];
+  for (let i = 1; i <= total; i++) {
+    if (i === 1 || i === total || (i >= p - 2 && i <= p + 2)) pages.push(i);
+    else if (pages[pages.length-1] !== '...') pages.push('...');
+  }
+  pages.forEach(pg => {
+    if (pg === '...') {
+      html += `<span class="ppage-dots">…</span>`;
+    } else {
+      html += `<button class="ppage ${pg===p?'on':''}" onclick="goToPage(${pg})">${pg}</button>`;
+    }
+  });
+  // Next
+  html += `<button class="ppage arr" ${p===total?'disabled':''} onclick="goToPage(${p+1})">Siguiente →</button>`;
+  el.innerHTML = html;
+}
+
+function goToPage(page) {
+  currentPage = page;
+  const prodsArea = document.querySelector('.prods-area');
+  if (prodsArea) prodsArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  renderProds(applyFilters());
 }
 
 /* ══ BADGES ══ */
