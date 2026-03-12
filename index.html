@@ -489,6 +489,13 @@ header {
 .sum-item.total { font-size: 16px; font-weight: 700; color: var(--texto); padding-top: 9px; margin-top: 6px; border-top: 1px solid var(--borde); }
 .sum-item.total span:last-child { color: var(--rojo); }
 .submit-btn { width: 100%; background: var(--rojo); border: none; color: #fff; font-family: var(--font-body); font-size: 14px; font-weight: 700; padding: 15px; border-radius: 9px; cursor: pointer; letter-spacing: .5px; text-transform: uppercase; transition: var(--tr); display: flex; align-items: center; justify-content: center; gap: 9px; }
+.cupon-wrap{display:flex;gap:8px;align-items:stretch}
+.cupon-input{flex:1;min-width:0}
+.cupon-btn{flex-shrink:0;background:var(--jet);color:#fff;border:none;border-radius:8px;padding:0 16px;font-size:12px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:background .2s;white-space:nowrap}
+.cupon-btn:hover{background:var(--rojo)}
+.cupon-btn:disabled{background:#ccc;cursor:not-allowed}
+.cupon-msg.ok{color:#22c55e}
+.cupon-msg.err{color:var(--rojo)}
 .submit-btn:hover { background: var(--rojo-dark); transform: translateY(-2px); box-shadow: var(--shadow2); }
 .submit-btn:disabled { background: var(--texto4); cursor: not-allowed; transform: none; box-shadow: none; }
 
@@ -799,7 +806,7 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
  </div>
  <div class="cart-foot" id="cartFoot" style="display:none">
  <div class="cart-row"><span>Subtotal</span><span id="cSubtotal">$0.00</span></div>
- <div class="cart-row"><span>IVA (16%)</span><span id="cIVA">$0.00</span></div>
+ <div class="cart-row disc-row" id="idxDiscRow" style="display:none"><span>Descuento</span><span id="idxDesc" style="color:#22c55e">-$0.00</span></div>
  <div class="cart-row grand"><span>TOTAL</span><span id="cTotal">$0.00</span></div>
  <button class="checkout-btn" onclick="openCheckout()">Proceder al Pago →</button>
  </div>
@@ -880,6 +887,14 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
   </div>
  </div>
  </div>
+ <div class="form-group">
+  <label class="form-label">Cupón de descuento <span style="font-weight:400;color:#999">(opcional)</span></label>
+  <div class="cupon-wrap">
+    <input class="form-input cupon-input" type="text" id="idxCupon" placeholder="Ingresa tu código" autocomplete="off" style="letter-spacing:2px;font-weight:700;text-transform:uppercase">
+    <button class="cupon-btn" type="button" onclick="aplicarCuponIdx()">Aplicar</button>
+  </div>
+  <div id="idxCuponMsg" class="cupon-msg" style="font-size:12px;margin-top:6px;font-weight:600"></div>
+ </div>
  <button class="submit-btn" id="submitBtn" onclick="confirmarPedido()">
  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
  Confirmar Pedido
@@ -903,7 +918,7 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
 <div class="toast-wrap" id="toastWrap"></div>
 
 <script>
-const API_URL = 'https://script.google.com/macros/s/AKfycbwIhYJ-Akp7PPzX63-TZ3-3EHI063LKMGjKoIvwj2bW2WsZzhwAn2HYTtmEifDap0cT3w/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbzAJJtbC-qaAQC2yK6AqzMmxsFVhpVZnenqhCOOs1igGWBbbGS-SEzd6DgGFTnzcQx08A/exec';
 const LOGO_URL = 'https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png';
 
 /* ══════════════════════════════════════
@@ -943,6 +958,7 @@ const CATEGORIAS = [
 ══════════════════════════════════════ */
 let carrito = [];
 let usuarioActual = null;
+let idxActiveCupon = null;
 let modeloSeleccionado = null;
 
 /* ══════════════════════════════════════
@@ -1159,6 +1175,33 @@ function toggleUserMenu() { document.getElementById('userDropdown').classList.to
 /* ══════════════════════════════════════
  CARRITO
 ══════════════════════════════════════ */
+async function aplicarCuponIdx() {
+  const codigo = document.getElementById('idxCupon').value.trim().toUpperCase();
+  const msgEl  = document.getElementById('idxCuponMsg');
+  const btn    = document.querySelector('.cupon-btn');
+  if (!codigo) { msgEl.textContent='Ingresa un código.'; msgEl.className='cupon-msg err'; return; }
+  btn.disabled = true; btn.textContent = 'Verificando...';
+  msgEl.textContent = ''; msgEl.className = 'cupon-msg';
+  try {
+    const res = await apiCall({ accion:'validarCupon', codigo });
+    if (res.ok) {
+      idxActiveCupon = res;
+      msgEl.textContent = `Cupón aplicado: -$${parseFloat(res.monto).toFixed(2)} de descuento`;
+      msgEl.className = 'cupon-msg ok';
+      btn.textContent = 'Aplicado';
+      actualizarCarritoUI();
+    } else {
+      idxActiveCupon = null;
+      msgEl.textContent = res.error || 'Cupón no válido';
+      msgEl.className = 'cupon-msg err';
+      btn.disabled = false; btn.textContent = 'Aplicar';
+    }
+  } catch(e) {
+    msgEl.textContent = 'Error al verificar.'; msgEl.className = 'cupon-msg err';
+    btn.disabled = false; btn.textContent = 'Aplicar';
+  }
+}
+
 function toggleIdxDelivery(radio) {
   document.querySelectorAll('.dopt').forEach(d => d.classList.remove('selected'));
   radio.closest('.dopt').classList.add('selected');
@@ -1199,10 +1242,12 @@ function actualizarCarritoUI() {
  </button>
  </div>`).join('');
  const sub = carrito.reduce((s,i) => s+i.precio*i.cantidad, 0);
- const iva = sub * 0.16;
+ const desc = idxActiveCupon ? parseFloat(idxActiveCupon.monto) : 0;
  document.getElementById('cSubtotal').textContent = `$${sub.toFixed(2)}`;
- document.getElementById('cIVA').textContent = `$${iva.toFixed(2)}`;
- document.getElementById('cTotal').textContent = `$${(sub+iva).toFixed(2)}`;
+ const discRow2 = document.getElementById('idxDiscRow');
+ if (desc > 0) { discRow2.style.display=''; document.getElementById('idxDesc').textContent=`-$${desc.toFixed(2)}`; }
+ else { discRow2.style.display='none'; }
+ document.getElementById('cTotal').textContent = `$${Math.max(0,sub-desc).toFixed(2)}`;
  footEl.style.display = 'block';
 }
 function cambiarCantidad(id, delta) {
@@ -1237,14 +1282,22 @@ function openCheckout() {
  return;
  }
  toggleCart();
+ // Reset coupon on open
+ idxActiveCupon = null;
+ const cuponElO = document.getElementById('idxCupon');
+ const cuponMsgElO = document.getElementById('idxCuponMsg');
+ if (cuponElO) { cuponElO.value=''; }
+ if (cuponMsgElO) { cuponMsgElO.textContent=''; cuponMsgElO.className='cupon-msg'; }
+ const cuponBtnO = document.querySelector('.cupon-btn');
+ if (cuponBtnO) { cuponBtnO.disabled=false; cuponBtnO.textContent='Aplicar'; }
  const sub = carrito.reduce((s,i) => s+i.precio*i.cantidad, 0);
- const iva = sub * 0.16;
+ const desc_idx = idxActiveCupon ? parseFloat(idxActiveCupon.monto) : 0;
  document.getElementById('orderSummary').innerHTML = `
  <h4>Resumen del Pedido</h4>
  ${carrito.map(i => `<div class="sum-item"><span>${i.nombre} ×${i.cantidad}</span><span>$${(i.precio*i.cantidad).toFixed(2)}</span></div>`).join('')}
  <div class="sum-item"><span>Subtotal</span><span>$${sub.toFixed(2)}</span></div>
- <div class="sum-item"><span>IVA (16%)</span><span>$${iva.toFixed(2)}</span></div>
- <div class="sum-item total"><span>TOTAL</span><span>$${(sub+iva).toFixed(2)}</span></div>`;
+ ${desc_idx>0?`<div class="sum-item" style="color:#22c55e"><span>Descuento</span><span>-$${desc_idx.toFixed(2)}</span></div>`:''}
+ <div class="sum-item total"><span>TOTAL</span><span>$${Math.max(0,sub-desc_idx).toFixed(2)}</span></div>`;
  if (usuarioActual) {
  document.getElementById('ckUserCard').style.display = 'block';
  document.getElementById('ckGuestForm').style.display = 'none';
@@ -1281,7 +1334,9 @@ async function confirmarPedido() {
  btn.disabled = true;
  btn.innerHTML = '<div class="spinner" style="width:20px;height:20px;border-width:2px;margin:0"></div> Procesando...';
  try {
- const res = await apiCall({ accion:'pedido', cliente:JSON.stringify(cliente), carrito:JSON.stringify(carrito.map(i=>({id:i.id,nombre:i.nombre,precio:i.precio,cantidad:i.cantidad,imagen:i.imagen}))) });
+ const pedidoParams = { accion:'pedido', cliente:JSON.stringify(cliente), carrito:JSON.stringify(carrito.map(i=>({id:i.id,nombre:i.nombre,precio:i.precio,cantidad:i.cantidad,imagen:i.imagen}))) };
+ if (idxActiveCupon) pedidoParams.cupon = idxActiveCupon.codigo;
+ const res = await apiCall(pedidoParams);
  btn.disabled = false;
  btn.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Confirmar Pedido';
  if (res.ok || res.success) {
