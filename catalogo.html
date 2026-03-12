@@ -228,15 +228,23 @@ header{background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-bottom
 .suc-btn:hover{background:var(--rojo-dark)}
 
 .auth-ov{position:fixed;inset:0;z-index:3500;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;padding:20px}
-.auth-ov.open{display:flex}
-.auth-modal{background:#fff;border-radius:18px;width:100%;max-width:420px;overflow:hidden;box-shadow:var(--sh2)}
+.auth-ov.open{display:flex;animation:fadeOV .22s ease}
+@keyframes fadeOV{from{opacity:0}to{opacity:1}}
+.auth-modal{background:#fff;border-radius:18px;width:100%;max-width:420px;overflow:hidden;box-shadow:var(--sh2);animation:slideUp .28s cubic-bezier(.4,0,.2,1)}
+@keyframes slideUp{from{transform:translateY(18px);opacity:0}to{transform:translateY(0);opacity:1}}
+.auth-modal.shake{animation:shake .4s cubic-bezier(.36,.07,.19,.97)}
+@keyframes shake{10%,90%{transform:translateX(-2px)}20%,80%{transform:translateX(3px)}30%,50%,70%{transform:translateX(-4px)}40%,60%{transform:translateX(4px)}}
 .auth-tabs{display:flex;border-bottom:1px solid var(--borde)}
 .atab{flex:1;padding:16px;font-family:var(--fb);font-size:13px;font-weight:600;cursor:pointer;border:none;background:none;color:var(--texto4);transition:var(--tr);border-bottom:2px solid transparent}
 .atab.on{color:var(--rojo);border-bottom-color:var(--rojo)}
 .a-body{padding:24px}
 .a-title{font-family:var(--ft);font-size:18px;margin-bottom:6px}.a-sub{font-size:13px;color:var(--texto3);margin-bottom:22px}
-.a-btn{width:100%;background:var(--rojo);border:none;color:#fff;font-family:var(--fb);font-size:14px;font-weight:700;padding:13px;border-radius:10px;cursor:pointer;transition:var(--tr);margin-top:6px}
-.a-btn:hover{background:var(--rojo-dark)}
+.a-btn{width:100%;background:var(--rojo);border:none;color:#fff;font-family:var(--fb);font-size:14px;font-weight:700;padding:13px;border-radius:10px;cursor:pointer;transition:var(--tr);margin-top:6px;display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:.5px}
+.a-btn:hover{background:var(--rojo-dark);}
+.a-btn:disabled{background:#888;cursor:not-allowed;transform:none}
+.a-btn .btn-spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none;flex-shrink:0}
+.a-btn.loading .btn-spinner{display:block}
+.a-btn.loading .btn-text{opacity:.85}
 .phone-row{display:flex;gap:8px}
 .ph-prefix{padding:10px 12px;border:1.5px solid var(--borde);border-radius:8px;background:var(--fondo2);font-size:13px;color:var(--texto3);flex-shrink:0}
 
@@ -443,7 +451,10 @@ footer{background:var(--jet);color:var(--plata);padding:36px 30px;margin-top:50p
       <div class="a-sub">Inicia sesión para continuar tu compra.</div>
       <div class="fg"><label class="fl">Email</label><input class="fi" type="email" id="liEm" placeholder="tu@correo.com"></div>
       <div class="fg"><label class="fl">Contraseña</label><input class="fi" type="password" id="liPw" placeholder="••••••••"></div>
-      <button class="a-btn" onclick="doLogin()">Iniciar Sesión</button>
+      <button class="a-btn" id="loginBtn" onclick="doLogin()">
+        <span class="btn-spinner"></span>
+        <span class="btn-text">Iniciar Sesión</span>
+      </button>
     </div>
     <div class="a-body" id="rgPanel" style="display:none">
       <div class="a-title">Crea tu cuenta</div>
@@ -453,7 +464,10 @@ footer{background:var(--jet);color:var(--plata);padding:36px 30px;margin-top:50p
       <div class="fg"><label class="fl">Cédula</label><input class="fi" type="text" id="rgCi" placeholder="V-12345678"></div>
       <div class="fg"><label class="fl">Teléfono</label><div class="phone-row"><div class="ph-prefix">🇻🇪 +58</div><input class="fi" type="tel" id="rgTl" placeholder="4141234567"></div></div>
       <div class="fg"><label class="fl">Contraseña</label><input class="fi" type="password" id="rgPw" placeholder="Mínimo 6 caracteres"></div>
-      <button class="a-btn" onclick="doRegister()">Crear Cuenta</button>
+      <button class="a-btn" id="registerBtn" onclick="doRegister()">
+        <span class="btn-spinner"></span>
+        <span class="btn-text">Crear Cuenta</span>
+      </button>
     </div>
   </div>
 </div>
@@ -462,7 +476,7 @@ footer{background:var(--jet);color:var(--plata);padding:36px 30px;margin-top:50p
 /* ═══════════════════════════════════════
    ACTIVO MOTORS — CATÁLOGO v3
 ═══════════════════════════════════════ */
-const API_URL  = 'https://script.google.com/macros/s/AKfycbwtmJK93bBqVArBlZ6PohJDUFa9wIkNH7UMxyB1hCBlAdPXpgAYhKDXFMbp5j2HS_HOXA/exec';
+const API_URL  = 'https://script.google.com/macros/s/AKfycbxd7oxAqv08NVETNWnbG2qaYlQjE6rmW9JKOKnJuvSDyE2SZbIH5hzNnVrCMebcDj53jg/exec';
 const LOGO_URL = 'https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png';
 
 const BRANDS = [
@@ -788,7 +802,7 @@ async function confirmOrder() {
   if (!dir) { toast('Ingresa tu dirección de entrega','err'); return; }
   btn.disabled = true; btn.textContent = 'Procesando...';
   try {
-    const cliente = { nombre:user.nombre, email:user.email, telefono:user.telefono||'N/A', direccion:dir };
+    const cliente = { nombre:user.nombre, email:user.email, cedula:user.cedula||'N/A', telefono:user.telefono||'N/A', direccion:dir };
     const res = await apiGET('pedido', {
       cliente: JSON.stringify(cliente),
       carrito: JSON.stringify(cart.map(i => ({id:i.id,nombre:i.nombre,precio:i.precio,cantidad:i.cantidad,imagen:i.imagen})))
@@ -819,11 +833,32 @@ async function doLogin() {
   const em = document.getElementById('liEm').value.trim();
   const pw = document.getElementById('liPw').value.trim();
   if (!em||!pw) { toast('Completa todos los campos','err'); return; }
+  const btn = document.getElementById('loginBtn');
+  const txt = btn.querySelector('.btn-text');
+  btn.classList.add('loading'); btn.disabled = true;
+  txt.textContent = 'Verificando...';
   try {
     const r = await apiGET('login', {email:em, password:pw});
-    if (r.ok) { user=r.usuario; localStorage.setItem('am_usuario',JSON.stringify(user)); document.getElementById('authOV').classList.remove('open'); updateUserUI(); toast(`¡Bienvenido, ${user.nombre.split(' ')[0]}!`); }
-    else toast(r.error||'Credenciales incorrectas','err');
-  } catch(e){ toast('Error: '+e.message,'err'); }
+    if (r.ok) {
+      txt.textContent = 'Accediendo...';
+      await new Promise(res => setTimeout(res, 400));
+      user = r.usuario;
+      localStorage.setItem('am_usuario', JSON.stringify(user));
+      document.getElementById('authOV').classList.remove('open');
+      updateUserUI();
+      toast(`Bienvenido, ${user.nombre.split(' ')[0]}`);
+    } else {
+      toast(r.error||'Credenciales incorrectas','err');
+      const modal = document.querySelector('.auth-modal');
+      modal.classList.remove('shake');
+      void modal.offsetWidth; // reflow
+      modal.classList.add('shake');
+    }
+  } catch(e) { toast('Error de conexión','err'); }
+  finally {
+    btn.classList.remove('loading'); btn.disabled = false;
+    txt.textContent = 'Iniciar Sesión';
+  }
 }
 
 async function doRegister() {
@@ -834,11 +869,26 @@ async function doRegister() {
   const pw = document.getElementById('rgPw').value.trim();
   if (!nm||!em||!ci||!tl||!pw) { toast('Completa todos los campos','err'); return; }
   if (pw.length < 6) { toast('Contraseña mínimo 6 caracteres','err'); return; }
+  const btn = document.getElementById('registerBtn');
+  const txt = btn.querySelector('.btn-text');
+  btn.classList.add('loading'); btn.disabled = true;
+  txt.textContent = 'Registrando...';
   try {
     const r = await apiGET('registrar', {usuario:JSON.stringify({nombre:nm,email:em,cedula:ci,telefono:'+58'+tl,password:pw})});
-    if (r.ok) { user=r.usuario; localStorage.setItem('am_usuario',JSON.stringify(user)); document.getElementById('authOV').classList.remove('open'); updateUserUI(); toast(`¡Bienvenido, ${user.nombre.split(' ')[0]}!`); }
-    else toast(r.error||'Error al registrar','err');
-  } catch(e){ toast('Error: '+e.message,'err'); }
+    if (r.ok) {
+      txt.textContent = 'Listo...';
+      await new Promise(res => setTimeout(res, 350));
+      user = r.usuario;
+      localStorage.setItem('am_usuario', JSON.stringify(user));
+      document.getElementById('authOV').classList.remove('open');
+      updateUserUI();
+      toast(`Cuenta creada. Bienvenido, ${user.nombre.split(' ')[0]}`);
+    } else toast(r.error||'Error al registrar','err');
+  } catch(e) { toast('Error de conexión','err'); }
+  finally {
+    btn.classList.remove('loading'); btn.disabled = false;
+    txt.textContent = 'Crear Cuenta';
+  }
 }
 
 function updateUserUI() {
