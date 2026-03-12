@@ -270,12 +270,36 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
 
 @media(max-width:900px){ .products-grid{ grid-template-columns: repeat(2,1fr); } }
 @media(max-width:600px){ .nav-links{display:none} .products-grid{grid-template-columns:1fr} .cart-sidebar{width:100%;right:-100%} .form-row{grid-template-columns:1fr} }
+
+/* ── BRAND CAROUSEL EN CATÁLOGO ── */
+.cat-brands-bar { background: var(--fondo2); border-bottom: 1px solid var(--borde); padding: 6px 0; overflow: hidden; }
+.carousel-track-wrap { position: relative; overflow: hidden; }
+.carousel-track-wrap::before,.carousel-track-wrap::after { content:''; position:absolute; top:0; bottom:0; width:60px; z-index:2; pointer-events:none; }
+.carousel-track-wrap::before { left:0; background:linear-gradient(to right,var(--fondo2),transparent); }
+.carousel-track-wrap::after  { right:0; background:linear-gradient(to left,var(--fondo2),transparent); }
+.carousel-track { display:flex; gap:0; animation:scrollBrands 26s linear infinite; width:max-content; }
+.carousel-track:hover { animation-play-state:paused; }
+@keyframes scrollBrands { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+.brand-item { display:flex; flex-direction:column; align-items:center; gap:6px; padding:8px 28px; cursor:pointer; transition:var(--tr); border-radius:8px; flex-shrink:0; }
+.brand-item:hover { background:rgba(174,4,15,0.06); }
+.brand-item img { height:28px; object-fit:contain; filter:grayscale(20%); transition:filter 0.3s; }
+.brand-item:hover img { filter:grayscale(0%); }
+.brand-item.active-brand .brand-name { color:var(--rojo); }
+.brand-name { font-size:9px; font-weight:700; letter-spacing:1.5px; color:var(--texto4); text-transform:uppercase; }
+
+/* Model mini-cards in catalog */
+.cat-models-bar { max-width:1400px; margin:0 auto; padding:20px 30px 0; display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+.cat-model-chip { display:flex; align-items:center; gap:6px; padding:7px 14px; border:1.5px solid var(--borde); border-radius:30px; font-size:12px; font-weight:600; cursor:pointer; transition:var(--tr); background:var(--fondo); color:var(--texto2); }
+.cat-model-chip:hover { border-color:var(--rojo); color:var(--rojo); }
+.cat-model-chip.active { background:var(--rojo); border-color:var(--rojo); color:#fff; }
+.cat-model-chip .chip-icon { font-size:14px; }
+
 </style>
 </head>
 <body>
 
 <!-- TOPBAR -->
-<div class="topbar">🚗 ACTIVO MOTORS · Repuestos 100% Originales Toyota & Multimarca · San Diego, Valle Verde · 0412-2004902</div>
+<div class="topbar">🚗 ACTIVO MOTORS · Repuestos 100% Originales Toyota & ¡y más! · San Diego, Valle Verde · 0412-2004902</div>
 
 <!-- HEADER -->
 <header>
@@ -333,6 +357,33 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
     <p class="catalog-count" id="catalogCount"></p>
   </div>
 </div>
+
+
+<!-- BRAND CAROUSEL -->
+<div class="cat-brands-bar">
+  <div class="carousel-track-wrap">
+    <div class="carousel-track">
+      <div class="brand-item" onclick="setBrandFilter('Toyota')"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Toyota_carlogo.svg/200px-Toyota_carlogo.svg.png" alt="Toyota"><span class="brand-name">Toyota</span></div>
+      <div class="brand-item" onclick="setBrandFilter('Nissan')"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Nissan-logo.png/200px-Nissan-logo.png" alt="Nissan"><span class="brand-name">Nissan</span></div>
+      <div class="brand-item" onclick="setBrandFilter('Mitsubishi')"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Mitsubishi_logo.svg/200px-Mitsubishi_logo.svg.png" alt="Mitsubishi"><span class="brand-name">Mitsubishi</span></div>
+      <div class="brand-item" onclick="setBrandFilter('Ford')"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ford_logo_flat.svg/200px-Ford_logo_flat.svg.png" alt="Ford"><span class="brand-name">Ford</span></div>
+      <div class="brand-item" onclick="setBrandFilter('Hyundai')"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Hyundai_Motor_Company_logo.svg/200px-Hyundai_Motor_Company_logo.svg.png" alt="Hyundai"><span class="brand-name">Hyundai</span></div>
+      <div class="brand-item" onclick="setBrandFilter('Chevrolet')"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Chevrolet_logo.svg/200px-Chevrolet_logo.svg.png" alt="Chevrolet"><span class="brand-name">Chevrolet</span></div>
+      <div class="brand-item" onclick="setBrandFilter('Kia')"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Kia-logo.svg/200px-Kia-logo.svg.png" alt="Kia"><span class="brand-name">Kia</span></div>
+      <!-- duplicate -->
+      <div class="brand-item" onclick="setBrandFilter('Toyota')"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Toyota_carlogo.svg/200px-Toyota_carlogo.svg.png" alt="Toyota"><span class="brand-name">Toyota</span></div>
+      <div class="brand-item" onclick="setBrandFilter('Nissan')"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Nissan-logo.png/200px-Nissan-logo.png" alt="Nissan"><span class="brand-name">Nissan</span></div>
+      <div class="brand-item" onclick="setBrandFilter('Mitsubishi')"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Mitsubishi_logo.svg/200px-Mitsubishi_logo.svg.png" alt="Mitsubishi"><span class="brand-name">Mitsubishi</span></div>
+      <div class="brand-item" onclick="setBrandFilter('Ford')"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ford_logo_flat.svg/200px-Ford_logo_flat.svg.png" alt="Ford"><span class="brand-name">Ford</span></div>
+      <div class="brand-item" onclick="setBrandFilter('Hyundai')"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Hyundai_Motor_Company_logo.svg/200px-Hyundai_Motor_Company_logo.svg.png" alt="Hyundai"><span class="brand-name">Hyundai</span></div>
+      <div class="brand-item" onclick="setBrandFilter('Chevrolet')"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Chevrolet_logo.svg/200px-Chevrolet_logo.svg.png" alt="Chevrolet"><span class="brand-name">Chevrolet</span></div>
+      <div class="brand-item" onclick="setBrandFilter('Kia')"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Kia-logo.svg/200px-Kia-logo.svg.png" alt="Kia"><span class="brand-name">Kia</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODEL CHIPS -->
+<div class="cat-models-bar" id="modelChipsBar" style="display:none"></div>
 
 <!-- TIENDA -->
 <div class="shop-wrap">
@@ -470,13 +521,38 @@ const LOGO_URL = 'https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mes
 let carrito = [];
 let todosProductos = [];
 let categoriaActual = 'TODOS';
-let usuarioActual = null;
+let marcaActual     = 'TODOS';
+let modeloKeyword   = '';
+let usuarioActual   = null;
 
 /* PARÁMETROS DE URL */
 const urlParams = new URLSearchParams(window.location.search);
 const paramModelo    = urlParams.get('modelo')      || 'todos';
 const paramModeloNom = urlParams.get('modeloNombre')|| 'Todos';
 const paramCategoria = (urlParams.get('categoria')  || 'TODOS').toUpperCase();
+const paramMarca     = urlParams.get('marca')       || 'TODOS';
+
+// Models per brand for chips
+const MODELOS_DATA = {
+  Toyota:     ['Hilux','Corolla','Yaris','Fortuner','Prado','Avanza','4Runner','Camry'],
+  Mitsubishi: ['Lancer','L200','Montero','Signo','Outlander'],
+  Nissan:     ['Sentra','Frontier','Patrol','X-Trail','Altima'],
+  Ford:       ['F-150','Ranger','Explorer','Focus'],
+  Hyundai:    ['Tucson','Santa Fe','Elantra','Accent'],
+  Chevrolet:  ['Spark','Aveo','Colorado','Cruze'],
+  Kia:        ['Sportage','Sorento','Picanto','Rio'],
+};
+
+// Models per brand for chips
+const MODELOS_DATA = {
+  Toyota:     ['Hilux','Corolla','Yaris','Fortuner','Prado','Avanza','4Runner','Camry','Land Cruiser'],
+  Mitsubishi: ['Lancer','L200','Montero','Signo','Outlander','Galant'],
+  Nissan:     ['Sentra','Frontier','Patrol','X-Trail','Altima'],
+  Ford:       ['F-150','Ranger','Explorer','Mustang','Focus'],
+  Hyundai:    ['Tucson','Santa Fe','Elantra','Accent','Creta'],
+  Chevrolet:  ['Spark','Aveo','Colorado','Cruze','Captiva'],
+  Kia:        ['Sportage','Sorento','Picanto','Rio','Carnival'],
+};
 
 /* INIT */
 document.addEventListener('DOMContentLoaded', () => {
@@ -487,6 +563,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Header dinámico
   actualizarHeaderCatalogo();
+
+  // Set initial filters from URL
+  marcaActual = paramMarca;
+  // modelo keyword from URL (for product name filtering)
+  if (paramModelo && paramModelo !== 'todos') {
+    modeloKeyword = paramModeloNom; // use human name like "Hilux"
+  }
+
+  // Show model chips if brand is set
+  if (paramMarca && paramMarca !== 'TODOS') {
+    renderModelChips(paramMarca);
+  }
+
+  // Highlight active brand in carousel
+  if (paramMarca !== 'TODOS') {
+    document.querySelectorAll('.brand-item').forEach(b => {
+      const bn = b.querySelector('.brand-name');
+      if (bn && bn.textContent.toLowerCase() === paramMarca.toLowerCase()) {
+        b.classList.add('active-brand');
+      }
+    });
+  }
 
   // Cargar productos
   cargarProductos();
@@ -509,16 +607,29 @@ function actualizarHeaderCatalogo() {
   document.getElementById('breadCurrent').textContent = bcText;
 
   // Título
-  document.getElementById('catalogTitle').textContent =
-    paramCategoria === 'TODOS' ? 'Catálogo Completo' : catLabel;
+  let mainTitle = 'Catálogo Completo';
+  if (paramMarca !== 'TODOS' && paramCategoria !== 'TODOS') {
+    mainTitle = `${catLabel} — ${paramMarca}`;
+  } else if (paramMarca !== 'TODOS') {
+    mainTitle = `Repuestos ${paramMarca}`;
+  } else if (paramCategoria !== 'TODOS') {
+    mainTitle = catLabel;
+  }
+  document.getElementById('catalogTitle').textContent = mainTitle;
 
   // Badges
   const b = document.getElementById('catalogBadges');
+  if (paramMarca !== 'TODOS') b.innerHTML += `<span class="badge badge-model">🔧 ${paramMarca}</span>`;
   if (modeloLabel) b.innerHTML += `<span class="badge badge-model">🚗 ${modeloLabel}</span>`;
   if (paramCategoria !== 'TODOS') b.innerHTML += `<span class="badge badge-cat">${catLabel}</span>`;
 
-  // Título pestaña
-  document.title = `${catLabel} — ACTIVO MOTORS`;
+  // Título pestaña - descriptive
+  const pageTitle = paramMarca !== 'TODOS'
+    ? `${paramMarca} — ${catLabel} | ACTIVO MOTORS`
+    : paramCategoria !== 'TODOS'
+      ? `${catLabel} | ACTIVO MOTORS`
+      : 'Catálogo Completo | ACTIVO MOTORS';
+  document.title = pageTitle;
 }
 
 /* ── API ── */
@@ -544,7 +655,10 @@ async function cargarProductos() {
   const grid = document.getElementById('productsGrid');
   grid.innerHTML = `<div class="loading-state"><div class="spinner"></div><p>Cargando productos...</p></div>`;
   try {
-    const data = await apiGET('productos');
+    // Pass marca filter to API for server-side filtering
+    const apiParams = {};
+    if (marcaActual && marcaActual !== 'TODOS') apiParams.marca = marcaActual;
+    const data = await apiGET('productos', apiParams);
     todosProductos = Array.isArray(data) ? data : [];
     await cargarCategorias();
 
@@ -591,9 +705,11 @@ function filtrarPorCategoriaYModelo() {
   if (categoriaActual !== 'TODOS') {
     prods = prods.filter(p => p.categoria.toUpperCase() === categoriaActual);
   }
-  // Filtrar por modelo (si aplica y no es multimarca/todos)
-  // Por ahora el filtro por modelo es visual/informativo;
-  // si el nombre del producto incluye el modelo se prioriza pero no excluye
+  // Filtrar por modelo keyword (busca en nombre del producto)
+  if (modeloKeyword && modeloKeyword !== 'todos' && modeloKeyword !== '') {
+    const kw = modeloKeyword.toLowerCase();
+    prods = prods.filter(p => p.nombre.toLowerCase().includes(kw));
+  }
   return prods;
 }
 
@@ -734,6 +850,13 @@ function toggleCart() {
 /* ── CHECKOUT ── */
 function openCheckout() {
   if (!carrito.length) { showToast('El carrito está vacío','error'); return; }
+  // Must be logged in to checkout
+  if (!usuarioActual) {
+    toggleCart();
+    showToast('Debes iniciar sesión o registrarte para hacer un pedido', 'error');
+    setTimeout(() => openAuthModal('login'), 400);
+    return;
+  }
   toggleCart();
   const sub = carrito.reduce((s,i)=>s+i.precio*i.cantidad,0);
   const iva = sub*0.16;
@@ -835,6 +958,61 @@ function actualizarUIUsuario(){
   else{btn.classList.remove('logged');lbl.textContent='Mi cuenta';document.getElementById('udHead').style.display='none';document.getElementById('udLoginBtn').style.display='block';document.getElementById('udRegBtn').style.display='block';document.getElementById('udLogoutBtn').style.display='none';}
 }
 function toggleUserMenu(){document.getElementById('userDropdown').classList.toggle('open');}
+
+/* ── BRAND + MODEL FILTERS ── */
+// Alias for brand carousel clicks
+function filtrarPorMarca(marca) { setBrandFilter(marca); }
+
+function setBrandFilter(marca) {
+  marcaActual = marca;
+  modeloKeyword = '';
+  // Update URL without reload
+  const url = new URL(window.location);
+  url.searchParams.set('marca', marca);
+  url.searchParams.delete('modelo');
+  url.searchParams.delete('modeloNombre');
+  window.history.replaceState({}, '', url);
+
+  // Update brand highlights
+  document.querySelectorAll('.brand-item').forEach(b => {
+    const bn = b.querySelector('.brand-name');
+    b.classList.toggle('active-brand', bn && bn.textContent.toLowerCase() === marca.toLowerCase());
+  });
+
+  // Update header badges
+  document.getElementById('catalogBadges').innerHTML =
+    `<span class="badge badge-model">🔧 ${marca}</span>`;
+
+  // Show model chips
+  renderModelChips(marca);
+
+  // Reload products with new brand
+  cargarProductos();
+}
+
+function renderModelChips(marca) {
+  const bar = document.getElementById('modelChipsBar');
+  const models = MODELOS_DATA[marca] || [];
+  if (!models.length) { bar.style.display = 'none'; return; }
+  bar.style.display = 'flex';
+  bar.innerHTML = `<span style="font-size:11px;font-weight:600;color:var(--texto3);letter-spacing:1px;text-transform:uppercase;margin-right:6px">Modelo:</span>
+    <div class="cat-model-chip ${modeloKeyword===''?'active':''}" onclick="setModelFilter('','')">
+      <span class="chip-icon">🚗</span> Todos
+    </div>` +
+    models.map(m => `
+    <div class="cat-model-chip ${modeloKeyword===m?'active':''}" onclick="setModelFilter('${m}','${m}')">
+      <span class="chip-icon">🚗</span> ${m}
+    </div>`).join('');
+}
+
+function setModelFilter(keyword, label) {
+  modeloKeyword = keyword;
+  // Update chips UI
+  document.querySelectorAll('.cat-model-chip').forEach(c => {
+    c.classList.toggle('active', c.textContent.trim().replace(/^🚗\s*/,'') === (label||'Todos'));
+  });
+  mostrarProductos(filtrarPorCategoriaYModelo());
+}
 
 /* ── TOAST ── */
 function showToast(msg,type='success'){const c=document.getElementById('toastWrap'),t=document.createElement('div');t.className=`toast ${type}`;t.innerHTML=`<span style="font-weight:700;color:${type==='success'?'#22c55e':'var(--rojo)'}">${type==='success'?'✓':'✗'}</span> ${msg}`;c.appendChild(t);setTimeout(()=>{t.style.cssText+='opacity:0;transform:translateX(30px);transition:all .3s';setTimeout(()=>t.remove(),300);},3500);}
