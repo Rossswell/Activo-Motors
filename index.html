@@ -539,12 +539,39 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
 @media(max-width:1024px){ .categories-grid { grid-template-columns: repeat(3,1fr); } }
 @media(max-width:900px){ .hero-inner,.foot-main{ grid-template-columns:1fr } .hero-stats{display:none} .promises-grid{grid-template-columns:1fr 1fr} .models-grid{grid-template-columns:repeat(3,1fr)} .foot-main{grid-template-columns:1fr 1fr} }
 @media(max-width:600px){ .nav-links{display:none} .categories-grid{grid-template-columns:1fr 1fr} .models-grid{grid-template-columns:repeat(2,1fr)} .cart-sidebar{width:100%;right:-100%} .form-row{grid-template-columns:1fr} .promises-grid{grid-template-columns:1fr 1fr} }
+
+/* ── BRAND CAROUSEL ── */
+.brands-section { background: var(--fondo2); border-top: 1px solid var(--borde); border-bottom: 1px solid var(--borde); padding: 0; overflow: hidden; }
+.brands-label { max-width: 1400px; margin: 0 auto; padding: 24px 30px 10px; font-family: var(--font-title); font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--texto3); text-align: center; }
+.carousel-track-wrap { position: relative; overflow: hidden; padding: 14px 0; }
+.carousel-track-wrap::before, .carousel-track-wrap::after { content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none; }
+.carousel-track-wrap::before { left: 0; background: linear-gradient(to right, var(--fondo2), transparent); }
+.carousel-track-wrap::after { right: 0; background: linear-gradient(to left, var(--fondo2), transparent); }
+.carousel-track { display: flex; gap: 0; animation: scrollBrands 28s linear infinite; width: max-content; }
+.carousel-track:hover { animation-play-state: paused; }
+@keyframes scrollBrands { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+.brand-item { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 10px 36px; cursor: pointer; transition: var(--tr); border-radius: 10px; flex-shrink: 0; }
+.brand-item:hover { background: rgba(174,4,15,0.06); }
+.brand-item img { height: 36px; object-fit: contain; filter: grayscale(30%); transition: filter 0.3s; }
+.brand-item:hover img { filter: grayscale(0%); }
+.brand-name { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; color: var(--texto3); text-transform: uppercase; }
+.brand-item.active-brand img { filter: grayscale(0%); }
+.brand-item.active-brand .brand-name { color: var(--rojo); }
+
+/* ── MODELS SECTION UPDATE ── */
+.models-section-title { font-family: var(--font-title); font-size: 22px; color: var(--texto); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 22px; display: flex; align-items: center; gap: 10px; }
+.models-section-title::after { content: ''; display: block; width: 36px; height: 3px; background: var(--rojo); border-radius: 2px; }
+
+/* Model card with red car icon style */
+.model-icon { font-size: 28px; margin-bottom: 6px; display: block; transition: transform 0.3s ease; }
+.model-card:hover .model-icon, .model-card.active .model-icon { transform: scale(1.1) translateY(-2px); }
+
 </style>
 </head>
 <body>
 
 <!-- TOPBAR -->
-<div class="topbar">🚗 ACTIVO MOTORS · Repuestos 100% Originales Toyota & Multimarca · San Diego, Valle Verde · 0412-2004902</div>
+<div class="topbar">🚗 ACTIVO MOTORS · Repuestos 100% Originales Toyota & ¡y más! · San Diego, Valle Verde · 0412-2004902</div>
 
 <!-- HEADER -->
 <header>
@@ -598,7 +625,7 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
         ¡Bienvenido a<br>
         <span class="outline">ACTIVO</span> <span class="red">MOTORS</span>!
       </h1>
-      <p class="hero-desc">Tu tienda especializada en <strong>repuestos 100% originales Toyota</strong> en San Diego, Valle Verde. También contamos con repuestos de alta calidad para todas las marcas. Envío coordinado, garantía de calidad y atención personalizada.</p>
+      <p class="hero-desc">Tu tienda especializada en <strong>repuestos 100% originales Toyota</strong> en San Diego, Valle Verde. También trabajamos con repuestos para otras marcas. Envío coordinado, garantía de calidad y atención personalizada.</p>
       <div class="hero-cta">
         <button class="btn-primary" onclick="document.getElementById('modelos').scrollIntoView({behavior:'smooth'})">Buscar Repuesto →</button>
         <button class="btn-outline" onclick="showContact()">📞 Contactar</button>
@@ -619,9 +646,77 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
   </div>
 </section>
 
+
+<!-- REPUESTOS ORIGINALES PARA LAS MARCAS -->
+<section class="brands-section">
+  <div class="brands-label">Repuestos Originales Para las Marcas</div>
+  <div class="carousel-track-wrap">
+    <div class="carousel-track" id="brandsTrack">
+      <!-- duplicated for infinite loop -->
+      <div class="brand-item" onclick="filtrarPorMarca('Toyota')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Toyota_carlogo.svg/200px-Toyota_carlogo.svg.png" alt="Toyota">
+        <span class="brand-name">Toyota</span>
+      </div>
+      <div class="brand-item" onclick="filtrarPorMarca('Nissan')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Nissan-logo.png/200px-Nissan-logo.png" alt="Nissan">
+        <span class="brand-name">Nissan</span>
+      </div>
+      <div class="brand-item" onclick="filtrarPorMarca('Mitsubishi')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Mitsubishi_logo.svg/200px-Mitsubishi_logo.svg.png" alt="Mitsubishi">
+        <span class="brand-name">Mitsubishi</span>
+      </div>
+      <div class="brand-item" onclick="filtrarPorMarca('Ford')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ford_logo_flat.svg/200px-Ford_logo_flat.svg.png" alt="Ford">
+        <span class="brand-name">Ford</span>
+      </div>
+      <div class="brand-item" onclick="filtrarPorMarca('Hyundai')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Hyundai_Motor_Company_logo.svg/200px-Hyundai_Motor_Company_logo.svg.png" alt="Hyundai">
+        <span class="brand-name">Hyundai</span>
+      </div>
+      <div class="brand-item" onclick="filtrarPorMarca('Chevrolet')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Chevrolet_logo.svg/200px-Chevrolet_logo.svg.png" alt="Chevrolet">
+        <span class="brand-name">Chevrolet</span>
+      </div>
+      <div class="brand-item" onclick="filtrarPorMarca('Kia')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Kia-logo.svg/200px-Kia-logo.svg.png" alt="Kia">
+        <span class="brand-name">Kia</span>
+      </div>
+      <!-- Duplicate set for seamless loop -->
+      <div class="brand-item" onclick="filtrarPorMarca('Toyota')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Toyota_carlogo.svg/200px-Toyota_carlogo.svg.png" alt="Toyota">
+        <span class="brand-name">Toyota</span>
+      </div>
+      <div class="brand-item" onclick="filtrarPorMarca('Nissan')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Nissan-logo.png/200px-Nissan-logo.png" alt="Nissan">
+        <span class="brand-name">Nissan</span>
+      </div>
+      <div class="brand-item" onclick="filtrarPorMarca('Mitsubishi')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Mitsubishi_logo.svg/200px-Mitsubishi_logo.svg.png" alt="Mitsubishi">
+        <span class="brand-name">Mitsubishi</span>
+      </div>
+      <div class="brand-item" onclick="filtrarPorMarca('Ford')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ford_logo_flat.svg/200px-Ford_logo_flat.svg.png" alt="Ford">
+        <span class="brand-name">Ford</span>
+      </div>
+      <div class="brand-item" onclick="filtrarPorMarca('Hyundai')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Hyundai_Motor_Company_logo.svg/200px-Hyundai_Motor_Company_logo.svg.png" alt="Hyundai">
+        <span class="brand-name">Hyundai</span>
+      </div>
+      <div class="brand-item" onclick="filtrarPorMarca('Chevrolet')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Chevrolet_logo.svg/200px-Chevrolet_logo.svg.png" alt="Chevrolet">
+        <span class="brand-name">Chevrolet</span>
+      </div>
+      <div class="brand-item" onclick="filtrarPorMarca('Kia')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Kia-logo.svg/200px-Kia-logo.svg.png" alt="Kia">
+        <span class="brand-name">Kia</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- BUSCADOR POR MODELO + CATEGORÍAS -->
 <div class="section-wrap" id="modelos">
-  <h2 class="section-title red">Buscador de Repuestos por Modelo</h2>
+  <h2 class="section-title">MODELOS DISPONIBLES</h2>
 
   <!-- Barra indicador modelo seleccionado -->
   <div class="model-selected-bar" id="modelSelectedBar">
@@ -632,8 +727,8 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
   <div class="models-grid" id="modelsGrid"></div>
 
   <!-- CATEGORÍAS — aparecen al seleccionar modelo -->
-  <div class="categories-section" id="categoriesSection" style="display:none">
-    <h2 class="section-title">Categorías Destacadas</h2>
+  <div class="categories-section" id="categoriesSection">
+    <h2 class="section-title">SELECCIONA UNA CATEGORÍA</h2>
     <div class="categories-grid" id="categoriesGrid"></div>
   </div>
 </div>
@@ -825,20 +920,13 @@ const LOGO_URL = 'https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mes
    DATOS ESTÁTICOS
 ══════════════════════════════════════ */
 const MODELOS = [
-  { id:'hilux',     nombre:'Hilux',     marca:'Toyota',
-    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/2016_Toyota_Hilux_SR5_%284x4%29%2C_front_8.25.18.jpg/320px-2016_Toyota_Hilux_SR5_%284x4%29%2C_front_8.25.18.jpg' },
-  { id:'corolla',   nombre:'Corolla',   marca:'Toyota',
-    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/2019_Toyota_Corolla_sedan_%28facelift%2C_white%29%2C_front_8.15.19.jpg/320px-2019_Toyota_Corolla_sedan_%28facelift%2C_white%29%2C_front_8.15.19.jpg' },
-  { id:'yaris',     nombre:'Yaris',     marca:'Toyota',
-    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/2020_Toyota_Yaris_hybrid_GR_Sport_%28Europe%29%2C_front_8.2.20.jpg/320px-2020_Toyota_Yaris_hybrid_GR_Sport_%28Europe%29%2C_front_8.2.20.jpg' },
-  { id:'fortuner',  nombre:'Fortuner',  marca:'Toyota',
-    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/2016_Toyota_Fortuner_2.7_VVT-i_4WD_%28facelift%2C_white%29%2C_front_8.18.18.jpg/320px-2016_Toyota_Fortuner_2.7_VVT-i_4WD_%28facelift%2C_white%29%2C_front_8.18.18.jpg' },
-  { id:'prado',     nombre:'Prado',     marca:'Toyota',
-    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/2018_Toyota_Land_Cruiser_Prado_%28facelift%2C_TXL%29%2C_front_8.10.18.jpg/320px-2018_Toyota_Land_Cruiser_Prado_%28facelift%2C_TXL%29%2C_front_8.10.18.jpg' },
-  { id:'avanza',    nombre:'Avanza',    marca:'Toyota',
-    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Toyota_Avanza_2012_%28Indonesia%29.jpg/320px-Toyota_Avanza_2012_%28Indonesia%29.jpg' },
-  { id:'multimarca',nombre:'Otros',     marca:'Multimarca',
-    img:'https://cdn-icons-png.flaticon.com/512/3774/3774278.png' },
+  { id:'hilux',     nombre:'Hilux',     marca:'Toyota',     icon:'🚗' },
+  { id:'corolla',   nombre:'Corolla',   marca:'Toyota',     icon:'🚗' },
+  { id:'yaris',     nombre:'Yaris',     marca:'Toyota',     icon:'🚗' },
+  { id:'fortuner',  nombre:'Fortuner',  marca:'Toyota',     icon:'🚗' },
+  { id:'prado',     nombre:'Prado',     marca:'Toyota',     icon:'🚗' },
+  { id:'avanza',    nombre:'Avanza',    marca:'Toyota',     icon:'🚗' },
+  { id:'multimarca',nombre:'Otros',     marca:'Multimarca', icon:'🔩' },
 ];
 
 const CATEGORIAS = [
@@ -877,6 +965,9 @@ document.addEventListener('DOMContentLoaded', () => {
   try { const c = localStorage.getItem('am_carrito'); if(c) { carrito = JSON.parse(c); actualizarCarritoUI(); } } catch(e){}
 
   renderModelos();
+  // Show categories right away
+  document.getElementById('categoriesSection').style.display = 'block';
+  renderCategorias();
 
   // Cerrar dropdown al click afuera
   document.addEventListener('click', e => {
@@ -891,8 +982,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function renderModelos() {
   document.getElementById('modelsGrid').innerHTML = MODELOS.map(m => `
     <div class="model-card" id="mc-${m.id}" onclick="seleccionarModelo('${m.id}')">
-      <img src="${m.img}" alt="${m.nombre}"
-           onerror="this.src='https://cdn-icons-png.flaticon.com/512/3774/3774278.png'">
+      <span class="model-icon">${m.icon}</span>
       <div class="model-name">${m.nombre}</div>
       <div class="model-brand">${m.marca}</div>
     </div>`).join('');
@@ -901,6 +991,14 @@ function renderModelos() {
 /* ══════════════════════════════════════
    SELECCIONAR MODELO
 ══════════════════════════════════════ */
+/* ══════════════════════════════════════
+   FILTRAR POR MARCA (carousel click)
+══════════════════════════════════════ */
+function filtrarPorMarca(marca) {
+  // Go to catalog filtered by brand
+  window.location.href = `catalogo.html?marca=${encodeURIComponent(marca)}&categoria=TODOS`;
+}
+
 function seleccionarModelo(id) {
   modeloSeleccionado = MODELOS.find(m => m.id === id);
 
@@ -919,8 +1017,8 @@ function seleccionarModelo(id) {
   sec.style.display = 'block';
   renderCategorias();
 
-  // Scroll a categorías
-  setTimeout(() => sec.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
+  // Scroll suave a las categorías
+  setTimeout(() => sec.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
 }
 
 /* ══════════════════════════════════════
@@ -947,8 +1045,9 @@ function renderCategorias() {
 function irACatalogo(categoria) {
   const modelo = modeloSeleccionado ? modeloSeleccionado.id : 'todos';
   const modeloNombre = modeloSeleccionado ? modeloSeleccionado.nombre : 'Todos';
+  const marca = modeloSeleccionado ? modeloSeleccionado.marca : 'TODOS';
   window.location.href =
-    `catalogo.html?modelo=${encodeURIComponent(modelo)}&modeloNombre=${encodeURIComponent(modeloNombre)}&categoria=${encodeURIComponent(categoria)}`;
+    `catalogo.html?modelo=${encodeURIComponent(modelo)}&modeloNombre=${encodeURIComponent(modeloNombre)}&marca=${encodeURIComponent(marca)}&categoria=${encodeURIComponent(categoria)}`;
 }
 
 /* ══════════════════════════════════════
@@ -1120,6 +1219,13 @@ function toggleCart() {
 ══════════════════════════════════════ */
 function openCheckout() {
   if (!carrito.length) { showToast('El carrito está vacío','error'); return; }
+  // Must be logged in
+  if (!usuarioActual) {
+    toggleCart();
+    showToast('Debes iniciar sesión o registrarte para hacer un pedido', 'error');
+    setTimeout(() => openAuthModal('login'), 400);
+    return;
+  }
   toggleCart();
   const sub = carrito.reduce((s,i) => s+i.precio*i.cantidad, 0);
   const iva = sub * 0.16;
