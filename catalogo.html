@@ -209,6 +209,27 @@ header{background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-bottom
 .stot{display:flex;justify-content:space-between;font-family:var(--fp);font-size:17px;font-weight:700}
 .stot span:last-child{color:var(--rojo)}
 .fg{margin-bottom:14px}
+/* ── CART COUPON ── */
+.cart-cupon{padding:0 0 14px;border-bottom:1px solid var(--borde);margin-bottom:14px}
+.cart-cupon-wrap{display:flex;gap:6px;align-items:stretch}
+.cart-cupon-input{flex:1;min-width:0;border:1.5px solid var(--borde);border-radius:8px;padding:9px 12px;font-size:13px;font-family:var(--fb);outline:none;background:var(--fondo2);color:var(--texto);transition:border-color .2s;text-transform:uppercase;letter-spacing:1px;font-weight:600}
+.cart-cupon-input:focus{border-color:var(--rojo);background:#fff}
+.cart-cupon-btn{flex-shrink:0;background:var(--jet);color:#fff;border:none;border-radius:8px;padding:0 14px;font-size:11px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:background .2s;text-transform:uppercase;white-space:nowrap}
+.cart-cupon-btn:hover{background:var(--rojo)}
+.cart-cupon-btn:disabled{background:var(--borde);cursor:not-allowed;color:var(--texto3)}
+.cart-cupon-msg{font-size:11px;margin-top:5px;min-height:14px;font-weight:600}
+.cart-cupon-msg.ok{color:#22c55e}
+.cart-cupon-msg.err{color:var(--rojo)}
+/* ── ADD TO CART NOTIFICATION ── */
+.atc-notif{position:fixed;top:0;left:50%;transform:translateX(-50%) translateY(-110%);z-index:9998;background:#fff;border-radius:0 0 16px 16px;box-shadow:0 8px 40px rgba(0,0,0,.18);padding:14px 24px 16px;min-width:300px;max-width:420px;display:flex;align-items:center;gap:14px;border-bottom:3px solid var(--rojo);transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
+.atc-notif.show{transform:translateX(-50%) translateY(0)}
+.atc-notif-img{width:52px;height:52px;border-radius:8px;object-fit:cover;flex-shrink:0;border:1px solid var(--borde)}
+.atc-notif-body{flex:1;min-width:0}
+.atc-notif-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--rojo);margin-bottom:3px}
+.atc-notif-name{font-size:13px;font-weight:600;color:var(--texto);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.3}
+.atc-notif-price{font-size:13px;color:var(--texto3);font-family:var(--fp);margin-top:2px}
+.atc-notif-bar{position:absolute;bottom:0;left:0;height:3px;background:var(--rojo);border-radius:0 0 0 16px;animation:atc-shrink 2.8s linear forwards}
+@keyframes atc-shrink{from{width:100%}to{width:0%}}
 .delivery-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px}
 .dopt{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px solid var(--borde);border-radius:10px;cursor:pointer;transition:all .2s;background:#fff;user-select:none}
 .dopt input[type=radio]{display:none}
@@ -396,6 +417,17 @@ footer{background:var(--jet);color:var(--plata);padding:36px 30px;margin-top:50p
 
 <div class="toast-w" id="toastW"></div>
 
+<!-- ADD TO CART NOTIFICATION -->
+<div class="atc-notif" id="atcNotif">
+  <img class="atc-notif-img" id="atcImg" src="" alt="">
+  <div class="atc-notif-body">
+    <div class="atc-notif-title">Agregado al carrito</div>
+    <div class="atc-notif-name" id="atcName"></div>
+    <div class="atc-notif-price" id="atcPrice"></div>
+  </div>
+  <div class="atc-notif-bar" id="atcBar"></div>
+</div>
+
 <!-- CART -->
 <div class="cart-ov" id="cartOV">
   <div class="cart-bg" onclick="toggleCart()"></div>
@@ -410,6 +442,13 @@ footer{background:var(--jet);color:var(--plata);padding:36px 30px;margin-top:50p
         <div class="crow"><span>Subtotal</span><span id="cSub">$0.00</span></div>
         <div class="crow disc-row" id="cDiscRow" style="display:none"><span>Descuento</span><span id="cDesc" style="color:#22c55e">-$0.00</span></div>
         <div class="crow tot"><span>TOTAL</span><span id="cTot">$0.00</span></div>
+      </div>
+      <div class="cart-cupon">
+        <div class="cart-cupon-wrap">
+          <input class="cart-cupon-input" type="text" id="cartCupon" placeholder="Código de descuento" autocomplete="off" spellcheck="false">
+          <button class="cart-cupon-btn" type="button" onclick="aplicarCupon()">Aplicar</button>
+        </div>
+        <div id="cartCuponMsg" class="cart-cupon-msg"></div>
       </div>
       <button class="ck-btn" onclick="openCheckout()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/></svg>
@@ -454,14 +493,7 @@ footer{background:var(--jet);color:var(--plata);padding:36px 30px;margin-top:50p
           <textarea class="fi" id="ckDir" rows="2" placeholder="Calle, urbanización, municipio..." style="resize:vertical"></textarea>
         </div>
       </div>
-      <div class="fg" id="cuponFg">
-        <label class="fl">Cupón de descuento <span style="font-weight:400;color:var(--texto4)">(opcional)</span></label>
-        <div class="cupon-wrap">
-          <input class="fi cupon-input" type="text" id="ckCupon" placeholder="Ingresa tu código" autocomplete="off" style="text-transform:uppercase">
-          <button class="cupon-btn" type="button" onclick="aplicarCupon()">Aplicar</button>
-        </div>
-        <div id="cuponMsg" class="cupon-msg"></div>
-      </div>
+
       <button class="cf-btn" onclick="confirmOrder()" id="cfBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M20 6 9 17l-5-5"/></svg>
         CONFIRMAR PEDIDO
@@ -759,7 +791,7 @@ function addToCart(id) {
   }
   localStorage.setItem('am_carrito', JSON.stringify(cart));
   updateCartUI();
-  toast('Agregado al carrito ');
+  showAtcNotif(p);
 }
 
 function updateCartUI() {
@@ -816,6 +848,25 @@ function removeItem(id) {
 
 function toggleCart() { document.getElementById('cartOV').classList.toggle('open'); }
 
+let _atcTimer = null;
+function showAtcNotif(p) {
+  const n = document.getElementById('atcNotif');
+  document.getElementById('atcName').textContent = p.nombre;
+  document.getElementById('atcPrice').textContent = `$${parseFloat(p.precio).toFixed(2)}`;
+  const img = document.getElementById('atcImg');
+  img.src = p.imagen || '';
+  img.style.display = p.imagen ? '' : 'none';
+  // Reset bar animation
+  const bar = document.getElementById('atcBar');
+  bar.style.animation = 'none';
+  void bar.offsetWidth;
+  bar.style.animation = 'atc-shrink 2.8s linear forwards';
+  // Show
+  n.classList.add('show');
+  clearTimeout(_atcTimer);
+  _atcTimer = setTimeout(() => n.classList.remove('show'), 2900);
+}
+
 /* ══ CHECKOUT ══ */
 function openCheckout() {
   if (!cart.length) { toast('El carrito está vacío','err'); return; }
@@ -830,13 +881,15 @@ function openCheckout() {
   document.getElementById('ckItems').innerHTML = cart.map(i =>
     `<div class="si-row"><span>${i.nombre} ×${i.cantidad}</span><span>$${(i.precio*i.cantidad).toFixed(2)}</span></div>`).join('');
   document.getElementById('ckSub').textContent = `$${sub.toFixed(2)}`;
-  // Reset coupon on open
-  activeCupon = null;
-  document.getElementById('ckCupon').value = '';
-  document.getElementById('cuponMsg').textContent = '';
-  document.getElementById('cuponMsg').className = 'cupon-msg';
-  document.getElementById('ckDiscRow').style.display = 'none';
-  document.getElementById('ckTot').textContent = `$${sub.toFixed(2)}`;
+  // Show discount from cart coupon in checkout
+  const desc = activeCupon ? parseFloat(activeCupon.monto) : 0;
+  document.getElementById('ckDiscRow').style.display = desc > 0 ? '' : 'none';
+  if (desc > 0) {
+    document.getElementById('ckDesc').textContent = `-$${desc.toFixed(2)}${activeCupon.codigo?' ('+activeCupon.codigo+')':''}`;
+    document.getElementById('ckTot').textContent = `$${Math.max(0, sub - desc).toFixed(2)}`;
+  } else {
+    document.getElementById('ckTot').textContent = `$${sub.toFixed(2)}`;
+  }
   document.getElementById('ckName').textContent = user.nombre;
   document.getElementById('ckInfo').textContent = user.email + (user.telefono ? ' · ' + user.telefono : '');
   document.getElementById('ckDir').value = user.direccion || '';
@@ -847,34 +900,29 @@ function openCheckout() {
 function closeCheckout() { document.getElementById('ckOV').classList.remove('open'); }
 
 async function aplicarCupon() {
-  const codigo = document.getElementById('ckCupon').value.trim().toUpperCase();
-  const msgEl = document.getElementById('cuponMsg');
-  const btn = document.querySelector('.cupon-btn');
-  if (!codigo) { msgEl.textContent = 'Ingresa un código de cupón.'; msgEl.className = 'cupon-msg err'; return; }
+  const codigo = document.getElementById('cartCupon').value.trim().toUpperCase();
+  const msgEl  = document.getElementById('cartCuponMsg');
+  const btn    = document.querySelector('.cart-cupon-btn');
+  if (!codigo) { msgEl.textContent = 'Ingresa un código.'; msgEl.className = 'cart-cupon-msg err'; return; }
   btn.disabled = true; btn.textContent = 'Verificando...';
-  msgEl.textContent = ''; msgEl.className = 'cupon-msg';
+  msgEl.textContent = ''; msgEl.className = 'cart-cupon-msg';
   try {
     const r = await apiGET('validarCupon', { codigo });
     if (r.ok) {
       activeCupon = r;
-      const sub = cart.reduce((s,i) => s + i.precio*i.cantidad, 0);
-      const total = Math.max(0, sub - r.monto);
-      document.getElementById('ckDiscRow').style.display = '';
-      document.getElementById('ckDesc').textContent = `-$${parseFloat(r.monto).toFixed(2)}`;
-      document.getElementById('ckTot').textContent = `$${total.toFixed(2)}`;
-      msgEl.textContent = `Cupón aplicado: -$${parseFloat(r.monto).toFixed(2)} de descuento`;
-      msgEl.className = 'cupon-msg ok';
+      msgEl.textContent = `Cupón aplicado — descuento de $${parseFloat(r.monto).toFixed(2)}`;
+      msgEl.className = 'cart-cupon-msg ok';
       btn.textContent = 'Aplicado';
       updateCartUI();
     } else {
       activeCupon = null;
       msgEl.textContent = r.error || 'Cupón no válido';
-      msgEl.className = 'cupon-msg err';
+      msgEl.className = 'cart-cupon-msg err';
       btn.disabled = false; btn.textContent = 'Aplicar';
     }
   } catch(e) {
-    msgEl.textContent = 'Error al verificar el cupón.';
-    msgEl.className = 'cupon-msg err';
+    msgEl.textContent = 'Error al verificar.';
+    msgEl.className = 'cart-cupon-msg err';
     btn.disabled = false; btn.textContent = 'Aplicar';
   }
 }
@@ -920,7 +968,15 @@ async function confirmOrder() {
     const res = await apiGET('pedido', params);
     if (res.ok) {
       closeCheckout();
-      cart = []; localStorage.removeItem('am_carrito'); updateCartUI();
+      cart = []; localStorage.removeItem('am_carrito');
+      activeCupon = null;
+      const cuponEl = document.getElementById('cartCupon');
+      const cuponMsgEl = document.getElementById('cartCuponMsg');
+      if (cuponEl) { cuponEl.value = ''; }
+      if (cuponMsgEl) { cuponMsgEl.textContent = ''; cuponMsgEl.className = 'cart-cupon-msg'; }
+      const cuponBtnEl = document.querySelector('.cart-cupon-btn');
+      if (cuponBtnEl) { cuponBtnEl.disabled = false; cuponBtnEl.textContent = 'Aplicar'; }
+      updateCartUI();
       document.getElementById('sucMsg').textContent = `Pedido ${res.nroPedido||''} registrado. Recibirás un correo de confirmación.`;
       document.getElementById('sucOV').classList.add('open');
     } else toast(res.error||'Error al procesar','err');
