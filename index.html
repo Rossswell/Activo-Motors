@@ -467,6 +467,16 @@ header {
 .modal-x:hover { background: rgba(255,255,255,.25); }
 .modal-body { padding: 30px; }
 .form-group { margin-bottom: 18px; }
+.delivery-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;margin-bottom:0}
+.dopt{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px solid var(--borde);border-radius:10px;cursor:pointer;transition:all .2s;background:#fff;user-select:none}
+.dopt input[type=radio]{display:none}
+.dopt.selected{border-color:var(--rojo);background:rgba(174,4,15,.04)}
+.dopt-icon{width:34px;height:34px;background:var(--fondo);border:1px solid var(--borde);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.dopt-icon svg{width:16px;height:16px;stroke:#666;transition:stroke .2s}
+.dopt.selected .dopt-icon{background:rgba(174,4,15,.1);border-color:rgba(174,4,15,.25)}
+.dopt.selected .dopt-icon svg{stroke:var(--rojo)}
+.dopt strong{display:block;font-size:12px;font-weight:700;color:#333}
+.dopt span{font-size:11px;color:#888}
 .form-label { display: block; font-size: 11px; font-weight: 600; color: var(--texto3); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 7px; }
 .form-input, .form-textarea { width: 100%; background: var(--fondo2); border: 1px solid var(--borde); color: var(--texto); font-family: var(--font-body); font-size: 14px; padding: 11px 14px; border-radius: 8px; outline: none; transition: var(--tr); }
 .form-input:focus, .form-textarea:focus { border-color: var(--rojo); box-shadow: 0 0 0 3px var(--rojo-glow); background: #fff; }
@@ -533,6 +543,13 @@ header {
 /* SPINNER */
 .spinner { width: 38px; height: 38px; border: 3px solid var(--fondo3); border-top-color: var(--rojo); border-radius: 50%; animation: spin .8s linear infinite; margin-bottom: 14px; }
 @keyframes spin { to{transform:rotate(360deg)} }
+/* ── WHATSAPP BUTTON ── */
+.wa-btn{position:fixed;bottom:28px;right:28px;z-index:9000;width:54px;height:54px;border-radius:50%;background:#1a1a1a;border:1.5px solid #2e2e2e;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.35);transition:transform .25s cubic-bezier(.4,0,.2,1),box-shadow .25s,background .2s;text-decoration:none}
+.wa-btn:hover{transform:scale(1.1) translateY(-2px);background:#222;box-shadow:0 8px 28px rgba(0,0,0,.45);border-color:rgba(37,211,102,.4)}
+.wa-btn:hover .wa-icon{color:#25D366}
+.wa-icon{width:24px;height:24px;position:relative;z-index:1;transition:color .2s;color:rgba(255,255,255,.85)}
+.wa-pulse{position:absolute;width:100%;height:100%;border-radius:50%;background:rgba(37,211,102,.18);animation:wa-pulse 2.8s ease-out infinite;pointer-events:none}
+@keyframes wa-pulse{0%{transform:scale(1);opacity:.7}70%{transform:scale(1.55);opacity:0}100%{opacity:0}}
 
 /* ── FOOTER ── */
 footer { background: var(--jet); border-top: 3px solid var(--rojo); }
@@ -845,7 +862,23 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
  <div class="form-group"><label class="form-label">Email *</label><input class="form-input" type="email" id="gEmail" placeholder="tu@correo.com"></div>
  <div class="form-group"><label class="form-label">Teléfono *</label><input class="form-input" type="tel" id="gTel" placeholder="0412-0000000"></div>
  </div>
- <div class="form-group"><label class="form-label">Dirección de Entrega</label><textarea class="form-textarea" id="gDir" placeholder="Calle, urbanización, municipio..."></textarea></div>
+ <div class="form-group"><label class="form-label">Tipo de Entrega</label>
+  <div class="delivery-opts">
+    <label class="dopt selected" id="idopt-envio">
+      <input type="radio" name="idx-entrega" value="envio" onchange="toggleIdxDelivery(this)" checked>
+      <span class="dopt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span>
+      <div><strong>Envío a domicilio</strong><span>Coordinar entrega</span></div>
+    </label>
+    <label class="dopt" id="idopt-retiro">
+      <input type="radio" name="idx-entrega" value="retiro" onchange="toggleIdxDelivery(this)">
+      <span class="dopt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+      <div><strong>Retiro en tienda</strong><span>San Diego, Valle Verde</span></div>
+    </label>
+  </div>
+  <div id="idxDirWrap" style="margin-top:10px;transition:max-height .25s ease,opacity .2s ease;overflow:hidden;max-height:200px;opacity:1">
+    <textarea class="form-textarea" id="gDir" placeholder="Calle, urbanización, municipio..."></textarea>
+  </div>
+ </div>
  </div>
  <button class="submit-btn" id="submitBtn" onclick="confirmarPedido()">
  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
@@ -870,7 +903,7 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
 <div class="toast-wrap" id="toastWrap"></div>
 
 <script>
-const API_URL = 'https://script.google.com/macros/s/AKfycbxd7oxAqv08NVETNWnbG2qaYlQjE6rmW9JKOKnJuvSDyE2SZbIH5hzNnVrCMebcDj53jg/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbx00703lMtsfapxsz0nLQ3wc37w4WqStyJJ6EukSIhCoPHvH_veAzLfdAxnJvDrJDiEBQ/exec';
 const LOGO_URL = 'https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png';
 
 /* ══════════════════════════════════════
@@ -1126,6 +1159,19 @@ function toggleUserMenu() { document.getElementById('userDropdown').classList.to
 /* ══════════════════════════════════════
  CARRITO
 ══════════════════════════════════════ */
+function toggleIdxDelivery(radio) {
+  document.querySelectorAll('.dopt').forEach(d => d.classList.remove('selected'));
+  radio.closest('.dopt').classList.add('selected');
+  const wrap = document.getElementById('idxDirWrap');
+  if (wrap) {
+    if (radio.value === 'retiro') {
+      wrap.style.maxHeight = '0'; wrap.style.opacity = '0'; wrap.style.pointerEvents = 'none';
+    } else {
+      wrap.style.maxHeight = '200px'; wrap.style.opacity = '1'; wrap.style.pointerEvents = '';
+    }
+  }
+}
+
 function actualizarCarritoUI() {
  const total = carrito.reduce((s,i) => s+i.cantidad, 0);
  const el = document.getElementById('cartCount');
@@ -1212,18 +1258,25 @@ function openCheckout() {
 }
 function closeCheckout() { document.getElementById('checkoutOverlay').classList.remove('open'); }
 async function confirmarPedido() {
- let cliente;
- if (usuarioActual) {
- cliente = { nombre:usuarioActual.nombre, email:usuarioActual.email, cedula:usuarioActual.cedula||'N/A', telefono:usuarioActual.telefono||'N/A', direccion:usuarioActual.direccion||'N/A' };
- } else {
- const nombre = document.getElementById('gNombre').value.trim();
- const email = document.getElementById('gEmail').value.trim();
- const tel = document.getElementById('gTel').value.trim();
- const dir = document.getElementById('gDir').value.trim();
- if (!nombre||!email||!tel) { showToast('Completa los campos obligatorios','error'); return; }
- if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showToast('Correo inválido','error'); return; }
- cliente = { nombre, email, telefono:tel, direccion:dir||'N/A' };
- }
+  const tipoEntrega = document.querySelector('input[name=idx-entrega]:checked')?.value || 'envio';
+  let dirFinal;
+  if (tipoEntrega === 'retiro') {
+    dirFinal = 'Retiro en tienda — San Diego, Valle Verde, Av. Don Julio Centeno';
+  } else {
+    dirFinal = document.getElementById('gDir')?.value.trim() || '';
+  }
+  let cliente;
+  if (usuarioActual) {
+    cliente = { nombre:usuarioActual.nombre, email:usuarioActual.email, cedula:usuarioActual.cedula||'N/A', telefono:usuarioActual.telefono||'N/A', direccion:dirFinal || usuarioActual.direccion||'N/A' };
+  } else {
+    const nombre = document.getElementById('gNombre').value.trim();
+    const email = document.getElementById('gEmail').value.trim();
+    const tel = document.getElementById('gTel').value.trim();
+    if (!nombre||!email||!tel) { showToast('Completa los campos obligatorios','error'); return; }
+    if (tipoEntrega === 'envio' && !dirFinal) { showToast('Ingresa tu dirección de entrega','error'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showToast('Correo inválido','error'); return; }
+    cliente = { nombre, email, telefono:tel, direccion:dirFinal||'N/A' };
+  }
  const btn = document.getElementById('submitBtn');
  btn.disabled = true;
  btn.innerHTML = '<div class="spinner" style="width:20px;height:20px;border-width:2px;margin:0"></div> Procesando...';
@@ -1262,5 +1315,10 @@ function showContact() {
  alert('ACTIVO MOTORS\n\nTeléfono: 0412-2004902\nUbicación: San Diego, Valle Verde\nCerca de la Av. Don Julio Centeno\n\n¡Contáctanos para identificar el repuesto que necesitas!');
 }
 </script>
+<!-- WHATSAPP BUTTON -->
+<a href="https://wa.me/584122004902" target="_blank" rel="noopener" class="wa-btn" title="Contactar por WhatsApp" aria-label="WhatsApp">
+  <span class="wa-pulse"></span>
+  <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.562 4.14 1.542 5.876L0 24l6.316-1.518A11.953 11.953 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.006-1.374l-.359-.213-3.741.9.934-3.625-.234-.372A9.796 9.796 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+</a>
 </body>
 </html>
