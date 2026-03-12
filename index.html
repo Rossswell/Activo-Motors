@@ -583,6 +583,20 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
 @media(max-width:600px){ .nav-links{display:none} .categories-grid{grid-template-columns:1fr 1fr} .models-grid{grid-template-columns:repeat(2,1fr)} .cart-sidebar{width:100%;right:-100%} .form-row{grid-template-columns:1fr} .promises-grid{grid-template-columns:1fr 1fr} }
 
 /* ── BRAND CAROUSEL ── */
+/* ── TOYOTA BANNER ── */
+.toyota-banner{position:relative;width:100%;height:520px;overflow:hidden;display:flex;align-items:flex-end}.toyota-banner::after{content:"";position:absolute;bottom:0;left:0;width:100%;height:4px;background:var(--rojo);z-index:3}
+.toyota-banner-img{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.04);transition:transform 8s ease;filter:brightness(.88)}
+.toyota-banner:hover .toyota-banner-img{transform:scale(1)}
+.toyota-banner-overlay{position:absolute;inset:0;background:linear-gradient(115deg, rgba(0,0,0,.85) 0%, rgba(0,0,0,.5) 45%, rgba(0,0,0,.08) 100%)}
+.toyota-banner-content{position:relative;z-index:2;padding:40px 60px 50px;max-width:480px}
+.tb-logo{width:190px;display:block;margin-bottom:16px;filter:drop-shadow(0 2px 16px rgba(0,0,0,.6))}
+.tb-tagline{font-family:var(--font-body);font-size:15px;color:rgba(255,255,255,.8);line-height:1.65;font-style:italic;margin:0;border-left:3px solid var(--rojo);padding-left:12px}
+@media(max-width:640px){
+  .toyota-banner{height:300px}
+  .toyota-banner-content{padding:28px 24px 36px}
+  .tb-logo{width:120px}
+  .tb-tagline{font-size:13px}
+}
 .brands-section { background: var(--fondo2); border-top: 1px solid var(--borde); border-bottom: 1px solid var(--borde); padding: 0; overflow: hidden; }
 .brands-label { max-width: 1400px; margin: 0 auto; padding: 24px 30px 10px; font-family: var(--font-title); font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--texto3); text-align: center; }
 .carousel-track-wrap { position: relative; overflow: hidden; padding: 14px 0; }
@@ -669,7 +683,7 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
  </h1>
  <p class="hero-desc">Tu tienda especializada en <strong>repuestos 100% originales Toyota</strong> en San Diego, Valle Verde. También trabajamos con repuestos para otras marcas. Envío coordinado, garantía de calidad y atención personalizada.</p>
  <div class="hero-cta">
- <button class="btn-primary" onclick="document.getElementById('modelos').scrollIntoView({behavior:'smooth'})">Buscar Repuesto →</button>
+ <a href="catalogo.html" class="btn-primary" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px">Buscar Repuesto →</a>
  <button class="btn-outline" onclick="showContact()">Contactar</button>
  </div>
  </div>
@@ -688,6 +702,16 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
  </div>
 </section>
 
+
+<!-- BANNER TOYOTA FOTO -->
+<section class="toyota-banner">
+  <div class="toyota-banner-img" id="toyotaBannerImg"></div>
+  <div class="toyota-banner-overlay"></div>
+  <div class="toyota-banner-content">
+    <img src="https://i.postimg.cc/rFH77FfD/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png" alt="Activo Motors" class="tb-logo">
+    <p class="tb-tagline">Especialistas en repuestos Toyota<br>con una visión de profesionalismo y dedicación</p>
+  </div>
+</section>
 
 <!-- REPUESTOS ORIGINALES PARA LAS MARCAS -->
 
@@ -734,7 +758,7 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
  <div class="promise-desc">Todos nuestros repuestos originales Toyota vienen con garantía de calidad.</div>
  </div>
  <div class="promise-item">
- <div class="promise-icon"></div>
+ <div class="promise-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
  <div class="promise-name">Asesoría Técnica</div>
  <div class="promise-desc">Te ayudamos a identificar la pieza exacta que necesita tu vehículo.</div>
  </div>
@@ -969,6 +993,10 @@ let modeloSeleccionado = null;
  INIT
 ══════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
+  // Toyota banner image
+  const TOYOTA_BANNER_URL = 'https://i.postimg.cc/1tKLdGj7/https-archive-images-prod-global-a201836-reutersmedia-net-2017-10-25-LYNXMPED9O252.avif';
+  const bannerEl = document.getElementById('toyotaBannerImg');
+  if (bannerEl) bannerEl.style.backgroundImage = `url('${TOYOTA_BANNER_URL}')`;
  // Restaurar sesión
  try { const s = localStorage.getItem('am_usuario'); if(s) { usuarioActual = JSON.parse(s); actualizarUIUsuario(); } } catch(e){}
  // Restaurar carrito
