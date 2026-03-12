@@ -364,55 +364,65 @@ header {
 
 /* ── PROMESAS DE SERVICIO ── */
 .promises-section {
- background: var(--jet);
- padding: 56px 30px;
- margin-top: 10px;
+  background: var(--jet);
+  padding: 80px 30px;
+  margin-top: 10px;
 }
 .promises-inner { max-width: 1400px; margin: 0 auto; }
 .promises-title {
- font-family: var(--font-title); font-size: 22px;
- color: #fff; text-transform: uppercase; letter-spacing: 1px;
- margin-bottom: 36px;
- display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-title); font-size: 11px;
+  color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 4px;
+  margin-bottom: 52px; text-align: center;
 }
-.promises-title::after { content: ''; display: block; width: 36px; height: 3px; background: var(--rojo); border-radius: 2px; }
 .promises-grid {
- display: grid; grid-template-columns: repeat(4, 1fr);
- gap: 1px; background: rgba(255,255,255,0.08);
- border-radius: 12px; overflow: hidden;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 2px; background: rgba(255,255,255,0.05);
+  border-radius: 16px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.05);
 }
 .promise-item {
- background: var(--jet2);
- padding: 36px 24px;
- text-align: center;
- transition: var(--tr);
- position: relative; overflow: hidden;
+  background: #1e1e1e;
+  padding: 52px 36px 48px;
+  text-align: center;
+  transition: var(--tr);
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; align-items: center;
 }
 .promise-item::before {
- content: '';
- position: absolute; bottom: 0; left: 0; right: 0;
- height: 2px; background: var(--rojo);
- transform: scaleX(0); transition: transform 0.3s ease;
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px; background: var(--rojo);
+  transform: scaleX(0); transition: transform 0.35s cubic-bezier(.4,0,.2,1);
+  transform-origin: left;
 }
 .promise-item:hover::before { transform: scaleX(1); }
-.promise-item:hover { background: #333; }
+.promise-item:hover { background: #242424; }
 .promise-icon {
- width: 54px; height: 54px;
- margin: 0 auto 14px;
- background: rgba(174,4,15,0.12);
- border: 1px solid rgba(174,4,15,0.25);
- border-radius: 12px;
- display: flex; align-items: center; justify-content: center;
- font-size: 22px;
- transition: var(--tr);
+  width: 70px; height: 70px;
+  margin: 0 auto 28px;
+  background: rgba(174,4,15,0.13);
+  border: 1.5px solid rgba(174,4,15,0.28);
+  border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+  transition: var(--tr);
+  flex-shrink: 0;
 }
-.promise-item:hover .promise-icon { background: rgba(174,4,15,0.22); transform: scale(1.1) translateY(-2px); }
+.promise-icon svg { width: 30px; height: 30px; stroke: var(--rojo); stroke-width: 1.7; }
+.promise-item:hover .promise-icon {
+  background: rgba(174,4,15,0.22);
+  border-color: rgba(174,4,15,0.48);
+  transform: scale(1.08) translateY(-4px);
+  box-shadow: 0 10px 28px rgba(174,4,15,0.18);
+}
 .promise-name {
- font-family: var(--font-title); font-size: 13px;
- color: #fff; letter-spacing: 1px; text-transform: uppercase;
- margin-bottom: 6px;
+  font-family: var(--font-title); font-size: 12px;
+  color: #fff; letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 16px; line-height: 1.4;
 }
-.promise-desc { font-size: 12px; color: var(--plata); line-height: 1.7; }
+.promise-desc {
+  font-size: 13px; color: rgba(190,190,190,0.7);
+  line-height: 1.8; max-width: 200px;
+}
 
 /* ── CART SIDEBAR ── */
 .cart-overlay { position: fixed; inset: 0; background: rgba(20,20,20,.45); z-index: 2000; opacity: 0; pointer-events: none; transition: opacity .3s; backdrop-filter: blur(4px); }
@@ -483,9 +493,13 @@ header {
 .auth-logo { text-align: center; margin-bottom: 22px; }
 .auth-logo img { height: 52px; margin-bottom: 8px; }
 .auth-logo p { font-size: 12px; color: var(--texto3); letter-spacing: 1px; }
-.auth-submit { width: 100%; background: var(--rojo); border: none; color: #fff; font-family: var(--font-body); font-size: 14px; font-weight: 700; padding: 13px; border-radius: 8px; cursor: pointer; letter-spacing: .5px; text-transform: uppercase; transition: var(--tr); margin-top: 6px; }
+.auth-submit { width: 100%; background: var(--rojo); border: none; color: #fff; font-family: var(--font-body); font-size: 14px; font-weight: 700; padding: 13px; border-radius: 8px; cursor: pointer; letter-spacing: .5px; text-transform: uppercase; transition: var(--tr); margin-top: 6px; display:flex; align-items:center; justify-content:center; gap:8px; }
 .auth-submit:hover { background: var(--rojo-dark); }
-.auth-submit:disabled { background: var(--texto4); cursor: not-allowed; }
+.auth-submit:disabled { background: #888; cursor: not-allowed; transform:none; }
+.auth-submit .btn-spin { width:15px; height:15px; border:2px solid rgba(255,255,255,.35); border-top-color:#fff; border-radius:50%; animation:spin .7s linear infinite; display:none; flex-shrink:0; }
+.auth-submit.loading .btn-spin { display:block; }
+@keyframes shake-modal { 10%,90%{transform:translateX(-2px)} 20%,80%{transform:translateX(3px)} 30%,50%,70%{transform:translateX(-4px)} 40%,60%{transform:translateX(4px)} }
+.auth-modal.shake { animation: shake-modal .4s cubic-bezier(.36,.07,.19,.97); }
 .auth-div { text-align: center; color: var(--texto4); font-size: 12px; margin: 14px 0; }
 .phone-wrap { display: flex; border: 1px solid var(--borde); border-radius: 8px; overflow: hidden; background: var(--fondo2); transition: var(--tr); }
 .phone-wrap:focus-within { border-color: var(--rojo); box-shadow: 0 0 0 3px var(--rojo-glow); }
@@ -785,7 +799,7 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
  <div class="auth-logo"><img src="https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png" alt="Logo"><p>Ingresa a tu cuenta</p></div>
  <div class="form-group"><label class="form-label">Correo electrónico</label><input class="form-input" type="email" id="lEmail" placeholder="tu@correo.com"></div>
  <div class="form-group"><label class="form-label">Contraseña</label><input class="form-input" type="password" id="lPass" placeholder="••••••••"></div>
- <button class="auth-submit" id="loginBtn" onclick="doLogin()">Entrar</button>
+ <button class="auth-submit" id="loginBtn" onclick="doLogin()"><span class="btn-spin"></span><span class="btn-txt">Entrar</span></button>
  <div class="auth-div">¿No tienes cuenta? <span style="color:var(--rojo);cursor:pointer" onclick="switchTab('register')">Regístrate aquí</span></div>
  </div>
  <div class="auth-form" id="fReg">
@@ -807,7 +821,7 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
  <div class="form-group"><label class="form-label">Contraseña *</label><input class="form-input" type="password" id="rPass" placeholder="Mínimo 6 caracteres"></div>
  <div class="form-group"><label class="form-label">Confirmar *</label><input class="form-input" type="password" id="rPass2" placeholder="Repetir contraseña"></div>
  </div>
- <button class="auth-submit" id="regBtn" onclick="doRegister()">Crear Cuenta</button>
+ <button class="auth-submit" id="regBtn" onclick="doRegister()"><span class="btn-spin"></span><span class="btn-txt">Crear Cuenta</span></button>
  <div class="auth-div">¿Ya tienes cuenta? <span style="color:var(--rojo);cursor:pointer" onclick="switchTab('login')">Inicia sesión</span></div>
  </div>
  </div>
@@ -856,7 +870,7 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
 <div class="toast-wrap" id="toastWrap"></div>
 
 <script>
-const API_URL = 'https://script.google.com/macros/s/AKfycbwtmJK93bBqVArBlZ6PohJDUFa9wIkNH7UMxyB1hCBlAdPXpgAYhKDXFMbp5j2HS_HOXA/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbxd7oxAqv08NVETNWnbG2qaYlQjE6rmW9JKOKnJuvSDyE2SZbIH5hzNnVrCMebcDj53jg/exec';
 const LOGO_URL = 'https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png';
 
 /* ══════════════════════════════════════
@@ -1027,22 +1041,29 @@ function switchTab(tab) {
  document.getElementById('fReg').classList.toggle('active', tab==='register');
 }
 async function doLogin() {
- const email = document.getElementById('lEmail').value.trim();
- const pass = document.getElementById('lPass').value;
- if (!email || !pass) { showToast('Completa todos los campos','error'); return; }
- const btn = document.getElementById('loginBtn');
- btn.disabled = true; btn.textContent = 'Verificando...';
- try {
- const res = await apiCall({ accion:'login', email, password:pass });
- btn.disabled = false; btn.textContent = 'Entrar';
- if (res.ok) {
- usuarioActual = res.usuario;
- localStorage.setItem('am_usuario', JSON.stringify(usuarioActual));
- document.getElementById('authOverlay').classList.remove('open');
- actualizarUIUsuario();
- showToast(`¡Bienvenido, ${usuarioActual.nombre}!`, 'success');
- } else { showToast(res.error || 'Error al iniciar sesión','error'); }
- } catch(e) { btn.disabled=false; btn.textContent='Entrar'; showToast('Error de conexión','error'); }
+  const email = document.getElementById('lEmail').value.trim();
+  const pass  = document.getElementById('lPass').value;
+  if (!email || !pass) { showToast('Completa todos los campos','error'); return; }
+  const btn = document.getElementById('loginBtn');
+  const txt = btn.querySelector('.btn-txt');
+  btn.classList.add('loading'); btn.disabled = true; txt.textContent = 'Verificando...';
+  try {
+    const res = await apiCall({ accion:'login', email, password:pass });
+    if (res.ok) {
+      txt.textContent = 'Accediendo...';
+      await new Promise(r => setTimeout(r, 350));
+      usuarioActual = res.usuario;
+      localStorage.setItem('am_usuario', JSON.stringify(usuarioActual));
+      document.getElementById('authOverlay').classList.remove('open');
+      actualizarUIUsuario();
+      showToast(`Bienvenido, ${usuarioActual.nombre.split(' ')[0]}`, 'success');
+    } else {
+      showToast(res.error || 'Credenciales incorrectas','error');
+      const modal = document.querySelector('.auth-modal');
+      modal.classList.remove('shake'); void modal.offsetWidth; modal.classList.add('shake');
+    }
+  } catch(e) { showToast('Error de conexión','error'); }
+  finally { btn.classList.remove('loading'); btn.disabled=false; txt.textContent='Entrar'; }
 }
 async function doRegister() {
  const nombre = document.getElementById('rNombre').value.trim();
@@ -1193,7 +1214,7 @@ function closeCheckout() { document.getElementById('checkoutOverlay').classList.
 async function confirmarPedido() {
  let cliente;
  if (usuarioActual) {
- cliente = { nombre:usuarioActual.nombre, email:usuarioActual.email, telefono:usuarioActual.telefono||'N/A', direccion:usuarioActual.direccion||'N/A' };
+ cliente = { nombre:usuarioActual.nombre, email:usuarioActual.email, cedula:usuarioActual.cedula||'N/A', telefono:usuarioActual.telefono||'N/A', direccion:usuarioActual.direccion||'N/A' };
  } else {
  const nombre = document.getElementById('gNombre').value.trim();
  const email = document.getElementById('gEmail').value.trim();
