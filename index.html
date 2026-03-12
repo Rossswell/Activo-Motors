@@ -648,90 +648,33 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
 
 
 <!-- REPUESTOS ORIGINALES PARA LAS MARCAS -->
-<section class="brands-section">
-  <div class="brands-label">Repuestos Originales Para las Marcas</div>
-  <div class="carousel-track-wrap">
-    <div class="carousel-track" id="brandsTrack">
-      <!-- duplicated for infinite loop -->
-      <div class="brand-item" onclick="filtrarPorMarca('Toyota')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Toyota_carlogo.svg/200px-Toyota_carlogo.svg.png" alt="Toyota">
-        <span class="brand-name">Toyota</span>
-      </div>
-      <div class="brand-item" onclick="filtrarPorMarca('Nissan')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Nissan-logo.png/200px-Nissan-logo.png" alt="Nissan">
-        <span class="brand-name">Nissan</span>
-      </div>
-      <div class="brand-item" onclick="filtrarPorMarca('Mitsubishi')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Mitsubishi_logo.svg/200px-Mitsubishi_logo.svg.png" alt="Mitsubishi">
-        <span class="brand-name">Mitsubishi</span>
-      </div>
-      <div class="brand-item" onclick="filtrarPorMarca('Ford')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ford_logo_flat.svg/200px-Ford_logo_flat.svg.png" alt="Ford">
-        <span class="brand-name">Ford</span>
-      </div>
-      <div class="brand-item" onclick="filtrarPorMarca('Hyundai')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Hyundai_Motor_Company_logo.svg/200px-Hyundai_Motor_Company_logo.svg.png" alt="Hyundai">
-        <span class="brand-name">Hyundai</span>
-      </div>
-      <div class="brand-item" onclick="filtrarPorMarca('Chevrolet')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Chevrolet_logo.svg/200px-Chevrolet_logo.svg.png" alt="Chevrolet">
-        <span class="brand-name">Chevrolet</span>
-      </div>
-      <div class="brand-item" onclick="filtrarPorMarca('Kia')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Kia-logo.svg/200px-Kia-logo.svg.png" alt="Kia">
-        <span class="brand-name">Kia</span>
-      </div>
-      <!-- Duplicate set for seamless loop -->
-      <div class="brand-item" onclick="filtrarPorMarca('Toyota')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Toyota_carlogo.svg/200px-Toyota_carlogo.svg.png" alt="Toyota">
-        <span class="brand-name">Toyota</span>
-      </div>
-      <div class="brand-item" onclick="filtrarPorMarca('Nissan')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Nissan-logo.png/200px-Nissan-logo.png" alt="Nissan">
-        <span class="brand-name">Nissan</span>
-      </div>
-      <div class="brand-item" onclick="filtrarPorMarca('Mitsubishi')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Mitsubishi_logo.svg/200px-Mitsubishi_logo.svg.png" alt="Mitsubishi">
-        <span class="brand-name">Mitsubishi</span>
-      </div>
-      <div class="brand-item" onclick="filtrarPorMarca('Ford')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ford_logo_flat.svg/200px-Ford_logo_flat.svg.png" alt="Ford">
-        <span class="brand-name">Ford</span>
-      </div>
-      <div class="brand-item" onclick="filtrarPorMarca('Hyundai')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Hyundai_Motor_Company_logo.svg/200px-Hyundai_Motor_Company_logo.svg.png" alt="Hyundai">
-        <span class="brand-name">Hyundai</span>
-      </div>
-      <div class="brand-item" onclick="filtrarPorMarca('Chevrolet')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Chevrolet_logo.svg/200px-Chevrolet_logo.svg.png" alt="Chevrolet">
-        <span class="brand-name">Chevrolet</span>
-      </div>
-      <div class="brand-item" onclick="filtrarPorMarca('Kia')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Kia-logo.svg/200px-Kia-logo.svg.png" alt="Kia">
-        <span class="brand-name">Kia</span>
-      </div>
+
+<!-- CTA CATALOGO -->
+<section style="background:var(--fondo2);border-top:1px solid var(--borde);border-bottom:1px solid var(--borde);padding:60px 30px;text-align:center">
+  <div style="max-width:700px;margin:0 auto">
+    <h2 style="font-family:var(--font-title);font-size:28px;color:var(--jet);margin-bottom:12px;letter-spacing:1px">
+      REPUESTOS PARA <span style="color:var(--rojo)">TODAS LAS MARCAS</span>
+    </h2>
+    <p style="font-size:15px;color:var(--texto3);line-height:1.7;margin-bottom:28px">
+      Explora nuestro catálogo completo de repuestos originales y multimarca.<br>
+      Filtra por marca, modelo y categoría para encontrar exactamente lo que necesitas.
+    </p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a href="catalogo.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--rojo);color:#fff;font-family:var(--font-body);font-size:14px;font-weight:700;padding:14px 28px;border-radius:10px;text-decoration:none;transition:var(--tr);letter-spacing:1px"
+         onmouseover="this.style.background='#8a0009'" onmouseout="this.style.background='#AE040F'">
+        🔧 Ver Catálogo Completo
+      </a>
+      <a href="catalogo.html?marca=Toyota" style="display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--rojo);border:2px solid var(--rojo);font-family:var(--font-body);font-size:14px;font-weight:700;padding:14px 28px;border-radius:10px;text-decoration:none;transition:var(--tr)"
+         onmouseover="this.style.background='var(--rojo);color:#fff'" onmouseout="this.style.background='#fff'">
+        🚗 Toyota
+      </a>
+      <a href="catalogo.html?marca=Mitsubishi" style="display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--rojo);border:2px solid var(--rojo);font-family:var(--font-body);font-size:14px;font-weight:700;padding:14px 28px;border-radius:10px;text-decoration:none;transition:var(--tr)"
+         onmouseover="this.style.background='var(--rojo)'" onmouseout="this.style.background='#fff'">
+        🚗 Mitsubishi
+      </a>
     </div>
   </div>
 </section>
-
-<!-- BUSCADOR POR MODELO + CATEGORÍAS -->
-<div class="section-wrap" id="modelos">
-  <h2 class="section-title">MODELOS DISPONIBLES</h2>
-
-  <!-- Barra indicador modelo seleccionado -->
-  <div class="model-selected-bar" id="modelSelectedBar">
-    <span id="modelSelectedText">Modelo seleccionado</span>
-    <span style="color:var(--texto3);font-size:12px;font-weight:400"> — Ahora selecciona una categoría</span>
-  </div>
-
-  <div class="models-grid" id="modelsGrid"></div>
-
-  <!-- CATEGORÍAS — aparecen al seleccionar modelo -->
-  <div class="categories-section" id="categoriesSection">
-    <h2 class="section-title">SELECCIONA UNA CATEGORÍA</h2>
-    <div class="categories-grid" id="categoriesGrid"></div>
-  </div>
-</div>
 
 <!-- PROMESAS DE SERVICIO -->
 <section class="promises-section">
@@ -913,7 +856,7 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
 <div class="toast-wrap" id="toastWrap"></div>
 
 <script>
-const API_URL = 'https://script.google.com/macros/s/AKfycbweKXx2zmdpFaPQS2iVg6mJQGKzkO8fb_rspP697ZBktpzsBFkKJSaeIAg467Ek-KHrJA/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbwtmJK93bBqVArBlZ6PohJDUFa9wIkNH7UMxyB1hCBlAdPXpgAYhKDXFMbp5j2HS_HOXA/exec';
 const LOGO_URL = 'https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png';
 
 /* ══════════════════════════════════════
