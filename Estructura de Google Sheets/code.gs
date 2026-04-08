@@ -49,22 +49,26 @@ function doGet(e) {
       const cupon   = e.parameter.cupon || null;
       return responder(procesarPedido(cliente, carrito, cupon));
     }
-    if (accion === 'validarCupon') {
-      return responder(validarCupon(e.parameter.codigo));
+    if (accion === 'loginGoogle') {
+      return responder(loginConGoogle(
+        e.parameter.googleId,
+        e.parameter.nombre,
+        e.parameter.email,
+        e.parameter.foto || ''
+      ));
+    }
+    if (accion === 'actualizarPerfil') {
+      return responder(actualizarPerfil(
+        e.parameter.email,
+        e.parameter.cedula,
+        e.parameter.telefono,
+        e.parameter.direccion || ''
+      ));
     }
     return responder({ ok: true, mensaje: 'API Activo Motors activa' });
   } catch (err) {
     return responder({ ok: false, error: err.message });
   }
-  if (accion === 'loginGoogle') {
-  return responder(loginConGoogle(
-    e.parameter.googleId,
-    e.parameter.nombre,
-    e.parameter.email,
-    e.parameter.foto || ''
-  ));
-}
-  
 }
 
 // ============================================================
@@ -88,6 +92,14 @@ function doPost(e) {
 
     if (accion === 'login') {
       return responder(loginUsuario(body.email, body.password));
+    }
+
+    if (accion === 'loginGoogle') {
+      return responder(loginConGoogle(body.googleId, body.nombre, body.email, body.foto || ''));
+    }
+
+    if (accion === 'actualizarPerfil') {
+      return responder(actualizarPerfil(body.email, body.cedula, body.telefono, body.direccion || ''));
     }
 
     return responder({ ok: false, error: 'Acción no reconocida' });
@@ -256,9 +268,6 @@ function obtenerProductos(categoria, marca) {
     const hoja = ss.getSheetByName('PRODUCTOS');
     if (!hoja || hoja.getLastRow() < 2) return [];
 
-    // Auto-detect column structure by reading the header row
-    // Old (8 cols): ID | NOMBRE | CATEGORÍA | DESCRIPCIÓN | PRECIO | STOCK | IMAGEN_URL | ACTIVO
-    // New (9 cols): ID | NOMBRE | CATEGORÍA | DESCRIPCIÓN | MARCA  | PRECIO | STOCK | IMAGEN_URL | ACTIVO
     const headerRow = hoja.getRange(1, 1, 1, hoja.getLastColumn()).getValues()[0];
     const hasMarca = headerRow[4] && headerRow[4].toString().toUpperCase() === 'MARCA';
     const numCols = hasMarca ? 9 : 8;
@@ -271,7 +280,6 @@ function obtenerProductos(categoria, marca) {
       })
       .map(r => {
         if (hasMarca) {
-          // New structure with MARCA column
           return {
             id:          String(r[0]),
             nombre:      r[1],
@@ -283,17 +291,12 @@ function obtenerProductos(categoria, marca) {
             imagen:      r[7] || LOGO_URL
           };
         } else {
-          // Old structure without MARCA column — infer from name
           const nombreLower = String(r[1]).toLowerCase();
           let marcaInferida = '';
-          if (nombreLower.includes('toyota') || nombreLower.includes('hilux') || nombreLower.includes('corolla') || nombreLower.includes('yaris') || nombreLower.includes('fortuner') || nombreLower.includes('prado') || nombreLower.includes('avanza') || nombreLower.includes('4runner') || nombreLower.includes('runner') || nombreLower.includes('meru') || nombreLower.includes('autana') || nombreLower.includes('burbuja') || nombreLower.includes('cruiser')) {
+          if (nombreLower.includes('toyota') || nombreLower.includes('hilux') || nombreLower.includes('corolla') || nombreLower.includes('yaris') || nombreLower.includes('fortuner') || nombreLower.includes('prado') || nombreLower.includes('avanza') || nombreLower.includes('4runner')) {
             marcaInferida = 'Toyota';
-          } else if (nombreLower.includes('mitsubishi') || nombreLower.includes('lancer') || nombreLower.includes('montero') || nombreLower.includes('signo') || nombreLower.includes('l200') || nombreLower.includes('dakar')) {
+          } else if (nombreLower.includes('mitsubishi') || nombreLower.includes('lancer') || nombreLower.includes('montero') || nombreLower.includes('signo')) {
             marcaInferida = 'Mitsubishi';
-          } else if (nombreLower.includes('nissan') || nombreLower.includes('sentra') || nombreLower.includes('frontier') || nombreLower.includes('patrol')) {
-            marcaInferida = 'Nissan';
-          } else if (nombreLower.includes('ford') || nombreLower.includes('ranger') || nombreLower.includes('f-150')) {
-            marcaInferida = 'Ford';
           }
           return {
             id:          String(r[0]),
@@ -312,7 +315,6 @@ function obtenerProductos(categoria, marca) {
       prods = prods.filter(p => p.categoria.toUpperCase() === categoria.toUpperCase());
     }
     if (marca && marca !== 'TODOS') {
-      // Filter by brand — also try inferred brands
       prods = prods.filter(p => p.marca.toUpperCase() === marca.toUpperCase());
     }
     return prods;
@@ -343,7 +345,7 @@ function procesarPedido(cliente, carrito, codigoCupon) {
     const ss = SpreadsheetApp.openById(SHEET_ID);
     const hPed  = ss.getSheetByName('PEDIDOS');
     const hCli  = ss.getSheetByName('CLIENTES');
-    if (!hPed) return { ok: false, error: 'Hoja PEDIDOS no encontrada. Ejecuta inicializarHojas().' };
+    if (!hPed) return { ok: false, error: 'Hoja PEDIDOS no encontrada.' };
 
     const ahora = new Date();
     const nPedido = 'PED-' + Utilities.formatDate(ahora,'America/Caracas','yyyyMMdd') + '-' + Math.floor(Math.random()*9000+1000);
@@ -355,7 +357,6 @@ function procesarPedido(cliente, carrito, codigoCupon) {
       resumen.push(`• ${item.nombre} x${item.cantidad} ($${(item.precio*item.cantidad).toFixed(2)})`);
     });
 
-    // Cupón de descuento
     let descuento = 0;
     let cuponUsado = '';
     if (codigoCupon) {
@@ -363,7 +364,6 @@ function procesarPedido(cliente, carrito, codigoCupon) {
       if (resCupon.ok) {
         descuento = parseFloat(resCupon.monto) || 0;
         cuponUsado = codigoCupon.toUpperCase();
-        // Marcar cupón como canjeado
         marcarCuponCanjeado(codigoCupon);
       }
     }
@@ -380,7 +380,6 @@ function procesarPedido(cliente, carrito, codigoCupon) {
     ]);
 
     if (hCli) actualizarTotalCliente(hCli, cliente, total);
-    // Stock is managed via Google Sheets formulas — no server-side deduction
 
     try {
       const pdfBlob = generarPDF(nPedido, cliente, carrito, subtotal, descuento, total, cuponUsado, ahora);
@@ -407,37 +406,18 @@ function validarCupon(codigo) {
     if (!hoja || hoja.getLastRow() < 2) return { ok: false, error: 'Cupón no válido' };
 
     const datos = hoja.getRange(2, 1, hoja.getLastRow() - 1, 5).getValues();
-    // Cols: A=CÓDIGO | B=VALIDO DESDE | C=VALIDO HASTA | D=RESTAR $ | E=CANJEADO
     const fila = datos.find(r => String(r[0]).trim().toUpperCase() === codigo.trim().toUpperCase());
 
     if (!fila) return { ok: false, error: 'Cupón no válido' };
 
     const canjeado = String(fila[4]).trim().toUpperCase();
-    if (canjeado === 'SI' || canjeado === 'YES' || canjeado === '1' || canjeado === 'TRUE') {
+    if (canjeado === 'SI' || canjeado === 'TRUE') {
       return { ok: false, error: 'Este cupón ya fue reclamado' };
     }
 
-    const hoy = new Date();
-    hoy.setHours(0, 0, 0, 0);
-
-    if (fila[1]) {
-      const desde = new Date(fila[1]);
-      desde.setHours(0, 0, 0, 0);
-      if (hoy < desde) return { ok: false, error: 'Este cupón aún no está vigente' };
-    }
-
-    if (fila[2]) {
-      const hasta = new Date(fila[2]);
-      hasta.setHours(23, 59, 59, 999);
-      if (hoy > hasta) return { ok: false, error: 'El plazo de este cupón ha vencido' };
-    }
-
     const monto = parseFloat(fila[3]) || 0;
-    if (monto <= 0) return { ok: false, error: 'Cupón no válido' };
-
     return { ok: true, monto: monto, codigo: codigo.trim().toUpperCase() };
   } catch(e) {
-    Logger.log('Error validarCupon: ' + e.message);
     return { ok: false, error: 'Error al validar el cupón' };
   }
 }
@@ -453,9 +433,7 @@ function marcarCuponCanjeado(codigo) {
     const datos = hoja.getRange(2, 1, hoja.getLastRow() - 1, 5).getValues();
     const idx   = datos.findIndex(r => String(r[0]).trim().toUpperCase() === codigo.trim().toUpperCase());
     if (idx >= 0) hoja.getRange(idx + 2, 5).setValue('SI');
-  } catch(e) {
-    Logger.log('Error marcarCuponCanjeado: ' + e.message);
-  }
+  } catch(e) {}
 }
 
 // ============================================================
@@ -469,8 +447,6 @@ function actualizarTotalCliente(hoja, cliente, total) {
     hoja.getRange(idx+2, 8).setValue((parseFloat(datos[idx][7]||0)+total).toFixed(2));
   }
 }
-
-// Stock deduction removed — managed entirely by Google Sheets formulas
 
 // ============================================================
 // GENERAR PDF
@@ -592,6 +568,8 @@ Adjunto encontrarás la factura en PDF.</p></div>
     `Hola ${cliente.nombre},\n\nTu pedido ${nPedido} fue confirmado por $${total.toFixed(2)}.\n\nActivo Motors - 0412-2004902`,
     { htmlBody: html, attachments: [pdfBlob], name: 'ACTIVO MOTORS - Tienda en Línea' }
   );
+}
+
 // ============================================================
 // LOGIN / REGISTRO CON GOOGLE
 // ============================================================
@@ -611,9 +589,17 @@ function loginConGoogle(googleId, nombre, email, foto) {
     // Buscar si ya existe por email
     if (hCli.getLastRow() >= 2) {
       const datos = hCli.getRange(2,1,hCli.getLastRow()-1,9).getValues();
-      const fila  = datos.find(r => r[2] === email);
-      if (fila) {
-        // Ya existe → devolver su cuenta
+      const idx   = datos.findIndex(r => r[2] === email);
+      
+      if (idx >= 0) {
+        const fila = datos[idx];
+        const passActual = String(fila[8]);
+
+        // Si ya existe pero no tiene el marcador "Google", lo actualizamos si viene por Google
+        if (passActual === 'GOOGLE_AUTH' || passActual === '') {
+          hCli.getRange(idx + 2, 9).setValue('Google');
+        }
+
         return {
           ok: true,
           usuario: {
@@ -635,7 +621,7 @@ function loginConGoogle(googleId, nombre, email, foto) {
       '', '',          // cédula y teléfono vacíos (puede completar luego)
       '',              // dirección
       fechaReg, '0.00',
-      'GOOGLE_AUTH'    // contraseña especial → indica cuenta Google
+      'Google'         // Marcador de cuenta Google
     ]);
 
     return {
@@ -652,5 +638,27 @@ function loginConGoogle(googleId, nombre, email, foto) {
   }
 }
 
+// ============================================================
+// ACTUALIZAR PERFIL (Cédula, Teléfono, Dirección)
+// ============================================================
+function actualizarPerfil(email, cedula, telefono, direccion) {
+  try {
+    const ss   = SpreadsheetApp.openById(SHEET_ID);
+    const hCli = ss.getSheetByName('CLIENTES');
+    if (!hCli) return { ok: false, error: 'Hoja CLIENTES no encontrada' };
 
+    const datos = hCli.getRange(2, 1, hCli.getLastRow() - 1, 9).getValues();
+    const idx   = datos.findIndex(r => r[2] === email);
+
+    if (idx < 0) return { ok: false, error: 'Usuario no encontrado' };
+
+    // Actualizar columnas D (4), E (5) y F (6)
+    if (cedula)    hCli.getRange(idx + 2, 4).setValue(cedula);
+    if (telefono)  hCli.getRange(idx + 2, 5).setValue(telefono);
+    if (direccion) hCli.getRange(idx + 2, 6).setValue(direccion);
+
+    return { ok: true, mensaje: 'Perfil actualizado correctamente' };
+  } catch(e) {
+    return { ok: false, error: e.message };
+  }
 }
