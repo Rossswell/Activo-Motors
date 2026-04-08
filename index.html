@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ACTIVO MOTORS — Repuestos Originales Toyota & Multimarca</title>
@@ -897,6 +898,10 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
  <div class="form-group"><label class="form-label">Correo electrónico</label><input class="form-input" type="email" id="lEmail" placeholder="tu@correo.com"></div>
  <div class="form-group"><label class="form-label">Contraseña</label><input class="form-input" type="password" id="lPass" placeholder="••••••••"></div>
  <button class="auth-submit" id="loginBtn" onclick="doLogin()"><span class="btn-spin"></span><span class="btn-txt">Entrar</span></button>
+  <div style="margin:4px 0 10px">
+  <div id="googleBtnLogin"></div>
+</div>
+<div class="auth-div" style="margin:8px 0">— o continúa con —</div>
  <div class="auth-div">¿No tienes cuenta? <span style="color:var(--rojo);cursor:pointer" onclick="switchTab('register')">Regístrate aquí</span></div>
  </div>
  <div class="auth-form" id="fReg">
@@ -919,6 +924,10 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
  <div class="form-group"><label class="form-label">Confirmar *</label><input class="form-input" type="password" id="rPass2" placeholder="Repetir contraseña"></div>
  </div>
  <button class="auth-submit" id="regBtn" onclick="doRegister()"><span class="btn-spin"></span><span class="btn-txt">Crear Cuenta</span></button>
+  <div style="margin:4px 0 10px">
+  <div id="googleBtnReg"></div>
+</div>
+<div class="auth-div" style="margin:8px 0">— o regístrate con —</div>
  <div class="auth-div">¿Ya tienes cuenta? <span style="color:var(--rojo);cursor:pointer" onclick="switchTab('login')">Inicia sesión</span></div>
  </div>
  </div>
@@ -1449,6 +1458,113 @@ function showToast(msg, type='success') {
 function showContact() {
  alert('ACTIVO MOTORS\n\nTeléfono: 0412-2004902\nUbicación: San Diego, Valle Verde\nCerca de la Av. Don Julio Centeno\n\n¡Contáctanos para identificar el repuesto que necesitas!');
 }
+</script>
+ <script>
+/* ══════════════════════════════════════
+   GOOGLE IDENTITY SERVICES AUTH
+══════════════════════════════════════ */
+const GOOGLE_CLIENT_ID = 'TU_CLIENT_ID.apps.googleusercontent.com'; // ← reemplaza
+
+function initGoogleAuth() {
+  if (typeof google === 'undefined') return;
+
+  // Inicializar GIS
+  google.accounts.id.initialize({
+    client_id: GOOGLE_CLIENT_ID,
+    callback: handleGoogleCredential,
+    auto_select: false,
+    cancel_on_tap_outside: true
+  });
+
+  // Renderizar botones
+  const btnLogin = document.getElementById('googleBtnLogin');
+  const btnReg   = document.getElementById('googleBtnReg');
+
+  const btnConfig = {
+    type: 'standard',
+    size: 'large',
+    theme: 'outline',
+    text: 'continue_with',
+    shape: 'rectangular',
+    width: 350,
+    logo_alignment: 'left'
+  };
+
+  if (btnLogin) google.accounts.id.renderButton(btnLogin, btnConfig);
+  if (btnReg)   google.accounts.id.renderButton(btnReg,   { ...btnConfig, text: 'signup_with' });
+}
+
+// Callback que ejecuta Google tras el login
+async function handleGoogleCredential(response) {
+  // Decodificar el JWT (solo client-side, sin verificar firma)
+  const payload = JSON.parse(atob(
+    response.credential.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')
+  ));
+
+  const nombre = payload.name;
+  const email  = payload.email;
+  const foto   = payload.picture;
+  const gid    = payload.sub;
+
+  // Mostrar estado de carga
+  showToast('Iniciando sesión con Google...', 'success');
+
+  try {
+    // Llamar a tu API de Google Sheets
+    const url = `${API_URL}?accion=loginGoogle` +
+      `&googleId=${encodeURIComponent(gid)}` +
+      `&nombre=${encodeURIComponent(nombre)}` +
+      `&email=${encodeURIComponent(email)}` +
+      `&foto=${encodeURIComponent(foto)}`;
+
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if (data.ok) {
+      // Guardar usuario en estado y localStorage
+      // (usa la variable correcta: usuarioActual en index, user en catálogo)
+      const u = data.usuario;
+      if (typeof usuarioActual !== 'undefined') {
+        usuarioActual = u;
+        localStorage.setItem('am_usuario', JSON.stringify(u));
+        actualizarUIUsuario();
+      } else if (typeof user !== 'undefined') {
+        user = u;
+        localStorage.setItem('am_usuario', JSON.stringify(u));
+        updateUserUI();
+      }
+
+      // Cerrar modal
+      const authOverlay = document.getElementById('authOverlay') ||
+                          document.getElementById('authOV');
+      if (authOverlay) authOverlay.classList.remove('open');
+
+      const msg = data.esNuevo
+        ? `¡Cuenta creada! Bienvenido, ${u.nombre.split(' ')[0]}`
+        : `Bienvenido de nuevo, ${u.nombre.split(' ')[0]}`;
+      showToast(msg, 'success');
+    } else {
+      showToast(data.error || 'Error al iniciar sesión con Google', 'error');
+    }
+  } catch(e) {
+    showToast('Error de conexión', 'error');
+  }
+}
+
+// Esperar a que GIS cargue
+window.addEventListener('load', () => {
+  if (typeof google !== 'undefined') {
+    initGoogleAuth();
+  } else {
+    // GIS carga async, esperar
+    const interval = setInterval(() => {
+      if (typeof google !== 'undefined') {
+        clearInterval(interval);
+        initGoogleAuth();
+      }
+    }, 300);
+  }
+});
 </script>
 <!-- WHATSAPP BUTTON -->
 <a href="https://wa.me/584122004902" target="_blank" rel="noopener" class="wa-btn" title="Contactar por WhatsApp" aria-label="WhatsApp">
