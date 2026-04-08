@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -931,7 +931,6 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
  <input class="form-input phone-num" type="tel" id="rTelefono" placeholder="4144062649" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div>
  </div>
  </div>
- </div>
  <div class="form-group"><label class="form-label">Correo *</label><input class="form-input" type="email" id="rEmail" placeholder="tu@correo.com"></div>
  <div class="form-group"><label class="form-label">Dirección</label><input class="form-input" type="text" id="rDireccion" placeholder="Calle, urbanización, municipio..."></div>
  <div class="form-row">
@@ -1553,7 +1552,6 @@ let _pendingGoogleData = null;
 
 // Callback que ejecuta Google tras el login
 async function handleGoogleCredential(response) {
-  // Decodificar el JWT (solo client-side, sin verificar firma)
   const payload = JSON.parse(atob(
     response.credential.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')
   ));
@@ -1563,63 +1561,59 @@ async function handleGoogleCredential(response) {
   const foto   = payload.picture;
   const gid    = payload.sub;
 
-  // Mostrar estado de carga
   showToast('Conectando con Google...', 'success');
 
+  // Datos base del usuario Google (usamos esto aunque falle el backend)
+  const baseUser = { nombre, email, googleId: gid, foto, cedula: '', telefono: '', direccion: '' };
+
+  // Intentar sincronizar con el backend (no bloqueante)
+  let serverUser = null;
+  let esNuevo = true;
   try {
-    // Llamar a la API usando la misma función apiCall
-    const data = await apiCall({
-      accion: 'loginGoogle',
-      googleId: gid,
-      nombre: nombre,
-      email: email,
-      foto: foto
-    });
-
+    const data = await apiCall({ accion: 'loginGoogle', googleId: gid, nombre, email, foto });
     if (data.ok) {
-      const u = data.usuario;
-
-      // Cerrar modal de auth
-      const authOverlay = document.getElementById('authOverlay');
-      if (authOverlay) authOverlay.classList.remove('open');
-
-      // Si el usuario no tiene cédula o teléfono, pedir que complete el perfil
-      if (!u.cedula || !u.telefono || u.cedula === 'N/A' || u.telefono === 'N/A') {
-        // Guardar datos de Google temporalmente
-        _pendingGoogleData = { ...u, foto };
-        _googlePending = true;
-
-        // Mostrar modal de completar perfil
-        document.getElementById('cpGoogleName').textContent = u.nombre;
-        document.getElementById('cpGoogleEmail').textContent = u.email;
-        const photoEl = document.getElementById('cpGooglePhoto');
-        if (foto) { photoEl.src = foto; photoEl.style.display = ''; }
-        else photoEl.style.display = 'none';
-        document.getElementById('cpCedula').value = '';
-        document.getElementById('cpTelefono').value = '';
-        document.getElementById('cpDireccion').value = u.direccion || '';
-        document.getElementById('completeProfileOverlay').classList.add('open');
-
-        const msg = data.esNuevo
-          ? `¡Bienvenido, ${u.nombre.split(' ')[0]}! Completa tu perfil para continuar.`
-          : `Bienvenido de nuevo, ${u.nombre.split(' ')[0]}. Por favor completa tu información.`;
-        showToast(msg, 'success');
-      } else {
-        // Perfil completo, iniciar sesión directamente
-        usuarioActual = u;
-        localStorage.setItem('am_usuario', JSON.stringify(u));
-        actualizarUIUsuario();
-        const msg = data.esNuevo
-          ? `¡Cuenta creada! Bienvenido, ${u.nombre.split(' ')[0]}`
-          : `Bienvenido de nuevo, ${u.nombre.split(' ')[0]}`;
-        showToast(msg, 'success');
-      }
-    } else {
-      showToast(data.error || 'Error al iniciar sesión con Google', 'error');
+      serverUser = data.usuario;
+      esNuevo = !!data.esNuevo;
     }
   } catch(e) {
-    console.error('Google login error:', e);
-    showToast('Error de conexión con Google. Intenta de nuevo.', 'error');
+    // Backend no disponible — continuamos con datos locales de Google
+    console.warn('Backend no disponible, usando datos locales de Google');
+  }
+
+  const u = serverUser || baseUser;
+
+  // Cerrar modal de auth
+  const authOverlay = document.getElementById('authOverlay');
+  if (authOverlay) authOverlay.classList.remove('open');
+
+  // Si falta cédula o teléfono → pedir completar perfil
+  if (!u.cedula || !u.telefono || u.cedula === 'N/A' || u.telefono === 'N/A' || u.cedula === '') {
+    _pendingGoogleData = { ...u, foto };
+    _googlePending = true;
+
+    document.getElementById('cpGoogleName').textContent = u.nombre;
+    document.getElementById('cpGoogleEmail').textContent = u.email;
+    const photoEl = document.getElementById('cpGooglePhoto');
+    if (foto) { photoEl.src = foto; photoEl.style.display = ''; }
+    else photoEl.style.display = 'none';
+    document.getElementById('cpCedula').value = u.cedula && u.cedula !== 'N/A' ? u.cedula : '';
+    document.getElementById('cpTelefono').value = '';
+    document.getElementById('cpDireccion').value = u.direccion || '';
+    document.getElementById('completeProfileOverlay').classList.add('open');
+
+    const msg = esNuevo
+      ? `¡Bienvenido, ${u.nombre.split(' ')[0]}! Completa tu perfil.`
+      : `Bienvenido de nuevo, ${u.nombre.split(' ')[0]}. Por favor completa tu información.`;
+    showToast(msg, 'success');
+  } else {
+    // Perfil completo → iniciar sesión directamente
+    usuarioActual = u;
+    localStorage.setItem('am_usuario', JSON.stringify(u));
+    actualizarUIUsuario();
+    const msg = esNuevo
+      ? `¡Cuenta creada! Bienvenido, ${u.nombre.split(' ')[0]}`
+      : `Bienvenido de nuevo, ${u.nombre.split(' ')[0]}`;
+    showToast(msg, 'success');
   }
 }
 
