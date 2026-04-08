@@ -515,6 +515,23 @@ header {
 .auth-logo { text-align: center; margin-bottom: 22px; }
 .auth-logo img { height: 52px; margin-bottom: 8px; }
 .auth-logo p { font-size: 12px; color: var(--texto3); letter-spacing: 1px; }
+/* COMPLETE PROFILE MODAL */
+.complete-modal { background: #fff; border: 1px solid var(--borde); border-radius: 14px; width: 100%; max-width: 460px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,.2); transform: scale(.95) translateY(20px); transition: transform .3s; }
+.modal-overlay.open .complete-modal { transform: scale(1) translateY(0); }
+.complete-head { background: linear-gradient(135deg, var(--rojo), var(--rojo-dark)); padding: 22px 28px; display: flex; align-items: center; gap: 14px; }
+.complete-head-icon { width: 46px; height: 46px; background: rgba(255,255,255,.18); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.complete-head-icon svg { width: 24px; height: 24px; color: #fff; }
+.complete-head-text h3 { font-family: var(--font-title); font-size: 16px; color: #fff; letter-spacing: 1.5px; }
+.complete-head-text p { font-size: 12px; color: rgba(255,255,255,.78); margin-top: 3px; }
+.complete-body { padding: 26px 28px 28px; }
+.google-user-chip { display: flex; align-items: center; gap: 12px; background: var(--fondo2); border: 1px solid var(--borde); border-radius: 10px; padding: 12px 16px; margin-bottom: 22px; }
+.google-user-chip img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; }
+.google-user-chip-info .chip-name { font-size: 14px; font-weight: 600; color: var(--texto); }
+.google-user-chip-info .chip-email { font-size: 12px; color: var(--texto4); margin-top: 2px; }
+.google-badge { display: inline-flex; align-items: center; gap: 5px; background: #e8f0fe; border: 1px solid #c5d3f5; border-radius: 20px; padding: 3px 10px; font-size: 10px; font-weight: 700; color: #1a73e8; letter-spacing: 1px; margin-top: 4px; }
+.complete-submit { width: 100%; background: var(--rojo); border: none; color: #fff; font-family: var(--font-body); font-size: 14px; font-weight: 700; padding: 13px; border-radius: 8px; cursor: pointer; letter-spacing: .5px; text-transform: uppercase; transition: var(--tr); margin-top: 6px; display:flex; align-items:center; justify-content:center; gap:8px; }
+.complete-submit:hover { background: var(--rojo-dark); }
+.complete-submit:disabled { background: #888; cursor: not-allowed; }
 .auth-submit { width: 100%; background: var(--rojo); border: none; color: #fff; font-family: var(--font-body); font-size: 14px; font-weight: 700; padding: 13px; border-radius: 8px; cursor: pointer; letter-spacing: .5px; text-transform: uppercase; transition: var(--tr); margin-top: 6px; display:flex; align-items:center; justify-content:center; gap:8px; }
 .auth-submit:hover { background: var(--rojo-dark); }
 .auth-submit:disabled { background: #888; cursor: not-allowed; transform:none; }
@@ -898,11 +915,9 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
  <div class="form-group"><label class="form-label">Correo electrónico</label><input class="form-input" type="email" id="lEmail" placeholder="tu@correo.com"></div>
  <div class="form-group"><label class="form-label">Contraseña</label><input class="form-input" type="password" id="lPass" placeholder="••••••••"></div>
  <button class="auth-submit" id="loginBtn" onclick="doLogin()"><span class="btn-spin"></span><span class="btn-txt">Entrar</span></button>
-  <div style="margin:4px 0 10px">
-  <div id="googleBtnLogin"></div>
-</div>
-<div class="auth-div" style="margin:8px 0">— o continúa con —</div>
- <div class="auth-div">¿No tienes cuenta? <span style="color:var(--rojo);cursor:pointer" onclick="switchTab('register')">Regístrate aquí</span></div>
+ <div class="auth-div" style="margin:14px 0 10px">— o continúa con —</div>
+ <div id="googleBtnLogin" style="display:flex;justify-content:center"></div>
+ <div class="auth-div" style="margin-top:14px">¿No tienes cuenta? <span style="color:var(--rojo);cursor:pointer" onclick="switchTab('register')">Regístrate aquí</span></div>
  </div>
  <div class="auth-form" id="fReg">
  <div class="auth-logo"><img src="https://i.postimg.cc/1tc59dcg/activo-motors-logo-sin-fondo-Mesa-de-trabajo-1.png" alt="Logo"><p>Crea tu cuenta</p></div>
@@ -913,7 +928,7 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
  <label class="form-label">Teléfono *</label>
  <div class="phone-wrap">
  <select class="phone-prefix" id="rPrefijo" disabled><option value="+58">🇻🇪 +58</option></select>
- <input class="form-input phone-num" type="tel" id="rTelefono" placeholder="4144062649" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+ <input class="form-input phone-num" type="tel" id="rTelefono" placeholder="4144062649" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div>
  </div>
  </div>
  </div>
@@ -924,12 +939,50 @@ footer { background: var(--jet); border-top: 3px solid var(--rojo); }
  <div class="form-group"><label class="form-label">Confirmar *</label><input class="form-input" type="password" id="rPass2" placeholder="Repetir contraseña"></div>
  </div>
  <button class="auth-submit" id="regBtn" onclick="doRegister()"><span class="btn-spin"></span><span class="btn-txt">Crear Cuenta</span></button>
-  <div style="margin:4px 0 10px">
-  <div id="googleBtnReg"></div>
-</div>
-<div class="auth-div" style="margin:8px 0">— o regístrate con —</div>
- <div class="auth-div">¿Ya tienes cuenta? <span style="color:var(--rojo);cursor:pointer" onclick="switchTab('login')">Inicia sesión</span></div>
+ <div class="auth-div" style="margin:14px 0 10px">— o regístrate con —</div>
+ <div id="googleBtnReg" style="display:flex;justify-content:center"></div>
+ <div class="auth-div" style="margin-top:14px">¿Ya tienes cuenta? <span style="color:var(--rojo);cursor:pointer" onclick="switchTab('login')">Inicia sesión</span></div>
  </div>
+ </div>
+</div>
+
+<!-- MODAL COMPLETAR PERFIL GOOGLE -->
+<div class="modal-overlay" id="completeProfileOverlay" onclick="if(event.target===this&&!_googlePending)this.classList.remove('open')">
+ <div class="complete-modal">
+  <div class="complete-head">
+   <div class="complete-head-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+   </div>
+   <div class="complete-head-text">
+    <h3>COMPLETAR PERFIL</h3>
+    <p>Solo faltan unos datos para continuar</p>
+   </div>
+  </div>
+  <div class="complete-body">
+   <div class="google-user-chip" id="cpGoogleChip">
+    <img id="cpGooglePhoto" src="" alt="" onerror="this.style.display='none'" style="width:38px;height:38px;border-radius:50%;object-fit:cover">
+    <div class="google-user-chip-info">
+     <div class="chip-name" id="cpGoogleName"></div>
+     <div class="chip-email" id="cpGoogleEmail"></div>
+     <div class="google-badge">G Google</div>
+    </div>
+   </div>
+   <div class="form-row">
+    <div class="form-group"><label class="form-label">Cédula *</label><input class="form-input" type="text" id="cpCedula" placeholder="V-12345678"></div>
+    <div class="form-group">
+     <label class="form-label">Teléfono *</label>
+     <div class="phone-wrap">
+      <select class="phone-prefix" disabled><option value="+58">🇻🇪 +58</option></select>
+      <input class="form-input phone-num" type="tel" id="cpTelefono" placeholder="4144062649" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+     </div>
+    </div>
+   </div>
+   <div class="form-group"><label class="form-label">Dirección</label><input class="form-input" type="text" id="cpDireccion" placeholder="Calle, urbanización, municipio..."></div>
+   <button class="complete-submit" id="cpSubmitBtn" onclick="submitCompleteProfile()">
+    <span id="cpSpin" style="display:none;width:15px;height:15px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite"></span>
+    <span id="cpSubmitTxt">Guardar y Continuar</span>
+   </button>
+  </div>
  </div>
 </div>
 
@@ -1494,6 +1547,10 @@ function initGoogleAuth() {
   if (btnReg)   google.accounts.id.renderButton(btnReg,   { ...btnConfig, text: 'signup_with' });
 }
 
+// Datos temporales del usuario Google mientras completa perfil
+let _googlePending = false;
+let _pendingGoogleData = null;
+
 // Callback que ejecuta Google tras el login
 async function handleGoogleCredential(response) {
   // Decodificar el JWT (solo client-side, sin verificar firma)
@@ -1507,47 +1564,113 @@ async function handleGoogleCredential(response) {
   const gid    = payload.sub;
 
   // Mostrar estado de carga
-  showToast('Iniciando sesión con Google...', 'success');
+  showToast('Conectando con Google...', 'success');
 
   try {
-    // Llamar a tu API de Google Sheets
-    const url = `${API_URL}?accion=loginGoogle` +
-      `&googleId=${encodeURIComponent(gid)}` +
-      `&nombre=${encodeURIComponent(nombre)}` +
-      `&email=${encodeURIComponent(email)}` +
-      `&foto=${encodeURIComponent(foto)}`;
-
-    const res = await fetch(url);
-    const data = await res.json();
+    // Llamar a la API usando la misma función apiCall
+    const data = await apiCall({
+      accion: 'loginGoogle',
+      googleId: gid,
+      nombre: nombre,
+      email: email,
+      foto: foto
+    });
 
     if (data.ok) {
-      // Guardar usuario en estado y localStorage
-      // (usa la variable correcta: usuarioActual en index, user en catálogo)
       const u = data.usuario;
-      if (typeof usuarioActual !== 'undefined') {
+
+      // Cerrar modal de auth
+      const authOverlay = document.getElementById('authOverlay');
+      if (authOverlay) authOverlay.classList.remove('open');
+
+      // Si el usuario no tiene cédula o teléfono, pedir que complete el perfil
+      if (!u.cedula || !u.telefono || u.cedula === 'N/A' || u.telefono === 'N/A') {
+        // Guardar datos de Google temporalmente
+        _pendingGoogleData = { ...u, foto };
+        _googlePending = true;
+
+        // Mostrar modal de completar perfil
+        document.getElementById('cpGoogleName').textContent = u.nombre;
+        document.getElementById('cpGoogleEmail').textContent = u.email;
+        const photoEl = document.getElementById('cpGooglePhoto');
+        if (foto) { photoEl.src = foto; photoEl.style.display = ''; }
+        else photoEl.style.display = 'none';
+        document.getElementById('cpCedula').value = '';
+        document.getElementById('cpTelefono').value = '';
+        document.getElementById('cpDireccion').value = u.direccion || '';
+        document.getElementById('completeProfileOverlay').classList.add('open');
+
+        const msg = data.esNuevo
+          ? `¡Bienvenido, ${u.nombre.split(' ')[0]}! Completa tu perfil para continuar.`
+          : `Bienvenido de nuevo, ${u.nombre.split(' ')[0]}. Por favor completa tu información.`;
+        showToast(msg, 'success');
+      } else {
+        // Perfil completo, iniciar sesión directamente
         usuarioActual = u;
         localStorage.setItem('am_usuario', JSON.stringify(u));
         actualizarUIUsuario();
-      } else if (typeof user !== 'undefined') {
-        user = u;
-        localStorage.setItem('am_usuario', JSON.stringify(u));
-        updateUserUI();
+        const msg = data.esNuevo
+          ? `¡Cuenta creada! Bienvenido, ${u.nombre.split(' ')[0]}`
+          : `Bienvenido de nuevo, ${u.nombre.split(' ')[0]}`;
+        showToast(msg, 'success');
       }
-
-      // Cerrar modal
-      const authOverlay = document.getElementById('authOverlay') ||
-                          document.getElementById('authOV');
-      if (authOverlay) authOverlay.classList.remove('open');
-
-      const msg = data.esNuevo
-        ? `¡Cuenta creada! Bienvenido, ${u.nombre.split(' ')[0]}`
-        : `Bienvenido de nuevo, ${u.nombre.split(' ')[0]}`;
-      showToast(msg, 'success');
     } else {
       showToast(data.error || 'Error al iniciar sesión con Google', 'error');
     }
   } catch(e) {
-    showToast('Error de conexión', 'error');
+    console.error('Google login error:', e);
+    showToast('Error de conexión con Google. Intenta de nuevo.', 'error');
+  }
+}
+
+async function submitCompleteProfile() {
+  const cedula   = document.getElementById('cpCedula').value.trim();
+  const numRaw   = document.getElementById('cpTelefono').value.trim().replace(/^0/,'');
+  const telefono = '+58' + numRaw;
+  const direccion = document.getElementById('cpDireccion').value.trim();
+
+  if (!cedula || !numRaw) { showToast('Cédula y teléfono son obligatorios', 'error'); return; }
+
+  const btn = document.getElementById('cpSubmitBtn');
+  const spin = document.getElementById('cpSpin');
+  const txt = document.getElementById('cpSubmitTxt');
+  btn.disabled = true;
+  spin.style.display = 'block';
+  txt.textContent = 'Guardando...';
+
+  try {
+    // Actualizar en la API
+    const data = await apiCall({
+      accion: 'actualizarPerfil',
+      email: _pendingGoogleData.email,
+      googleId: _pendingGoogleData.googleId || '',
+      cedula,
+      telefono,
+      direccion
+    });
+
+    const u = { ..._pendingGoogleData, cedula, telefono, direccion };
+    usuarioActual = u;
+    localStorage.setItem('am_usuario', JSON.stringify(u));
+    actualizarUIUsuario();
+    document.getElementById('completeProfileOverlay').classList.remove('open');
+    _googlePending = false;
+    _pendingGoogleData = null;
+    showToast('¡Perfil completado! Bienvenido, ' + u.nombre.split(' ')[0], 'success');
+  } catch(e) {
+    // Aunque falle la API, guardar localmente igual
+    const u = { ..._pendingGoogleData, cedula, telefono, direccion };
+    usuarioActual = u;
+    localStorage.setItem('am_usuario', JSON.stringify(u));
+    actualizarUIUsuario();
+    document.getElementById('completeProfileOverlay').classList.remove('open');
+    _googlePending = false;
+    _pendingGoogleData = null;
+    showToast('¡Bienvenido, ' + u.nombre.split(' ')[0] + '!', 'success');
+  } finally {
+    btn.disabled = false;
+    spin.style.display = 'none';
+    txt.textContent = 'Guardar y Continuar';
   }
 }
 

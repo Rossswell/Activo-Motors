@@ -281,6 +281,20 @@ header{background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-bottom
 .a-btn.loading .btn-text{opacity:.85}
 .phone-row{display:flex;gap:8px}
 .ph-prefix{padding:10px 12px;border:1.5px solid var(--borde);border-radius:8px;background:var(--fondo2);font-size:13px;color:var(--texto3);flex-shrink:0}
+/* COMPLETE PROFILE MODAL */
+.complete-modal{background:#fff;border-radius:18px;width:100%;max-width:420px;overflow:hidden;box-shadow:var(--sh2);animation:slideUp .28s cubic-bezier(.4,0,.2,1)}
+.complete-head{background:linear-gradient(135deg,var(--rojo),var(--rojo-dark));padding:20px 24px;display:flex;align-items:center;gap:14px}
+.complete-head-icon{width:44px;height:44px;background:rgba(255,255,255,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.complete-head-icon svg{width:22px;height:22px;color:#fff}
+.complete-head-text h3{font-family:var(--ft);font-size:15px;color:#fff;letter-spacing:1.5px}
+.complete-head-text p{font-size:12px;color:rgba(255,255,255,.75);margin-top:2px}
+.complete-body{padding:20px 24px 24px}
+.google-user-chip{display:flex;align-items:center;gap:12px;background:var(--fondo2);border:1px solid var(--borde);border-radius:10px;padding:12px 14px;margin-bottom:18px}
+.google-user-chip img{width:36px;height:36px;border-radius:50%;object-fit:cover}
+.chip-name{font-size:14px;font-weight:600;color:var(--texto)}
+.chip-email{font-size:12px;color:var(--texto4);margin-top:2px}
+.google-badge{display:inline-flex;align-items:center;gap:4px;background:#e8f0fe;border:1px solid #c5d3f5;border-radius:20px;padding:2px 9px;font-size:10px;font-weight:700;color:#1a73e8;letter-spacing:1px;margin-top:4px}
+.a-div{text-align:center;color:var(--texto4);font-size:12px;margin:12px 0}
 
 .toast-w{position:fixed;top:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:8px}
 .toast{padding:12px 18px;border-radius:10px;font-size:13px;font-weight:500;box-shadow:var(--sh2);animation:tin .3s ease;max-width:320px;display:flex;align-items:center;gap:8px}
@@ -539,6 +553,8 @@ footer{background:var(--jet);color:var(--plata);padding:36px 30px;margin-top:50p
         <span class="btn-spinner"></span>
         <span class="btn-text">Iniciar Sesión</span>
       </button>
+      <div class="a-div">— o continúa con —</div>
+      <div id="googleBtnLoginCat" style="display:flex;justify-content:center"></div>
     </div>
     <div class="a-body" id="rgPanel" style="display:none">
       <div class="a-title">Crea tu cuenta</div>
@@ -552,8 +568,53 @@ footer{background:var(--jet);color:var(--plata);padding:36px 30px;margin-top:50p
         <span class="btn-spinner"></span>
         <span class="btn-text">Crear Cuenta</span>
       </button>
+      <div class="a-div">— o regístrate con —</div>
+      <div id="googleBtnRegCat" style="display:flex;justify-content:center"></div>
     </div>
   </div>
+</div>
+
+<!-- COMPLETAR PERFIL GOOGLE -->
+<div class="auth-ov" id="completeProfileOV" onclick="if(event.target===this&&!_googlePending)this.classList.remove('open')">
+ <div class="complete-modal">
+  <div class="complete-head">
+   <div class="complete-head-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+   </div>
+   <div class="complete-head-text">
+    <h3>COMPLETAR PERFIL</h3>
+    <p>Solo faltan unos datos más</p>
+   </div>
+  </div>
+  <div class="complete-body">
+   <div class="google-user-chip">
+    <img id="cpPhoto" src="" alt="" onerror="this.style.display='none'" style="width:36px;height:36px;border-radius:50%;object-fit:cover">
+    <div>
+     <div class="chip-name" id="cpName"></div>
+     <div class="chip-email" id="cpEmail"></div>
+     <div class="google-badge">G Google</div>
+    </div>
+   </div>
+   <div class="fg" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div>
+     <label class="fl">Cédula *</label>
+     <input class="fi" type="text" id="cpCedula" placeholder="V-12345678">
+    </div>
+    <div>
+     <label class="fl">Teléfono *</label>
+     <div class="phone-row">
+      <div class="ph-prefix">🇻🇪 +58</div>
+      <input class="fi" type="tel" id="cpTelefono" placeholder="4141234567" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+     </div>
+    </div>
+   </div>
+   <div class="fg"><label class="fl">Dirección</label><input class="fi" type="text" id="cpDireccion" placeholder="Calle, urbanización, municipio..."></div>
+   <button class="a-btn" id="cpSubmitBtn" onclick="submitCompleteProfile()">
+    <span id="cpSpin" class="btn-spinner"></span>
+    <span id="cpSubmitTxt" class="btn-text">Guardar y Continuar</span>
+   </button>
+  </div>
+ </div>
 </div>
 
 <script>
@@ -1178,6 +1239,159 @@ document.addEventListener('DOMContentLoaded', () => {
 
   loadProds();
   updateBadges();
+});
+</script>
+
+<script>
+/* ═══════════════════════════════════════
+   GOOGLE IDENTITY SERVICES AUTH — CATÁLOGO
+═══════════════════════════════════════ */
+const GOOGLE_CLIENT_ID = '959257490717-n5niobmakkejjitiffncle5o8tt8dsi6.apps.googleusercontent.com';
+
+// Estado temporal Google
+let _googlePending = false;
+let _pendingGoogleData = null;
+
+function initGoogleAuth() {
+  if (typeof google === 'undefined') return;
+
+  google.accounts.id.initialize({
+    client_id: GOOGLE_CLIENT_ID,
+    callback: handleGoogleCredential,
+    auto_select: false,
+    cancel_on_tap_outside: true
+  });
+
+  const btnConfig = {
+    type: 'standard',
+    size: 'large',
+    theme: 'outline',
+    text: 'continue_with',
+    shape: 'rectangular',
+    width: 320,
+    logo_alignment: 'left'
+  };
+
+  const btnLogin = document.getElementById('googleBtnLoginCat');
+  const btnReg   = document.getElementById('googleBtnRegCat');
+  if (btnLogin) google.accounts.id.renderButton(btnLogin, btnConfig);
+  if (btnReg)   google.accounts.id.renderButton(btnReg, { ...btnConfig, text: 'signup_with' });
+}
+
+async function handleGoogleCredential(response) {
+  const payload = JSON.parse(atob(
+    response.credential.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')
+  ));
+
+  const nombre = payload.name;
+  const email  = payload.email;
+  const foto   = payload.picture;
+  const gid    = payload.sub;
+
+  toast('Conectando con Google...', 'ok');
+
+  try {
+    const data = await apiGET('loginGoogle', {
+      googleId: gid,
+      nombre: nombre,
+      email: email,
+      foto: foto
+    });
+
+    if (data.ok) {
+      const u = data.usuario;
+
+      // Cerrar modal de auth
+      document.getElementById('authOV').classList.remove('open');
+
+      // Si falta cédula o teléfono, pedir completar perfil
+      if (!u.cedula || !u.telefono || u.cedula === 'N/A' || u.telefono === 'N/A') {
+        _pendingGoogleData = { ...u, foto };
+        _googlePending = true;
+
+        document.getElementById('cpName').textContent = u.nombre;
+        document.getElementById('cpEmail').textContent = u.email;
+        const photoEl = document.getElementById('cpPhoto');
+        if (foto) { photoEl.src = foto; photoEl.style.display = ''; }
+        else photoEl.style.display = 'none';
+        document.getElementById('cpCedula').value = '';
+        document.getElementById('cpTelefono').value = '';
+        document.getElementById('cpDireccion').value = u.direccion || '';
+        document.getElementById('completeProfileOV').classList.add('open');
+
+        const msg = data.esNuevo
+          ? `¡Bienvenido, ${u.nombre.split(' ')[0]}! Completa tu perfil.`
+          : `Bienvenido de nuevo, ${u.nombre.split(' ')[0]}. Por favor completa tu información.`;
+        toast(msg, 'ok');
+      } else {
+        // Perfil completo
+        user = u;
+        localStorage.setItem('am_usuario', JSON.stringify(u));
+        updateUserUI();
+        const msg = data.esNuevo
+          ? `¡Cuenta creada! Bienvenido, ${u.nombre.split(' ')[0]}`
+          : `Bienvenido de nuevo, ${u.nombre.split(' ')[0]}`;
+        toast(msg, 'ok');
+      }
+    } else {
+      toast(data.error || 'Error al iniciar sesión con Google', 'err');
+    }
+  } catch(e) {
+    console.error('Google login error:', e);
+    toast('Error de conexión con Google. Intenta de nuevo.', 'err');
+  }
+}
+
+async function submitCompleteProfile() {
+  const cedula    = document.getElementById('cpCedula').value.trim();
+  const numRaw    = document.getElementById('cpTelefono').value.trim().replace(/^0/,'');
+  const telefono  = '+58' + numRaw;
+  const direccion = document.getElementById('cpDireccion').value.trim();
+
+  if (!cedula || !numRaw) { toast('Cédula y teléfono son obligatorios', 'err'); return; }
+
+  const btn = document.getElementById('cpSubmitBtn');
+  const spin = document.getElementById('cpSpin');
+  const txt  = document.getElementById('cpSubmitTxt');
+  btn.disabled = true;
+  spin.style.display = 'block';
+  txt.textContent = 'Guardando...';
+
+  try {
+    await apiGET('actualizarPerfil', {
+      email: _pendingGoogleData.email,
+      googleId: _pendingGoogleData.googleId || '',
+      cedula,
+      telefono,
+      direccion
+    });
+  } catch(e) { /* Si falla la API igual guardamos localmente */ }
+
+  const u = { ..._pendingGoogleData, cedula, telefono, direccion };
+  user = u;
+  localStorage.setItem('am_usuario', JSON.stringify(u));
+  updateUserUI();
+  document.getElementById('completeProfileOV').classList.remove('open');
+  _googlePending = false;
+  _pendingGoogleData = null;
+  btn.disabled = false;
+  spin.style.display = 'none';
+  txt.textContent = 'Guardar y Continuar';
+  toast('¡Perfil completado! Bienvenido, ' + u.nombre.split(' ')[0], 'ok');
+}
+
+// Inicializar GIS cuando cargue
+window.addEventListener('load', () => {
+  if (typeof google !== 'undefined') {
+    initGoogleAuth();
+  } else {
+    const interval = setInterval(() => {
+      if (typeof google !== 'undefined') {
+        clearInterval(interval);
+        initGoogleAuth();
+      }
+    }, 300);
+  }
 });
 </script>
 <!-- WHATSAPP BUTTON -->
